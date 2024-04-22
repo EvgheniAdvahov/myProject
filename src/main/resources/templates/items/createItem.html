@@ -36,12 +36,12 @@
                     <label class="col-sm-4 col-form-label">Category</label>
                     <div class="col-sm-8">
                         <select class="form-select" th:field="${itemDto.category}">
-                            <option value="Other"></option>
-                            <option value="PC"></option>
-                            <option value="Laptop"></option>
-                            <option value="Monitor"></option>
-                            <option value="Printer"></option>
-                            <option value="Scanner"></option>
+                            <option value='Other'>Other</option>
+                            <option value='PC'>PC</option>
+                            <option value='Laptop'>Laptop</option>
+                            <option value='Monitor'>Monitor</option>
+                            <option value='Printer'>Printer</option>
+                            <option value='Scanner'>Scanner</option>
                         </select>
                         <p th:if="${#fields.hasErrors('category')}" th:errorclass="text-danger"
                             th:errors="${itemDto.category}"></p>
