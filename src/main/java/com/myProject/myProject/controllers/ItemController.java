@@ -1,6 +1,7 @@
 package com.myProject.myProject.controllers;
 
 import com.myProject.myProject.model.Item;
+import com.myProject.myProject.model.ItemDto;
 import com.myProject.myProject.repositories.ItemRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +20,18 @@ public class ItemController {
         this.itemRepository = itemRepository;
     }
 
-    @GetMapping({"", "/"})
+    @GetMapping({"", "/"}) // to learn about
     public String showItemList(Model model){
         List<Item> items = itemRepository.findAll();
         model.addAttribute("items", items);
         return "items/index";
+    }
+
+    @GetMapping("/create")
+    public String showCreatePage(Model model){
+        ItemDto itemDto = new ItemDto();
+        model.addAttribute("itemDto", itemDto);
+        return "items/createItem";
     }
 
 
