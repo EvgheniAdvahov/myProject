@@ -61,6 +61,7 @@ public class ItemController {
         //save image file
         MultipartFile image = itemDto.getImageFile();
         Date createdAt = new Date();
+        //Todo: time display bug
         String storageFileName = createdAt.getTime() + "_" + image.getOriginalFilename();
 
         try {
