@@ -34,4 +34,6 @@ public class ItemDto {
 
     private MultipartFile imageFile;
 
+    private String status;
+
 }

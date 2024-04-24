@@ -28,5 +28,6 @@ public class Item {
     private Date createdAt;
     private Date modifiedAt;
     private String imageFileName;
+    private String status;
 
 }
