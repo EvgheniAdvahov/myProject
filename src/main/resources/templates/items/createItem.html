@@ -24,11 +24,15 @@
                 </div>
 
                 <div class="row mb-3" >
-                    <label class="col-sm-4 col-form-label">Brand</label>
+                    <label class="col-sm-4 col-form-label">Manufacturer</label>
                     <div class="col-sm-8">
                         <select class="form-select" th:field="${itemDto.brand}">
                             <option value='Other'>Other</option>
                             <option value='HP'>HP</option>
+                            <option value='Microsoft'>Microsoft</option>
+                            <option value='Advantech'>Microsoft</option>
+                            <option value='Terra PC'>Microsoft</option>
+                            <option value='YIIAMA'>Microsoft</option>
                             <option value='Zebra'>Zebra</option>
                             <option value='Intermec'>Intermec</option>
                         </select>
@@ -46,6 +50,7 @@
                             <option value='Laptop'>Laptop</option>
                             <option value='Monitor'>Monitor</option>
                             <option value='Printer'>Printer</option>
+                            <option value='Tablet'>Printer</option>
                             <option value='Scanner'>Scanner</option>
                         </select>
                         <p th:if="${#fields.hasErrors('category')}" th:errorclass="text-danger"
@@ -78,6 +83,23 @@
                         <input class="form-control" th:field="${itemDto.serialNumber}">
                         <p th:if="${#fields.hasErrors('serialNumber')}" th:errorclass="text-danger"
                            th:errors="${itemDto.serialNumber}" ></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3" >
+                    <label class="col-sm-4 col-form-label">Category</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" th:field="${itemDto.category}">
+                            <option value='Other'>Other</option>
+                            <option value='PC'>PC</option>
+                            <option value='Laptop'>Laptop</option>
+                            <option value='Monitor'>Monitor</option>
+                            <option value='Printer'>Printer</option>
+                            <option value='Tablet'>Printer</option>
+                            <option value='Scanner'>Scanner</option>
+                        </select>
+                        <p th:if="${#fields.hasErrors('category')}" th:errorclass="text-danger"
+                           th:errors="${itemDto.category}"></p>
                     </div>
                 </div>
 
