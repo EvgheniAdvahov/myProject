@@ -61,11 +61,10 @@ public class ItemController {
         //save image file
         MultipartFile image = itemDto.getImageFile();
         Date createdAt = new Date();
-        //Todo: time display bug
+        //Todo: remove miliseconds
         String storageFileName = createdAt.getTime() + "_" + image.getOriginalFilename();
-
         try {
-            String uploadDir = "images/";
+            String uploadDir = "/images";
             Path uploadPath = Paths.get(uploadDir);
 
             if (!Files.exists(uploadPath)) {
@@ -90,6 +89,7 @@ public class ItemController {
         item.setDescription(itemDto.getDescription());
         item.setCreatedAt(createdAt);
         item.setImageFileName(storageFileName);
+
 
         itemRepository.save(item);
 

@@ -37,7 +37,7 @@
                 <td th:text="${item.category}"></td>
                 <td th:text="${item.department}"></td>
                 <td>
-                    <img th:src="@{'images/' + ${item.imageFileName}}"
+                    <img th:src="@{'/images/' + ${item.imageFileName}}"
                          alt="..." width="100">
                 </td>
                 <td th:text="${item.productOrder}"></td>
