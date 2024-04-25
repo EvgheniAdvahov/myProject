@@ -47,8 +47,8 @@ public class ItemController {
     }
 
     @PostMapping("/create")
-    public String createProduct(@Valid @ModelAttribute ItemDto itemDto,
-                                BindingResult result) { // Данные из запроса привязываются к dto и валидируются. BindingResult- инфо об ошибках валидации
+    public String createItem(@Valid @ModelAttribute ItemDto itemDto,
+                             BindingResult result) { // Данные из запроса привязываются к dto и валидируются. BindingResult- инфо об ошибках валидации
         if (itemDto.getImageFile().isEmpty()) {
             result.addError(new FieldError("itemDto", "imageFile", "The image file is required"));
             //вручную добавляем Валидацию для ImageFile
@@ -56,7 +56,7 @@ public class ItemController {
 
         if (result.hasErrors()) {
             System.out.println("error" + result);
-            return "items/CreateItem";
+            return "items/createItem";
         }
         //save image file
         MultipartFile image = itemDto.getImageFile();
@@ -64,7 +64,7 @@ public class ItemController {
         //Todo: remove miliseconds
         String storageFileName = createdAt.getTime() + "_" + image.getOriginalFilename();
         try {
-            String uploadDir = "/images";
+            String uploadDir = "src/main/resources/static/images/";
             Path uploadPath = Paths.get(uploadDir);
 
             if (!Files.exists(uploadPath)) {
@@ -93,7 +93,7 @@ public class ItemController {
 
         itemRepository.save(item);
 
-        return "redirect:/items";
+        return "redirect:/items/";
     }
 
 
