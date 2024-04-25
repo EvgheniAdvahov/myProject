@@ -93,7 +93,7 @@ public class ItemController {
 
         itemRepository.save(item);
 
-        return "redirect:/items/";
+        return "redirect:/index";
     }
 
 
