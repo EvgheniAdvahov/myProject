@@ -116,5 +116,84 @@ public class ItemController {
         return "items/editItem";
     }
 
+    @PostMapping("/edit")
+    public String updateProduct(
+            Model model,
+            @RequestParam int id,
+            @Valid @ModelAttribute ItemDto itemDto,
+            BindingResult result
+    ) {
+        try {
+            Item item = itemRepository.findById(id).get();
+            model.addAttribute("item", item);
+
+            if (result.hasErrors()) {
+                return "items/editItem";
+            }
+
+            if (!itemDto.getImageFile().isEmpty()) {
+                //delete old image
+                String uploadDir = "src/main/resources/static/images/";
+                Path oldImagePath = Paths.get(uploadDir + item.getImageFileName());
+
+                //Todo: files разобраться + Exception
+                try {
+                    Files.delete(oldImagePath);
+                } catch (Exception ex) {
+                    System.out.println("Exception: " + ex.getMessage());
+                }
+
+                // save new image file
+                //todo moified insted of created + loging would be not bad
+                MultipartFile image = itemDto.getImageFile();
+                Date createdAt = new Date();
+                String storageFileName = createdAt.getTime() + "_" + image.getOriginalFilename();
+
+                try (InputStream inputStream = image.getInputStream()) {
+                    Files.copy(inputStream, Paths.get(uploadDir + storageFileName),
+                            StandardCopyOption.REPLACE_EXISTING);
+                }
+                item.setImageFileName(storageFileName);
+            }
+            //todo Where Inventory number, probably add modified at
+            item.setName(itemDto.getName());
+            item.setBrand(itemDto.getBrand());
+            item.setCategory(itemDto.getCategory());
+            item.setDepartment(itemDto.getDepartment());
+            item.setSerialNumber(itemDto.getSerialNumber());
+            item.setStatus(itemDto.getStatus());
+            item.setDescription(itemDto.getDescription());
+
+            itemRepository.save(item);
+
+        } catch (Exception ex) {
+            System.out.println("Exception: " + ex.getMessage());
+        }
+        return "redirect:/items";
+    }
+
+    @GetMapping("/delete")
+    public String deleteProduct(@RequestParam int id) {
+        //todo Exception .... deleting photo
+        try {
+            Item item = itemRepository.findById(id).get();
+
+            //delete item image
+            Path imagePath = Paths.get("src/main/resources/static/images/" + item.getImageFileName());
+
+            try {
+                Files.delete(imagePath);
+            } catch (Exception ex) {
+                System.out.println("Exception: " + ex.getMessage());
+            }
+
+            //deleting product
+            itemRepository.deleteById(id);
+        } catch (Exception ex) {
+            System.out.println("Exception" + ex.getMessage());
+        }
+        return "redirect:/items";
+    }
+
 
 }
