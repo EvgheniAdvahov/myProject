@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IT Warehouse</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto rounded border p-4 m-4">
+            <h2 class="text-center mb-5">Edit Item</h2>
+
+            <form method="post" enctype="multipart/form-data" th:object="${itemDto}">
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">ID</label>
+                    <div class="col-sm-8">
+                        <input readonly class="form-control-plaintext" th:value="${item.id}">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Name</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" th:field="${itemDto.name}">
+                        <p th:if="${#fields.hasErrors('name')}" th:errorclass="text-danger"
+                           th:errors="${itemDto.name}" ></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3" >
+                    <label class="col-sm-4 col-form-label">Manufacturer</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" th:field="${itemDto.brand}">
+                            <option value='Other'>Other</option>
+                            <option value='HP'>HP</option>
+                            <option value='Microsoft'>Microsoft</option>
+                            <option value='Advantech'>Microsoft</option>
+                            <option value='Terra PC'>Microsoft</option>
+                            <option value='YIIAMA'>Microsoft</option>
+                            <option value='Zebra'>Zebra</option>
+                            <option value='Intermec'>Intermec</option>
+                        </select>
+                        <p th:if="${#fields.hasErrors('brand')}" th:errorclass="text-danger"
+                           th:errors="${itemDto.brand}"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3" >
+                    <label class="col-sm-4 col-form-label">Category</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" th:field="${itemDto.category}">
+                            <option value='Other'>Other</option>
+                            <option value='PC'>PC</option>
+                            <option value='Laptop'>Laptop</option>
+                            <option value='Monitor'>Monitor</option>
+                            <option value='Printer'>Printer</option>
+                            <option value='Tablet'>Printer</option>
+                            <option value='Scanner'>Scanner</option>
+                        </select>
+                        <p th:if="${#fields.hasErrors('category')}" th:errorclass="text-danger"
+                           th:errors="${itemDto.category}"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3" >
+                    <label class="col-sm-4 col-form-label">Department</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" th:field="${itemDto.department}">
+                            <option value='Other'>Other</option>
+                            <option value='Production'>Production</option>
+                            <option value='Logistics'>Logistics</option>
+                            <option value='Quality'>Quality</option>
+                            <option value='Engineering'>Engineering</option>
+                            <option value='Broker'>Broker</option>
+                            <option value='HR'>HR</option>
+                            <option value='School prod'>School productia</option>
+                            <option value='School'>School students</option>
+                        </select>
+                        <p th:if="${#fields.hasErrors('department')}" th:errorclass="text-danger"
+                           th:errors="${itemDto.department}"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Serial Number</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" th:field="${itemDto.serialNumber}">
+                        <p th:if="${#fields.hasErrors('serialNumber')}" th:errorclass="text-danger"
+                           th:errors="${itemDto.serialNumber}" ></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3" >
+                    <label class="col-sm-4 col-form-label">Status</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" th:field="${itemDto.status}">
+                            <option value='Other'>Other</option>
+                            <option value='Available'>Available</option>
+                            <option value='In user'>In user</option>
+                            <option value='In repair'>In repair</option>
+                            <option value='Scrapped'>Scrapped</option>
+                            <option value='Broken'>Broken</option>
+                        </select>
+                        <p th:if="${#fields.hasErrors('category')}" th:errorclass="text-danger"
+                           th:errors="${itemDto.category}"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Description</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" th:field="${itemDto.description}"></textarea>
+                        <p th:if="${#fields.hasErrors('description')}" th:errorclass="text-danger"
+                           th:errors="${itemDto.description}"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="offset-sm-4 col-sm-8">
+                        <img th:src="@{'/images/' + ${item.imageFileName}}" alt="..." width="150">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Image</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" type="file" th:field="${itemDto.imageFile}">
+                        <p th:if="${#fields.hasErrors('imageFile')}" th:errorclass="text-danger"
+                           th:errors="${itemDto.imageFile}"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Created At</label>
+                    <div class="col-sm-8">
+                        <input readonly class="form-control-plaintext" th:value="${item.createdAt}" >
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="offset-sm-4 col-sm-4 d-grid">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                    <div class="col-sm-4 d-grid">
+                        <a class="btn btn-outline-primary" href="/items/" role="button">Cancel</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

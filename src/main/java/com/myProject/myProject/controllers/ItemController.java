@@ -8,10 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
@@ -93,7 +90,30 @@ public class ItemController {
 
         itemRepository.save(item);
 
-        return "redirect:/index";
+        return "redirect:/items";
+    }
+
+    @GetMapping("/edit")
+    public String showEditPage(Model model, @RequestParam int id) {
+        try {
+            Item item = itemRepository.findById(id).get();
+            model.addAttribute("item", item);
+
+            ItemDto itemDto = new ItemDto();
+            itemDto.setName(item.getName());
+            itemDto.setBrand(item.getBrand());
+            itemDto.setCategory(item.getCategory());
+            itemDto.setDepartment(item.getDepartment());
+            itemDto.setSerialNumber(item.getSerialNumber());
+            itemDto.setDescription(item.getDescription());
+
+            model.addAttribute("itemDto", itemDto);
+        } catch (Exception ex) {
+            System.out.println("Exception: " + ex.getMessage());
+            return "redirect:/items";
+        }
+
+        return "items/editItem";
     }
 
 

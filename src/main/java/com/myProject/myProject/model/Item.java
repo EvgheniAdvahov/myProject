@@ -16,7 +16,7 @@ public class Item {
     private int id;
 
     private String name;
-    private String brand;
+    private String brand;// refactor to manufacturer
     private String department;
     private String model;
     private int productOrder;
