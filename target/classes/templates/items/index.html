@@ -5,13 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="/css/bootstrap-min.css" rel="stylesheet">
-    <link href="/css/datatables-bootstrap.css" rel="stylesheet">
+    <link href="/css/dataTables-bootstrap5.css" rel="stylesheet">
+    <link href="/css/buttons-bootstrap5.css" rel="stylesheet">
+    <link href="/css/mycss.css" rel="stylesheet">
 
-    <script defer src="/javascript/jquery.js"></script>
-    <script defer src="/javascript/bootstrap5-bundle.js"></script>
-    <script defer src="/javascript/datatables.js"></script>
-    <script defer src="/javascript/datatables-bootsrap5.js"></script>
-    <script defer src="/javascript/script-for-table.js"></script>
+    <script defer src="/javascript/jquery-3-7.js"></script>
+    <script defer src="/javascript/bootstrap-bundle-min.js"></script>
+    <script defer src="/javascript/dataTables.js"></script>
+    <script defer src="/javascript/dataTables-bootstrap5.js"></script>
+    <script defer src="/javascript/dataTables-buttons.js"></script>
+    <script defer src="/javascript/buttons-bootstrap5.js"></script>
+    <script defer src="/javascript/jszip-min.js"></script>
+    <script defer src="/javascript/pdfmake-min.js"></script>
+    <script defer src="/javascript/vfs_fonts.js"></script>
+    <script defer src="/javascript/buttons-html5-min.js"></script>
+    <script defer src="/javascript/buttons-print-min.js"></script>
+    <script defer src="/javascript/myScript.js"></script>
 
     <title>IT Warehouse</title>
 </head>
@@ -20,9 +29,9 @@
     <h1 class="text-center my-4">Items</h1>
 
     <a class="btn btn-primary" href="/items/create">Add Item</a>
-
-    <table id="example" class="table table-striped" style="width:100%">
-        <thead>
+    <div class="data_table">
+        <table id="example" class="table table-striped" style="width:100%">
+            <thead>
             <tr>
                 <th>ID</th>
                 <th>Name</th>
@@ -30,15 +39,15 @@
                 <th>Category</th>
                 <th>Department</th>
                 <th>Image</th>
-                <th>Product Order</th>
-                <th>Inventory Number</th>
+                <th>Order_№</th>
+                <th>Inv_№</th>
                 <th>Description</th>
-                <th>Created At</th>
-                <th>Modified At</th>
+                <th>Created</th>
+                <th>Modified</th>
                 <th>Action</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             <tr th:each="item : ${items}">
                 <td th:text="${item.id}"></td>
                 <td th:text="${item.name}"></td>
@@ -59,12 +68,16 @@
                        th:href="@{/items/edit(id=${item.id})}">Edit</a>
                     <a class="btn btn-danger btn-sm"
                        th:href="@{/items/delete(id=${item.id})}"
-                        onclick="return confirm('Are you sure?')">Delete</a>
+                       onclick="return confirm('Are you sure?')">Delete</a>
                 </td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
+
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 </html>
