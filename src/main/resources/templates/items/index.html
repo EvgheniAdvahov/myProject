@@ -5,42 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="/css/bootstrap-min.css" rel="stylesheet">
-    <link href="/css/dataTables-bootstrap5.css" rel="stylesheet">
-    <link href="/css/buttons-bootstrap5.css" rel="stylesheet">
+    <link href="/css/datatables.min.css" rel="stylesheet">
     <link href="/css/mycss.css" rel="stylesheet">
+
+    <!--    <link href="/css/dataTables-bootstrap5.css" rel="stylesheet">-->
+    <!--    <link href="/css/buttons-bootstrap5.css" rel="stylesheet">-->
 
     <script defer src="/javascript/jquery-3-7.js"></script>
     <script defer src="/javascript/bootstrap-bundle-min.js"></script>
-    <script defer src="/javascript/dataTables.js"></script>
-    <script defer src="/javascript/dataTables-bootstrap5.js"></script>
-    <script defer src="/javascript/dataTables-buttons.js"></script>
-    <script defer src="/javascript/buttons-bootstrap5.js"></script>
-    <script defer src="/javascript/jszip-min.js"></script>
-    <script defer src="/javascript/pdfmake-min.js"></script>
+    <script defer src="/javascript/datatables.min.js"></script>
+    <script defer src="/javascript/pdfmake.min.js"></script>
     <script defer src="/javascript/vfs_fonts.js"></script>
-    <script defer src="/javascript/buttons-html5-min.js"></script>
-    <script defer src="/javascript/buttons-print-min.js"></script>
     <script defer src="/javascript/myScript.js"></script>
+
+
+    <!--    <script defer src="/javascript/dataTables.js"></script>-->
+    <!--    <script defer src="/javascript/dataTables-bootstrap5.js"></script>-->
+    <!--    <script defer src="/javascript/dataTables-buttons.js"></script>-->
+    <!--    <script defer src="/javascript/buttons-bootstrap5.js"></script>-->
+    <!--    <script defer src="/javascript/jszip-min.js"></script>-->
+    <!--    <script defer src="/javascript/pdfmake-min.js"></script>-->
+    <!--    <script defer src="/javascript/vfs_fonts.js"></script>-->
+    <!--    <script defer src="/javascript/buttons-html5-min.js"></script>-->
+    <!--    <script defer src="/javascript/buttons-print-min.js"></script>-->
 
     <title>IT Warehouse</title>
 </head>
 <body>
 <div class="container">
-    <h1 class="text-center my-4">Items</h1>
-
-    <a class="btn btn-primary" href="/items/create">Add Item</a>
+    <div>
+        <h1 class="text-center my-4">Items</h1>
+        <div class="container-top-buttons">
+            <a class="btn btn-primary" href="/items/create">Add Item</a>
+            <div class="my-buttons"></div>
+        </div>
+    </div>
     <div class="data_table">
-        <table id="example" class="table table-striped" style="width:100%">
-            <thead>
+        <table id="example" class="table table-striped table-bordered">
+            <thead class="table-dark">
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Brand</th>
+                <th>Manufacturer</th>
                 <th>Category</th>
                 <th>Department</th>
                 <th>Image</th>
                 <th>Order_№</th>
-                <th>Inv_№</th>
+                <th>Inventory_№</th>
                 <th>Description</th>
                 <th>Created</th>
                 <th>Modified</th>

@@ -2,14 +2,23 @@ body{
     background: #ececec;
 }
 
-.data_table{
-    background: #fff;
-    padding: 15px;
-    box-shadow: 1px 3px 5px #aaa;
-    border-radius: 5px;
+/*.data_table{*/
+/*    background: #fff;*/
+/*    padding: 15px;*/
+/*    box-shadow: 1px 3px 5px #aaa;*/
+/*    border-radius: 5px;*/
+/*}*/
+
+/*.data_table .btn{*/
+/*    margin: 10px 3px 10px 0;*/
+/*    padding: 5px 10px;*/
+/*}*/
+
+
+div.my-buttons {
 }
 
-.data_table .btn{
-    margin: 10px 3px 10px 0;
-    /*padding: 5px 10px;*/
+.container-top-buttons{
+    display: flex;
+    justify-content: space-between;
 }
