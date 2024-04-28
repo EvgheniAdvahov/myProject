@@ -23,7 +23,7 @@
     <div>
         <h1 class="text-center my-4">Items</h1>
         <div class="container-top-buttons">
-            <a class="btn btn-primary" href="/items/create">Add Item</a>
+            <a class="btn btn-dark" href="/items/create">Add Item</a>
             <div class="my-buttons"></div>
         </div>
     </div>
@@ -62,11 +62,18 @@
                 <td th:text="${item.createdAt}"></td>
                 <td th:text="${item.modifiedAt}"></td>
                 <td style="white-space: nowrap">
-                    <a class="btn btn-primary btn-sm"
-                       th:href="@{/items/edit(id=${item.id})}">Edit</a>
-                    <a class="btn btn-danger btn-sm"
-                       th:href="@{/items/delete(id=${item.id})}"
-                       onclick="return confirm('Are you sure?')">Delete</a>
+                    <a th:href="@{/items/edit(id=${item.id})}">
+                        <img src="/icons/edit.svg" alt="Edit" width="32" height="32">
+                    </a>
+                    <a th:href="@{/items/delete(id=${item.id})}"
+                       onclick="return confirm('Are you sure?')">
+                        <img src="/icons/delete.svg" alt="Delete" width="32" height="32">
+                    </a>
+<!--                    <a class="btn btn-primary btn-sm"-->
+<!--                       th:href="@{/items/edit(id=${item.id})}">Edit</a>-->
+<!--                    <a class="btn btn-danger btn-sm"-->
+<!--                       th:href="@{/items/delete(id=${item.id})}"-->
+<!--                       onclick="return confirm('Are you sure?')">Delete</a>-->
                 </td>
             </tr>
             </tbody>

@@ -8,8 +8,6 @@
     <link href="/css/datatables.min.css" rel="stylesheet">
     <link href="/css/mycss.css" rel="stylesheet">
 
-    <!--    <link href="/css/dataTables-bootstrap5.css" rel="stylesheet">-->
-    <!--    <link href="/css/buttons-bootstrap5.css" rel="stylesheet">-->
 
     <script defer src="/javascript/jquery-3-7.js"></script>
     <script defer src="/javascript/bootstrap-bundle-min.js"></script>
@@ -18,17 +16,6 @@
     <script defer src="/javascript/vfs_fonts.js"></script>
     <script defer src="/javascript/myScript.js"></script>
 
-
-    <!--    <script defer src="/javascript/dataTables.js"></script>-->
-    <!--    <script defer src="/javascript/dataTables-bootstrap5.js"></script>-->
-    <!--    <script defer src="/javascript/dataTables-buttons.js"></script>-->
-    <!--    <script defer src="/javascript/buttons-bootstrap5.js"></script>-->
-    <!--    <script defer src="/javascript/jszip-min.js"></script>-->
-    <!--    <script defer src="/javascript/pdfmake-min.js"></script>-->
-    <!--    <script defer src="/javascript/vfs_fonts.js"></script>-->
-    <!--    <script defer src="/javascript/buttons-html5-min.js"></script>-->
-    <!--    <script defer src="/javascript/buttons-print-min.js"></script>-->
-
     <title>IT Warehouse</title>
 </head>
 <body>
@@ -36,7 +23,7 @@
     <div>
         <h1 class="text-center my-4">Items</h1>
         <div class="container-top-buttons">
-            <a class="btn btn-primary" href="/items/create">Add Item</a>
+            <a class="btn btn-dark" href="/items/create">Add Item</a>
             <div class="my-buttons"></div>
         </div>
     </div>
@@ -75,11 +62,18 @@
                 <td th:text="${item.createdAt}"></td>
                 <td th:text="${item.modifiedAt}"></td>
                 <td style="white-space: nowrap">
-                    <a class="btn btn-primary btn-sm"
-                       th:href="@{/items/edit(id=${item.id})}">Edit</a>
-                    <a class="btn btn-danger btn-sm"
-                       th:href="@{/items/delete(id=${item.id})}"
-                       onclick="return confirm('Are you sure?')">Delete</a>
+                    <a th:href="@{/items/edit(id=${item.id})}">
+                        <img src="/icons/edit.svg" alt="Edit" width="32" height="32">
+                    </a>
+                    <a th:href="@{/items/delete(id=${item.id})}"
+                       onclick="return confirm('Are you sure?')">
+                        <img src="/icons/delete.svg" alt="Delete" width="32" height="32">
+                    </a>
+<!--                    <a class="btn btn-primary btn-sm"-->
+<!--                       th:href="@{/items/edit(id=${item.id})}">Edit</a>-->
+<!--                    <a class="btn btn-danger btn-sm"-->
+<!--                       th:href="@{/items/delete(id=${item.id})}"-->
+<!--                       onclick="return confirm('Are you sure?')">Delete</a>-->
                 </td>
             </tr>
             </tbody>
