@@ -20,11 +20,11 @@
                     <div class="col-sm-8">
                         <input class="form-control" th:field="${itemDto.name}">
                         <p th:if="${#fields.hasErrors('name')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.name}" ></p>
+                           th:errors="${itemDto.name}"></p>
                     </div>
                 </div>
 
-                <div class="row mb-3" >
+                <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Manufacturer</label>
                     <div class="col-sm-8">
                         <select class="form-select" th:field="${itemDto.manufacturer}">
@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-3" >
+                <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Category</label>
                     <div class="col-sm-8">
                         <select class="form-select" th:field="${itemDto.category}">
@@ -59,7 +59,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-3" >
+                <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Department</label>
                     <div class="col-sm-8">
                         <select class="form-select" th:field="${itemDto.department}">
@@ -84,11 +84,11 @@
                     <div class="col-sm-8">
                         <input class="form-control" th:field="${itemDto.serialNumber}">
                         <p th:if="${#fields.hasErrors('serialNumber')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.serialNumber}" ></p>
+                           th:errors="${itemDto.serialNumber}"></p>
                     </div>
                 </div>
 
-                <div class="row mb-3" >
+                <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Status</label>
                     <div class="col-sm-8">
                         <select class="form-select" th:field="${itemDto.status}">
@@ -109,7 +109,7 @@
                     <div class="col-sm-8">
                         <textarea class="form-control" th:field="${itemDto.description}"></textarea>
                         <p th:if="${#fields.hasErrors('description')}" th:errorclass="text-danger"
-                            th:errors="${itemDto.description}"></p>
+                           th:errors="${itemDto.description}"></p>
                     </div>
                 </div>
 
@@ -118,7 +118,7 @@
                     <div class="col-sm-8">
                         <input class="form-control" type="file" th:field="${itemDto.imageFile}">
                         <p th:if="${#fields.hasErrors('imageFile')}" th:errorclass="text-danger"
-                            th:errors="${itemDto.imageFile}"></p>
+                           th:errors="${itemDto.imageFile}"></p>
                     </div>
                 </div>
 
