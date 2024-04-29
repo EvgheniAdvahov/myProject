@@ -79,7 +79,7 @@ public class ItemController {
 
         Item item = new Item();
         item.setName(itemDto.getName());
-        item.setBrand(itemDto.getBrand());
+        item.setManufacturer(itemDto.getManufacturer());
         item.setCategory(itemDto.getCategory());
         item.setDepartment(itemDto.getDepartment());
         item.setSerialNumber(itemDto.getSerialNumber());
@@ -101,7 +101,7 @@ public class ItemController {
 
             ItemDto itemDto = new ItemDto();
             itemDto.setName(item.getName());
-            itemDto.setBrand(item.getBrand());
+            itemDto.setManufacturer(item.getManufacturer());
             itemDto.setCategory(item.getCategory());
             itemDto.setDepartment(item.getDepartment());
             itemDto.setSerialNumber(item.getSerialNumber());
@@ -157,7 +157,7 @@ public class ItemController {
             }
             //todo Where Inventory number, probably add modified at
             item.setName(itemDto.getName());
-            item.setBrand(itemDto.getBrand());
+            item.setManufacturer(itemDto.getManufacturer());
             item.setCategory(itemDto.getCategory());
             item.setDepartment(itemDto.getDepartment());
             item.setSerialNumber(itemDto.getSerialNumber());

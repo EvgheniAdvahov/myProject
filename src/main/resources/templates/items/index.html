@@ -34,7 +34,6 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <!--                to do Brand to manufacturer-->
                 <th>Manufacturer</th>
                 <th>Category</th>
                 <th>Department</th>
@@ -51,7 +50,7 @@
             <tr th:each="item : ${items}">
                 <td th:text="${item.id}"></td>
                 <td th:text="${item.name}"></td>
-                <td th:text="${item.brand}"></td>
+                <td th:text="${item.getManufacturer}"></td>
                 <td th:text="${item.category}"></td>
                 <td th:text="${item.getDepartment}"></td>
                 <td>
@@ -83,7 +82,7 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Brand</th>
+                <th>Manufacturer</th>
                 <th>Category</th>
                 <th>Department</th>
                 <th>Image</th>

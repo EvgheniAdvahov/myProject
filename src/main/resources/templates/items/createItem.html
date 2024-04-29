@@ -27,7 +27,7 @@
                 <div class="row mb-3" >
                     <label class="col-sm-4 col-form-label">Manufacturer</label>
                     <div class="col-sm-8">
-                        <select class="form-select" th:field="${itemDto.brand}">
+                        <select class="form-select" th:field="${itemDto.manufacturer}">
                             <option value='Other'>Other</option>
                             <option value='HP'>HP</option>
                             <option value='Microsoft'>Microsoft</option>
@@ -37,8 +37,8 @@
                             <option value='Zebra'>Zebra</option>
                             <option value='Intermec'>Intermec</option>
                         </select>
-                        <p th:if="${#fields.hasErrors('brand')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.brand}"></p>
+                        <p th:if="${#fields.hasErrors('manufacturer')}" th:errorclass="text-danger"
+                           th:errors="${itemDto.getManufacturer()}"></p>
                     </div>
                 </div>
 

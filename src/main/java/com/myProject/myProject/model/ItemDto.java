@@ -14,7 +14,7 @@ public class ItemDto {
     private String name;
 
     @NotEmpty(message = "The brand is required")
-    private String brand;
+    private String manufacturer;
     @NotEmpty(message = "The category is required")
     private String category;
     @NotEmpty(message = "The department required")
@@ -34,5 +34,6 @@ public class ItemDto {
     private MultipartFile imageFile;
 
     private String status;
+
 
 }
