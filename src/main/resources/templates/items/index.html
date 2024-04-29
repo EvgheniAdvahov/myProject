@@ -33,7 +33,8 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Brand</th>
+<!--                to do Brand to manufacturer-->
+                <th>Manufacturer</th>
                 <th>Category</th>
                 <th>Department</th>
                 <th>Image</th>
@@ -69,20 +70,32 @@
                        onclick="return confirm('Are you sure?')">
                         <img src="/icons/delete.svg" alt="Delete" width="32" height="32">
                     </a>
-<!--                    <a class="btn btn-primary btn-sm"-->
-<!--                       th:href="@{/items/edit(id=${item.id})}">Edit</a>-->
-<!--                    <a class="btn btn-danger btn-sm"-->
-<!--                       th:href="@{/items/delete(id=${item.id})}"-->
-<!--                       onclick="return confirm('Are you sure?')">Delete</a>-->
+                    <!--                    <a class="btn btn-primary btn-sm"-->
+                    <!--                       th:href="@{/items/edit(id=${item.id})}">Edit</a>-->
+                    <!--                    <a class="btn btn-danger btn-sm"-->
+                    <!--                       th:href="@{/items/delete(id=${item.id})}"-->
+                    <!--                       onclick="return confirm('Are you sure?')">Delete</a>-->
                 </td>
             </tr>
             </tbody>
+            <tfoot class="text-primary">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Brand</th>
+                <th>Category</th>
+                <th>Department</th>
+                <th>Image</th>
+                <th>Order_№</th>
+                <th>Inventory_№</th>
+                <th>Description</th>
+                <th>Created</th>
+                <th>Modified</th>
+                <th>Action</th>
+            </tfoot>
         </table>
     </div>
 
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
 </body>
 </html>
