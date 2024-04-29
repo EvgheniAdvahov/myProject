@@ -80,15 +80,6 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label">Serial Number</label>
-                    <div class="col-sm-8">
-                        <input class="form-control" th:field="${itemDto.serialNumber}">
-                        <p th:if="${#fields.hasErrors('serialNumber')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.serialNumber}"></p>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Status</label>
                     <div class="col-sm-8">
                         <select class="form-select" th:field="${itemDto.status}">
@@ -99,8 +90,35 @@
                             <option value='Scrapped'>Scrapped</option>
                             <option value='Broken'>Broken</option>
                         </select>
-                        <p th:if="${#fields.hasErrors('category')}" th:errorclass="text-danger"
+                        <p th:if="${#fields.hasErrors('status')}" th:errorclass="text-danger"
                            th:errors="${itemDto.category}"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Serial Number</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" th:field="${itemDto.serialNumber}">
+                        <p th:if="${#fields.hasErrors('serialNumber')}" th:errorclass="text-danger"
+                           th:errors="${itemDto.serialNumber}"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Product Order</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" th:field="${itemDto.productOrder}">
+                        <p th:if="${#fields.hasErrors('productOrder')}" th:errorclass="text-danger"
+                           th:errors="${itemDto.productOrder}"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Inventory Number</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" th:field="${itemDto.inventoryNumber}">
+                        <p th:if="${#fields.hasErrors('inventoryNumber')}" th:errorclass="text-danger"
+                           th:errors="${itemDto.inventoryNumber}"></p>
                     </div>
                 </div>
 

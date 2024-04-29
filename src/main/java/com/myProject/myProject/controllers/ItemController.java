@@ -83,6 +83,8 @@ public class ItemController {
         item.setCategory(itemDto.getCategory());
         item.setDepartment(itemDto.getDepartment());
         item.setSerialNumber(itemDto.getSerialNumber());
+        item.setProductOrder(itemDto.getProductOrder());
+        item.setInventoryNumber(itemDto.getInventoryNumber());
         item.setDescription(itemDto.getDescription());
         item.setCreatedAt(createdAt);
         item.setImageFileName(storageFileName);
