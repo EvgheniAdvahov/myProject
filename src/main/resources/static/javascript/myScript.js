@@ -6,7 +6,8 @@ $(document).ready(function () {
             "copy", "csv", "excel", "print", 'colvis'
         ],
         initComplete: function () {
-            this.api().columns([2,3,4]).every(function () {
+            var filterTable = $('.filter_table'); // Получаем div с классом filter_table
+            this.api().columns([2, 3, 4]).every(function () {
                 let column = this;
 
                 // Create select element
@@ -16,10 +17,10 @@ $(document).ready(function () {
 
                 // Apply listener for user change in value
                 select.addEventListener('change', function () {
-                    column.search(select.value, { exact: true }).draw();
+                    column.search(select.value, {exact: true}).draw();
                 });
 
-                $( select ).click( function(e) {
+                $(select).click(function (e) {
                     e.stopPropagation();
                 });
 
@@ -27,6 +28,7 @@ $(document).ready(function () {
                 column.data().unique().sort().each(function (d, j) {
                     select.add(new Option(d));
                 });
+                // filterTable.append(select);
             });
         }
     });
