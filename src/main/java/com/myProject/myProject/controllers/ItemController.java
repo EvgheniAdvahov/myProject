@@ -36,6 +36,7 @@ public class ItemController {
         return "items/index";
     }
 
+    // todo //??
     @GetMapping("/create")
     public String showCreatePage(Model model) {
         ItemDto itemDto = new ItemDto();
