@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -25,8 +26,8 @@ public class Item {
     private String category;
     @Column(columnDefinition = "TEXT")
     private String description;
-    private Date createdAt;
-    private Date modifiedAt;
+    private String createdAt;
+    private LocalDateTime modifiedAt;
     private String imageFileName;
     private String status;
 

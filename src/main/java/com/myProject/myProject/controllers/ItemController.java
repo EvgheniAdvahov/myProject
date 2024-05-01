@@ -16,6 +16,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -58,9 +60,11 @@ public class ItemController {
         }
         //save image file
         MultipartFile image = itemDto.getImageFile();
-        Date createdAt = new Date();
+        LocalDateTime createdAt = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH-mm-ss");
+        String formattedDate = createdAt.format(formatter);
         //Todo: remove miliseconds
-        String storageFileName = createdAt.getTime() + "_" + image.getOriginalFilename();
+        String storageFileName = formattedDate + "_" + image.getOriginalFilename();
         try {
             String uploadDir = "src/main/resources/static/images/";
             Path uploadPath = Paths.get(uploadDir);
@@ -87,7 +91,7 @@ public class ItemController {
         item.setProductOrder(itemDto.getProductOrder());
         item.setInventoryNumber(itemDto.getInventoryNumber());
         item.setDescription(itemDto.getDescription());
-        item.setCreatedAt(createdAt);
+        item.setCreatedAt(formattedDate);
         item.setImageFileName(storageFileName);
 
 
