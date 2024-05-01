@@ -1,11 +1,11 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/myproject
-    username: evad
-    password: 1234
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:mysql://localhost:3305/sqlFinalProject
+    username: user
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
-    database: postgresql
+    database: mysql
     show-sql: true
