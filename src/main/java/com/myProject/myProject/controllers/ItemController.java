@@ -61,7 +61,7 @@ public class ItemController {
         //save image file
         MultipartFile image = itemDto.getImageFile();
         LocalDateTime createdAt = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH-mm-ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH∶mm∶ss");
         String formattedDate = createdAt.format(formatter);
         //Todo: remove miliseconds
         String storageFileName = formattedDate + "_" + image.getOriginalFilename();
