@@ -75,7 +75,10 @@
                         </div>
 
                     </td>
-                    <td th:text="${item.createdAt}"></td>
+                    <td >
+                        <div th:text="${item.createdAt}" style="width: 85px">
+                        </div>
+                    </td>
                     <td th:text="${item.modifiedAt}"></td>
                 </tr>
                 </tbody>
