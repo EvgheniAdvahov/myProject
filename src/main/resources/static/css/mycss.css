@@ -14,7 +14,15 @@ body{
     justify-content: space-between;
 }
 
+.table-description-column{
+    width: 100px;
+    height: 80px;
+}
 
-.filter_table{}
+.table-created-column{
+    width: 85px;
+}
+
+
 
 

@@ -71,12 +71,12 @@
                         </a>
                     </td>
                     <td class="overflow-auto">
-                        <div th:text="${item.description}"  style="width: 100px; height: 80px;">
+                        <div class="table-description-column" th:text="${item.description}">
                         </div>
 
                     </td>
                     <td >
-                        <div th:text="${item.createdAt}" style="width: 85px">
+                        <div class="table-created-column" th:text="${item.createdAt}">
                         </div>
                     </td>
                     <td th:text="${item.modifiedAt}"></td>
