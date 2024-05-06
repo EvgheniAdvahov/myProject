@@ -41,10 +41,10 @@
                     <th>Serial_№</th>
                     <th>Order_№</th>
                     <th>Inventory_№</th>
+                    <th>Action</th>
                     <th>Description</th>
                     <th>Created</th>
                     <th>Modified</th>
-                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -61,9 +61,6 @@
                     <td th:text="${item.serialNumber}"></td>
                     <td th:text="${item.productOrder}"></td>
                     <td th:text="${item.inventoryNumber}"></td>
-                    <td th:text="${item.description}"></td>
-                    <td th:text="${item.createdAt}"></td>
-                    <td th:text="${item.modifiedAt}"></td>
                     <td style="white-space: nowrap">
                         <a th:href="@{/items/edit(id=${item.id})}">
                             <img src="/icons/edit.svg" alt="Edit" width="32" height="32">
@@ -72,12 +69,14 @@
                            onclick="return confirm('Are you sure?')">
                             <img src="/icons/delete.svg" alt="Delete" width="32" height="32">
                         </a>
-                        <!--                    <a class="btn btn-primary btn-sm"-->
-                        <!--                       th:href="@{/items/edit(id=${item.id})}">Edit</a>-->
-                        <!--                    <a class="btn btn-danger btn-sm"-->
-                        <!--                       th:href="@{/items/delete(id=${item.id})}"-->
-                        <!--                       onclick="return confirm('Are you sure?')">Delete</a>-->
                     </td>
+                    <td class="overflow-auto">
+                        <div th:text="${item.description}"  style="width: 100px; height: 80px;">
+                        </div>
+
+                    </td>
+                    <td th:text="${item.createdAt}"></td>
+                    <td th:text="${item.modifiedAt}"></td>
                 </tr>
                 </tbody>
                 <tfoot class="text-primary">
@@ -91,10 +90,10 @@
                     <th>Serial_№</th>
                     <th>Order_№</th>
                     <th>Inventory_№</th>
+                    <th>Action</th>
                     <th>Description</th>
                     <th>Created</th>
                     <th>Modified</th>
-                    <th>Action</th>
                 </tfoot>
             </table>
         </div>
