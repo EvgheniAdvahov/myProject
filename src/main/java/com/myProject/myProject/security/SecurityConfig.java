@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -40,17 +41,11 @@ public class SecurityConfig {
 
     //создаем кодировщик паролей
     @Bean
-    PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
-    //создаем пользователей, задаем им имена, пароли и роли для менеджера пользовательских данных
-    @Bean
-    UserDetailsManager inMemoryUserDetailsManager() {
-        var commonUser = User.withUsername("user").password("{noop}user").roles("USER").build();
-        var admin = User.withUsername("admin").password("{noop}admin").roles("ADMIN").build();
-        return new InMemoryUserDetailsManager(commonUser, admin);
-    }
+
 
 
 }
