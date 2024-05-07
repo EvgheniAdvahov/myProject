@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -32,9 +33,12 @@ public class ItemController {
     }
 
     @GetMapping({"", "/"}) // items and items/
-    public String showItemList(Model model) {
+    public String showItemList(Model model, Principal principal) {
         List<Item> items = itemRepository.findAll();
         model.addAttribute("items", items);
+        //Add username to html
+        String username = principal.getName();
+        model.addAttribute("username",username);
         return "items/index";
     }
 
