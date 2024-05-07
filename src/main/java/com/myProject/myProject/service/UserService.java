@@ -1,5 +1,6 @@
 package com.myProject.myProject.service;
 
+import com.myProject.myProject.aspect.ToLog;
 import com.myProject.myProject.model.User;
 import com.myProject.myProject.repositories.UserRepository;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    @ToLog
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }

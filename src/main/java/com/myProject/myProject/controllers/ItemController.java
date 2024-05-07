@@ -67,7 +67,7 @@ public class ItemController {
         LocalDateTime createdAt = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH∶mm∶ss");
         String formattedDate = createdAt.format(formatter);
-        //Todo: remove miliseconds
+
         String storageFileName = formattedDate + "_" + image.getOriginalFilename();
         try {
             String uploadDir = "src/main/resources/static/images/";
@@ -97,7 +97,6 @@ public class ItemController {
         item.setDescription(itemDto.getDescription());
         item.setCreatedAt(formattedDate);
         item.setImageFileName(storageFileName);
-
 
         itemRepository.save(item);
 
