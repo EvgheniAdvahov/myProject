@@ -1,6 +1,5 @@
 package com.myProject.myProject.service;
 
-import com.myProject.myProject.aspect.ToLog;
 import com.myProject.myProject.model.User;
 import com.myProject.myProject.repositories.UserRepository;
 import lombok.AllArgsConstructor;

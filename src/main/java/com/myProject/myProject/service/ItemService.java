@@ -1,6 +1,8 @@
 package com.myProject.myProject.service;
 
-import com.myProject.myProject.aspect.ToLog;
+import com.myProject.myProject.aspect.ToLogAdd;
+import com.myProject.myProject.aspect.ToLogDelete;
+import com.myProject.myProject.aspect.ToLogEdit;
 import com.myProject.myProject.model.Item;
 import com.myProject.myProject.repositories.ItemRepository;
 import lombok.AllArgsConstructor;
@@ -14,9 +16,19 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    @ToLog
+    @ToLogAdd
     public void saveToDd(Item item){
         itemRepository.save(item);
+    }
+
+    @ToLogEdit
+    public void editInDb(Item item){
+        itemRepository.save(item);
+    }
+
+    @ToLogDelete
+    public void deleteById(int id){
+        itemRepository.deleteById(id);
     }
 
     public List<Item> getAllItems(){
@@ -27,7 +39,5 @@ public class ItemService {
         return itemRepository.findById(id).get();
     }
 
-    public void deleteById(int id){
-        itemRepository.deleteById(id);
-    }
+
 }

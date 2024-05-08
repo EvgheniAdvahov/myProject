@@ -146,6 +146,7 @@ public class ItemController {
             }
 
             if (!itemDto.getImageFile().isEmpty()) {
+                //magic variables
                 //delete old image
                 String uploadDir = "src/main/resources/static/images/";
                 Path oldImagePath = Paths.get(uploadDir + item.getImageFileName());
@@ -189,10 +190,10 @@ public class ItemController {
             if (!item.getSerialNumber().equals(itemDto.getSerialNumber())) {
                 System.out.println("Serial number modified");
             }
-            if (!item.getProductOrder().equals(itemDto.getProductOrder())) {
+            if (item.getProductOrder() !=null && !item.getProductOrder().equals(itemDto.getProductOrder())) {
                 System.out.println("Product number modified");
             }
-            if (!item.getInventoryNumber().equals(itemDto.getInventoryNumber())) {
+            if (item.getInventoryNumber() !=null && !item.getInventoryNumber().equals(itemDto.getInventoryNumber())) {
                 System.out.println("Inventory number modified");
             }
             if (!item.getDescription().equals(itemDto.getDescription())) {
@@ -210,7 +211,7 @@ public class ItemController {
             item.setInventoryNumber(itemDto.getInventoryNumber());
             item.setDescription(itemDto.getDescription());
 
-            itemService.saveToDd(item);
+            itemService.editInDb(item);
 
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
@@ -222,7 +223,6 @@ public class ItemController {
     public String deleteProduct(@RequestParam int id) {
         //todo Exception .... deleting photo
         try {
-//            Item item = itemRepository.findById(id).get();
             Item item = itemService.getById(id);
 
             //delete item image
@@ -235,7 +235,6 @@ public class ItemController {
             }
 
             //deleting product
-//            itemRepository.deleteById(id);
             itemService.deleteById(id);
         } catch (Exception ex) {
             System.out.println("Exception" + ex.getMessage());

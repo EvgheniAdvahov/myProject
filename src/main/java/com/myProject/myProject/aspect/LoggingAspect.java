@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 @Aspect
 public class LoggingAspect {
 
-    @AfterReturning("@annotation(ToLog)  && args(item)")
+    @AfterReturning("@annotation(ToLogAdd)  && args(item)")
     public void addToLog(Item item) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
@@ -20,6 +20,28 @@ public class LoggingAspect {
             System.out.println(dateTime() + " " + username + " added " + item.getName());
         } else {
             System.out.println("Saved to DB: Unknown user");
+        }
+    }
+
+    @AfterReturning("@annotation(ToLogEdit)  && args(item)")
+    public void editToLog(Item item) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            System.out.println(dateTime() + " " + username + " edited " + item.getName());
+        } else {
+            System.out.println("Edite in DB: Unknown user");
+        }
+    }
+
+    @AfterReturning("@annotation(ToLogDelete)  && args(item)")
+    public void deleteToLog(Item item) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            System.out.println(dateTime() + " " + username + " deleted " + item.getName());
+        } else {
+            System.out.println("Delete in DB: Unknown user");
         }
     }
 
