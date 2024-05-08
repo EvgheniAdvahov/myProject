@@ -88,6 +88,7 @@ public class ItemController {
 
         Item item = new Item();
         item.setName(itemDto.getName());
+        item.setStatus(itemDto.getStatus());
         item.setManufacturer(itemDto.getManufacturer());
         item.setCategory(itemDto.getCategory());
         item.setDepartment(itemDto.getDepartment());
@@ -174,7 +175,7 @@ public class ItemController {
                 System.out.println("Name modified");
             }
             if (!item.getStatus().equals(itemDto.getStatus())) {
-                System.out.println("Status number modified");
+                System.out.println("Status modified");
             }
             if (!item.getManufacturer().equals(itemDto.getManufacturer())) {
                 System.out.println("Manufacturer modified");
