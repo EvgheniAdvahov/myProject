@@ -40,4 +40,7 @@ public class ItemService {
     }
 
 
+    public String getItemNameById(int id) {
+        return "Query for getItemNameById";
+    }
 }
