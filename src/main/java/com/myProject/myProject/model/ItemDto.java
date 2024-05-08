@@ -22,11 +22,11 @@ public class ItemDto {
 
     //Todo: валидация
     @NotNull(message = "The serial number required")
-    private int serialNumber;
+    private Integer serialNumber;
 
-    private int productOrder;
+    private Integer productOrder;
 
-    private int inventoryNumber;
+    private Integer inventoryNumber;
 
     @Size(max = 2000, message = "The description can't exceed 2000 characters")
     private String description;

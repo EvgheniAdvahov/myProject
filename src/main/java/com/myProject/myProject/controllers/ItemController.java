@@ -170,7 +170,10 @@ public class ItemController {
             //todo Where Inventory number, probably add modified at
 
             if (!item.getName().equals(itemDto.getName())){
-                System.out.println("name modified");
+                System.out.println("Name modified");
+            }
+            if (!item.getStatus().equals(itemDto.getStatus())) {
+                System.out.println("Status number modified");
             }
             if (!item.getManufacturer().equals(itemDto.getManufacturer())) {
                 System.out.println("Manufacturer modified");
@@ -184,19 +187,25 @@ public class ItemController {
             if (!item.getSerialNumber().equals(itemDto.getSerialNumber())) {
                 System.out.println("Serial number modified");
             }
-            if (!item.getStatus().equals(itemDto.getStatus())) {
-                System.out.println("Status number modified");
+            if (!item.getProductOrder().equals(itemDto.getProductOrder())) {
+                System.out.println("Product number modified");
+            }
+            if (!item.getInventoryNumber().equals(itemDto.getInventoryNumber())) {
+                System.out.println("Inventory number modified");
             }
             if (!item.getDescription().equals(itemDto.getDescription())) {
                 System.out.println("Description number modified");
             }
 
+
             item.setName(itemDto.getName());
+            item.setStatus(itemDto.getStatus());
             item.setManufacturer(itemDto.getManufacturer());
             item.setCategory(itemDto.getCategory());
             item.setDepartment(itemDto.getDepartment());
             item.setSerialNumber(itemDto.getSerialNumber());
-            item.setStatus(itemDto.getStatus());
+            item.setProductOrder(itemDto.getProductOrder());
+            item.setInventoryNumber(itemDto.getInventoryNumber());
             item.setDescription(itemDto.getDescription());
 
             itemService.saveToDd(item);
@@ -231,6 +240,9 @@ public class ItemController {
         }
         return "redirect:/items";
     }
+
+
+
 
 
 }

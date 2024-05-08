@@ -20,8 +20,8 @@ public class Item {
     private String manufacturer;
     private String department;
     private String model;
-    private int productOrder;
-    private int inventoryNumber;
+    private Integer productOrder;
+    private Integer inventoryNumber;
     private Integer serialNumber;
     private String category;
     @Column(columnDefinition = "TEXT")
