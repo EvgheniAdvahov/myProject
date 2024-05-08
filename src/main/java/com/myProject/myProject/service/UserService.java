@@ -12,7 +12,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    @ToLog
+
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }

@@ -3,6 +3,7 @@ package com.myProject.myProject.controllers;
 import com.myProject.myProject.model.Item;
 import com.myProject.myProject.model.ItemDto;
 import com.myProject.myProject.repositories.ItemRepository;
+import com.myProject.myProject.service.ItemService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,15 +27,18 @@ import java.util.List;
 @RequestMapping("/items")
 public class ItemController {
 
-    private final ItemRepository itemRepository;
+//    private final ItemRepository itemRepository;
 
-    public ItemController(ItemRepository itemRepository) {
-        this.itemRepository = itemRepository;
+    private final ItemService itemService;
+
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
     }
 
     @GetMapping({"", "/"}) // items and items/
     public String showItemList(Model model, Principal principal) {
-        List<Item> items = itemRepository.findAll();
+
+        List<Item> items = itemService.getAllItems();
         model.addAttribute("items", items);
         //Add username to html
         String username = principal.getName();
@@ -98,7 +102,8 @@ public class ItemController {
         item.setCreatedAt(formattedDate);
         item.setImageFileName(storageFileName);
 
-        itemRepository.save(item);
+        itemService.saveToDd(item);
+//        itemRepository.save(item);
 
         return "redirect:/items";
     }
@@ -106,7 +111,8 @@ public class ItemController {
     @GetMapping("/edit")
     public String showEditPage(Model model, @RequestParam int id) {
         try {
-            Item item = itemRepository.findById(id).get();
+//            Item item = itemRepository.findById(id).get();
+            Item item = itemService.getById(id);
             model.addAttribute("item", item);
 
             ItemDto itemDto = new ItemDto();
@@ -134,7 +140,8 @@ public class ItemController {
             BindingResult result
     ) {
         try {
-            Item item = itemRepository.findById(id).get();
+//            Item item = itemRepository.findById(id).get();
+            Item item = itemService.getById(id);
             model.addAttribute("item", item);
 
             if (result.hasErrors()) {
@@ -174,7 +181,8 @@ public class ItemController {
             item.setStatus(itemDto.getStatus());
             item.setDescription(itemDto.getDescription());
 
-            itemRepository.save(item);
+            itemService.saveToDd(item);
+//            itemRepository.save(item);
 
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
@@ -186,7 +194,8 @@ public class ItemController {
     public String deleteProduct(@RequestParam int id) {
         //todo Exception .... deleting photo
         try {
-            Item item = itemRepository.findById(id).get();
+//            Item item = itemRepository.findById(id).get();
+            Item item = itemService.getById(id);
 
             //delete item image
             Path imagePath = Paths.get("src/main/resources/static/images/" + item.getImageFileName());
@@ -198,7 +207,8 @@ public class ItemController {
             }
 
             //deleting product
-            itemRepository.deleteById(id);
+//            itemRepository.deleteById(id);
+            itemService.deleteById(id);
         } catch (Exception ex) {
             System.out.println("Exception" + ex.getMessage());
         }
