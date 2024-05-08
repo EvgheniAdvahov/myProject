@@ -160,8 +160,8 @@ public class ItemController {
                 // save new image file
                 //todo moified insted of created + loging would be not bad
                 MultipartFile image = itemDto.getImageFile();
-                Date createdAt = new Date();
-                String storageFileName = createdAt.getTime() + "_" + image.getOriginalFilename();
+                String formattedDate = dateTime();
+                String storageFileName = formattedDate + "_" + image.getOriginalFilename();
 
                 try (InputStream inputStream = image.getInputStream()) {
                     Files.copy(inputStream, Paths.get(uploadDir + storageFileName),
