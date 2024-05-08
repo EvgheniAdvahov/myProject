@@ -66,9 +66,7 @@ public class ItemController {
         }
         //save image file
         MultipartFile image = itemDto.getImageFile();
-        LocalDateTime createdAt = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH∶mm∶ss");
-        String formattedDate = createdAt.format(formatter);
+        String formattedDate = dateTime();
 
         String storageFileName = formattedDate + "_" + image.getOriginalFilename();
         try {
@@ -113,10 +111,13 @@ public class ItemController {
 
             ItemDto itemDto = new ItemDto();
             itemDto.setName(item.getName());
+            itemDto.setStatus(item.getStatus());
             itemDto.setManufacturer(item.getManufacturer());
             itemDto.setCategory(item.getCategory());
             itemDto.setDepartment(item.getDepartment());
             itemDto.setSerialNumber(item.getSerialNumber());
+            itemDto.setProductOrder(item.getProductOrder());
+            itemDto.setInventoryNumber(item.getInventoryNumber());
             itemDto.setDescription(item.getDescription());
 
             model.addAttribute("itemDto", itemDto);
@@ -239,6 +240,13 @@ public class ItemController {
             System.out.println("Exception" + ex.getMessage());
         }
         return "redirect:/items";
+    }
+
+
+    private String dateTime(){
+        LocalDateTime createdAt = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH∶mm∶ss");
+        return createdAt.format(formatter);
     }
 
 
