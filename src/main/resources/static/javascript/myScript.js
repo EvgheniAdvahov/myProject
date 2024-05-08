@@ -7,7 +7,7 @@ $(document).ready(function () {
         ],
         initComplete: function () {
             var filterTable = $('.filter_table'); // Получаем div с классом filter_table
-            this.api().columns([2, 3, 4]).every(function () {
+            this.api().columns([1, 2, 3]).every(function () {
                 let column = this;
 
                 // Create select element

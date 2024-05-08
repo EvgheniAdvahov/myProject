@@ -27,8 +27,6 @@ import java.util.List;
 @RequestMapping("/items")
 public class ItemController {
 
-//    private final ItemRepository itemRepository;
-
     private final ItemService itemService;
 
     public ItemController(ItemService itemService) {
@@ -103,7 +101,6 @@ public class ItemController {
         item.setImageFileName(storageFileName);
 
         itemService.saveToDd(item);
-//        itemRepository.save(item);
 
         return "redirect:/items";
     }
@@ -111,7 +108,6 @@ public class ItemController {
     @GetMapping("/edit")
     public String showEditPage(Model model, @RequestParam int id) {
         try {
-//            Item item = itemRepository.findById(id).get();
             Item item = itemService.getById(id);
             model.addAttribute("item", item);
 
@@ -140,7 +136,6 @@ public class ItemController {
             BindingResult result
     ) {
         try {
-//            Item item = itemRepository.findById(id).get();
             Item item = itemService.getById(id);
             model.addAttribute("item", item);
 
@@ -173,6 +168,29 @@ public class ItemController {
                 item.setImageFileName(storageFileName);
             }
             //todo Where Inventory number, probably add modified at
+
+            if (!item.getName().equals(itemDto.getName())){
+                System.out.println("name modified");
+            }
+            if (!item.getManufacturer().equals(itemDto.getManufacturer())) {
+                System.out.println("Manufacturer modified");
+            }
+            if (!item.getCategory().equals(itemDto.getCategory())) {
+                System.out.println("Category modified");
+            }
+            if (!item.getDepartment().equals(itemDto.getDepartment())) {
+                System.out.println("Department modified");
+            }
+            if (!item.getSerialNumber().equals(itemDto.getSerialNumber())) {
+                System.out.println("Serial number modified");
+            }
+            if (!item.getStatus().equals(itemDto.getStatus())) {
+                System.out.println("Status number modified");
+            }
+            if (!item.getDescription().equals(itemDto.getDescription())) {
+                System.out.println("Description number modified");
+            }
+
             item.setName(itemDto.getName());
             item.setManufacturer(itemDto.getManufacturer());
             item.setCategory(itemDto.getCategory());
@@ -182,7 +200,6 @@ public class ItemController {
             item.setDescription(itemDto.getDescription());
 
             itemService.saveToDd(item);
-//            itemRepository.save(item);
 
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
