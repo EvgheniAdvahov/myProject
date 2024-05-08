@@ -46,9 +46,12 @@ public class ItemController {
 
     // todo //??
     @GetMapping("/create")
-    public String showCreatePage(Model model) {
+    public String showCreatePage(Model model, Principal principal) {
         ItemDto itemDto = new ItemDto();
         model.addAttribute("itemDto", itemDto);
+        //Add username to html
+        String username = principal.getName();
+        model.addAttribute("username",username);
         return "items/createItem";
     }
 
@@ -105,7 +108,9 @@ public class ItemController {
     }
 
     @GetMapping("/edit")
-    public String showEditPage(Model model, @RequestParam int id) {
+    public String showEditPage(Model model, @RequestParam int id, Principal principal) {
+        String username = principal.getName();
+        model.addAttribute("username",username);
         try {
             Item item = itemService.getById(id);
             model.addAttribute("item", item);

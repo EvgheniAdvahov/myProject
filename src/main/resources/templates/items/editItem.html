@@ -8,6 +8,16 @@
     <link href="/css/mycss.css" rel="stylesheet">
 </head>
 <body>
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <span class="navbar-brand mb-0 h1 text-center">Items</span>
+        <div>
+            <span class="navbar-text me-3" th:text="${username}"></span>
+            <a class="btn btn-outline-danger" href="/logout">Logout</a>
+        </div>
+    </div>
+</nav>
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 mx-auto rounded border p-3 m-3 bg-white">
