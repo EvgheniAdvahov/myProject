@@ -25,6 +25,22 @@
                 </div>
 
                 <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Status</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" th:field="${itemDto.status}">
+                            <option value='Other'>Other</option>
+                            <option value='Available'>Available</option>
+                            <option value='In use'>In user</option>
+                            <option value='In repair'>In repair</option>
+                            <option value='Scrapped'>Scrapped</option>
+                            <option value='Broken'>Broken</option>
+                        </select>
+                        <p th:if="${#fields.hasErrors('status')}" th:errorclass="text-danger"
+                           th:errors="${itemDto.category}"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Manufacturer</label>
                     <div class="col-sm-8">
                         <select class="form-select" th:field="${itemDto.manufacturer}">
@@ -76,22 +92,6 @@
                         </select>
                         <p th:if="${#fields.hasErrors('department')}" th:errorclass="text-danger"
                            th:errors="${itemDto.department}"></p>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label">Status</label>
-                    <div class="col-sm-8">
-                        <select class="form-select" th:field="${itemDto.status}">
-                            <option value='Other'>Other</option>
-                            <option value='Available'>Available</option>
-                            <option value='In use'>In user</option>
-                            <option value='In repair'>In repair</option>
-                            <option value='Scrapped'>Scrapped</option>
-                            <option value='Broken'>Broken</option>
-                        </select>
-                        <p th:if="${#fields.hasErrors('status')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.category}"></p>
                     </div>
                 </div>
 

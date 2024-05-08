@@ -16,18 +16,27 @@
             <form method="post" enctype="multipart/form-data" th:object="${itemDto}">
 
                 <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label">ID</label>
-                    <div class="col-sm-8">
-                        <input readonly class="form-control-plaintext" th:value="${item.id}">
-                    </div>
-                </div>
-
-                <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Name</label>
                     <div class="col-sm-8">
                         <input class="form-control" th:field="${itemDto.name}">
                         <p th:if="${#fields.hasErrors('name')}" th:errorclass="text-danger"
                            th:errors="${itemDto.name}" ></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3" >
+                    <label class="col-sm-4 col-form-label">Status</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" th:field="${itemDto.status}">
+                            <option value='Other'>Other</option>
+                            <option value='Available'>Available</option>
+                            <option value='In user'>In user</option>
+                            <option value='In repair'>In repair</option>
+                            <option value='Scrapped'>Scrapped</option>
+                            <option value='Broken'>Broken</option>
+                        </select>
+                        <p th:if="${#fields.hasErrors('category')}" th:errorclass="text-danger"
+                           th:errors="${itemDto.category}"></p>
                     </div>
                 </div>
 
@@ -94,19 +103,21 @@
                     </div>
                 </div>
 
-                <div class="row mb-3" >
-                    <label class="col-sm-4 col-form-label">Status</label>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Product Order</label>
                     <div class="col-sm-8">
-                        <select class="form-select" th:field="${itemDto.status}">
-                            <option value='Other'>Other</option>
-                            <option value='Available'>Available</option>
-                            <option value='In user'>In user</option>
-                            <option value='In repair'>In repair</option>
-                            <option value='Scrapped'>Scrapped</option>
-                            <option value='Broken'>Broken</option>
-                        </select>
-                        <p th:if="${#fields.hasErrors('category')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.category}"></p>
+                        <input class="form-control" th:field="${itemDto.productOrder}">
+                        <p th:if="${#fields.hasErrors('productOrder')}" th:errorclass="text-danger"
+                           th:errors="${itemDto.productOrder}" ></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Inventory Number</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" th:field="${itemDto.inventoryNumber}">
+                        <p th:if="${#fields.hasErrors('inventoryNumber')}" th:errorclass="text-danger"
+                           th:errors="${itemDto.inventoryNumber}" ></p>
                     </div>
                 </div>
 
@@ -131,13 +142,6 @@
                         <input class="form-control" type="file" th:field="${itemDto.imageFile}">
                         <p th:if="${#fields.hasErrors('imageFile')}" th:errorclass="text-danger"
                            th:errors="${itemDto.imageFile}"></p>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label">Created At</label>
-                    <div class="col-sm-8">
-                        <input readonly class="form-control-plaintext" th:value="${item.createdAt}" >
                     </div>
                 </div>
 
