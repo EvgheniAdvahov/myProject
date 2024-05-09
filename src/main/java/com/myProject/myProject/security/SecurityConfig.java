@@ -24,13 +24,13 @@ public class SecurityConfig {
         //todo favicon
         http
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/css/**", "/favicon.ico").permitAll()
-                        .requestMatchers("/user-profile").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/css/**", "/favicon.ico","/login").permitAll()
+//                        .requestMatchers("/user-profile").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
                         //todo login page
-//                        .loginPage("/")
+                        .loginPage("/login")
                         .successHandler(authHandler)
                         .permitAll())
                 .logout(logout -> logout

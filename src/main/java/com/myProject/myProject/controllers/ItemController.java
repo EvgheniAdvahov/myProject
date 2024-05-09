@@ -31,6 +31,11 @@ public class ItemController {
         this.itemService = itemService;
     }
 
+    @GetMapping("/login")
+    public String loginPage(){
+        return "login";
+    }
+
     @GetMapping
     public String showMainPage(Model model, Principal principal){
         String username = principal.getName();
