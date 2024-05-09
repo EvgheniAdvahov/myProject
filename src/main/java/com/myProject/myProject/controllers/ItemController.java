@@ -114,7 +114,6 @@ public class ItemController {
 
         itemService.saveToDd(item);
 
-//        return "redirect:/items";
         return "redirect:/itemList";
     }
 
