@@ -23,8 +23,8 @@
 <nav class="navbar fixed-top navbar-light bg-light">
     <div class="container-fluid d-flex justify-content-between align-items-center">
         <div>
-            <a class="link-primary navbar-brand mb-0 h1 text-center" href="/">Home</a>
-            <a class="link-primary navbar-brand mb-0 h1 text-center" href="/itemList">Items</a>
+            <a class="link-underline-secondary navbar-brand mb-0 h1 text-center" href="/">Home</a>
+            <a class="link-secondary navbar-brand mb-0 h1 text-center" href="/itemList">Items</a>
         </div>
         <div>
             <span class="navbar-text me-3 h6" th:text="${username}"></span>
@@ -37,7 +37,7 @@
     <div>
         <h1 class="text-center my-0">Items</h1>
         <div class="container-top-buttons">
-            <a class="btn btn-success" href="/items/create">Add Item</a>
+            <a class="btn btn-secondary" href="/items/create">Add Item</a>
             <div class="filter_table"></div>
             <div class="my-buttons"></div>
         </div>
@@ -77,11 +77,11 @@
                 <td th:text="${item.inventoryNumber}"></td>
                 <td style="white-space: nowrap">
                     <a th:href="@{/items/edit(id=${item.id})}">
-                        <img src="/icons/edit.svg" alt="Edit" width="32" height="32">
+                        <img src="/site-images/icons/edit.svg" alt="Edit" width="32" height="32">
                     </a>
                     <a th:href="@{/items/delete(id=${item.id})}"
                        onclick="return confirm('Are you sure?')">
-                        <img src="/icons/delete.svg" alt="Delete" width="32" height="32">
+                        <img src="/site-images/icons/delete.svg" alt="Delete" width="32" height="32">
                     </a>
                 </td>
                 <td class="overflow-auto">

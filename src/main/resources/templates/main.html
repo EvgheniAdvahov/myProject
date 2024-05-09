@@ -11,8 +11,8 @@
 <nav class="navbar fixed-top navbar-light bg-light">
     <div class="container-fluid d-flex justify-content-between align-items-center">
         <div>
-            <a class="link-primary navbar-brand mb-0 h1 text-center" href="/">Home</a>
-            <a class="link-primary navbar-brand mb-0 h1 text-center" href="/itemList">Items</a>
+            <a class="link-underline-secondary navbar-brand mb-0 h1 text-center" href="/">Home</a>
+            <a class="link-secondary navbar-brand mb-0 h1 text-center" href="/itemList">Items</a>
         </div>
         <div>
             <span class="navbar-text me-3 h6" th:text="${username}"></span>
@@ -21,9 +21,14 @@
     </div>
 </nav>
 <div class="container">
-    <h1 class="text-center my-4">You are Welcome</h1>
+    <h1 class="text-center my-3">You are Welcome</h1>
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-outline-secondary btn-main-xl" href="/itemList">Products</a>
+        <a class="btn btn-secondary btn-main-xl" href="/itemList">Warehouse</a>
+    </div>
 
-    <a class="btn btn-primary" href="/itemList">Products</a>
+
+
 </div>
 <script src="/javascript/bootstrap-bundle-min.js"></script>
 </body>

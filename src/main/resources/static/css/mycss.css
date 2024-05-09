@@ -1,7 +1,7 @@
 body{
     /*background: #ececec;*/
     padding-top: 50px;
-    background-image: url("../background/city-sky.jpg");
+    background-image: url("../site-images/background/city-sky.jpg");
 
     background-size: cover;
     background-repeat: no-repeat;
@@ -34,6 +34,12 @@ body{
 
 .table-created-column{
     width: 85px;
+}
+
+.btn-main-xl {
+    font-size: 30px;
+    border-radius: 10px;
+    /*width:50%;    //Specify your width here*/
 }
 
 
