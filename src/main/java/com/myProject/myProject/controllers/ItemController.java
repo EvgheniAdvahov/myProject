@@ -110,6 +110,7 @@ public class ItemController {
         item.setInventoryNumber(itemDto.getInventoryNumber());
         item.setDescription(itemDto.getDescription());
         item.setCreatedAt(formattedDate);
+//        item.setModifiedAt(formattedDate);
         item.setImageFileName(storageFileName);
 
         itemService.saveToDd(item);
