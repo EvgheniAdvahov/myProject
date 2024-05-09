@@ -2,7 +2,6 @@ package com.myProject.myProject.controllers;
 
 import com.myProject.myProject.model.Item;
 import com.myProject.myProject.model.ItemDto;
-import com.myProject.myProject.repositories.ItemRepository;
 import com.myProject.myProject.service.ItemService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -20,11 +19,10 @@ import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping("/items")
+@RequestMapping("/")
 public class ItemController {
 
     private final ItemService itemService;
@@ -33,7 +31,12 @@ public class ItemController {
         this.itemService = itemService;
     }
 
-    @GetMapping({"", "/"}) // items and items/
+    @GetMapping
+    public String showMainPage(){
+        return "main";
+    }
+
+    @GetMapping("/itemList")
     public String showItemList(Model model, Principal principal) {
 
         List<Item> items = itemService.getAllItems();
@@ -41,11 +44,11 @@ public class ItemController {
         //Add username to html
         String username = principal.getName();
         model.addAttribute("username",username);
-        return "items/index";
+        return "items/itemList";
     }
 
     // todo //??
-    @GetMapping("/create")
+    @GetMapping("/items/create")
     public String showCreatePage(Model model, Principal principal) {
         ItemDto itemDto = new ItemDto();
         model.addAttribute("itemDto", itemDto);
@@ -55,7 +58,7 @@ public class ItemController {
         return "items/createItem";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/items/create")
     public String createItem(@Valid @ModelAttribute ItemDto itemDto,
                              BindingResult result) { // Данные из запроса привязываются к dto и валидируются. BindingResult- инфо об ошибках валидации
         if (itemDto.getImageFile().isEmpty()) {
@@ -104,10 +107,11 @@ public class ItemController {
 
         itemService.saveToDd(item);
 
-        return "redirect:/items";
+//        return "redirect:/items";
+        return "redirect:/itemList";
     }
 
-    @GetMapping("/edit")
+    @GetMapping("/items/edit")
     public String showEditPage(Model model, @RequestParam int id, Principal principal) {
         String username = principal.getName();
         model.addAttribute("username",username);
@@ -129,13 +133,13 @@ public class ItemController {
             model.addAttribute("itemDto", itemDto);
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
-            return "redirect:/items";
+            return "redirect:/itemList";
         }
 
         return "items/editItem";
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/items/edit")
     public String updateProduct(
             Model model,
             @RequestParam int id,
@@ -221,10 +225,11 @@ public class ItemController {
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
         }
-        return "redirect:/items";
+
+        return "redirect:/itemList";
     }
 
-    @GetMapping("/delete")
+    @GetMapping("/items/delete")
     public String deleteProduct(@RequestParam int id) {
         //todo Exception .... deleting photo
         try {
@@ -244,7 +249,7 @@ public class ItemController {
         } catch (Exception ex) {
             System.out.println("Exception" + ex.getMessage());
         }
-        return "redirect:/items";
+        return "redirect:/itemList";
     }
 
 

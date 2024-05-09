@@ -24,7 +24,7 @@ public class SecurityConfig {
         //todo favicon
         http
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/", "/css/**", "/favicon.ico").permitAll()
+                        .requestMatchers("/css/**", "/favicon.ico").permitAll()
                         .requestMatchers("/user-profile").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )
