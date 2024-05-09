@@ -1,6 +1,14 @@
 body{
-    background: #ececec;
+    /*background: #ececec;*/
     padding-top: 50px;
+    background-image: url("../background/city-sky.jpg");
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.body-height{
+    height: 100vh;
 }
 
 .data_table{
