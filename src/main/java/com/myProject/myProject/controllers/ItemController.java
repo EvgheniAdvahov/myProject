@@ -32,7 +32,9 @@ public class ItemController {
     }
 
     @GetMapping
-    public String showMainPage(){
+    public String showMainPage(Model model, Principal principal){
+        String username = principal.getName();
+        model.addAttribute("username",username);
         return "main";
     }
 
