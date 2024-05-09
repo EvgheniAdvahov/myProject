@@ -50,14 +50,15 @@
                 <th>Manufacturer</th>
                 <th>Category</th>
                 <th>Department</th>
+                <th>Status✎</th>
                 <th>Image</th>
                 <th>Serial_№</th>
                 <th>Order_№</th>
                 <th>Inventory_№</th>
                 <th>Action</th>
                 <th>Description</th>
-                <th>Created</th>
                 <th>Modified</th>
+                <th>Created</th>
             </tr>
             </thead>
             <tbody>
@@ -66,6 +67,7 @@
                 <td th:text="${item.getManufacturer}"></td>
                 <td th:text="${item.category}"></td>
                 <td th:text="${item.getDepartment}"></td>
+                <td th:text="${item.status}"></td>
                 <td>
                     <img th:src="@{'/images/' + ${item.imageFileName}}"
                          alt="..." width="100">
@@ -85,13 +87,15 @@
                 <td class="overflow-auto">
                     <div class="table-description-column" th:text="${item.description}">
                     </div>
-
+                </td>
+                <td>
+                    <div class="table-created-column" th:text="${item.modifiedAt}">
+                    </div>
                 </td>
                 <td>
                     <div class="table-created-column" th:text="${item.createdAt}">
                     </div>
                 </td>
-                <td th:text="${item.modifiedAt}"></td>
             </tr>
             </tbody>
             <tfoot class="text-primary">
@@ -100,14 +104,15 @@
                 <th>Manufacturer</th>
                 <th>Category</th>
                 <th>Department</th>
+                <th>Status</th>
                 <th>Image</th>
                 <th>Serial_№</th>
                 <th>Order_№</th>
                 <th>Inventory_№</th>
                 <th>Action</th>
                 <th>Description</th>
-                <th>Created</th>
                 <th>Modified</th>
+                <th>Created</th>
             </tfoot>
         </table>
     </div>

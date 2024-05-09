@@ -20,6 +20,10 @@ body{
     height: 80px;
 }
 
+.table-status-column{
+    width: 100px;
+}
+
 .table-created-column{
     width: 85px;
 }

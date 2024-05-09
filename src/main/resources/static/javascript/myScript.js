@@ -2,13 +2,13 @@ $(document).ready(function () {
 
     var table = $('#example').DataTable({
         scrollX: true,
-        order: [[10, 'desc']],
+        order: [[11, 'desc']],
         buttons: [
             "copy", "csv", "excel", "print", 'colvis'
         ],
         initComplete: function () {
             var filterTable = $('.filter_table'); // Получаем div с классом filter_table
-            this.api().columns([1, 2, 3]).every(function () {
+            this.api().columns([1, 2, 3, 4]).every(function () {
                 let column = this;
 
                 // Create select element
