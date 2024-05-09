@@ -10,9 +10,12 @@
 <body>
 <nav class="navbar fixed-top navbar-light bg-light">
     <div class="container-fluid d-flex justify-content-between align-items-center">
-        <span class="navbar-brand mb-0 h1 text-center">Items</span>
         <div>
-            <span class="navbar-text me-3" th:text="${username}"></span>
+            <a class="link-primary navbar-brand mb-0 h1 text-center" href="/">Home</a>
+            <a class="link-primary navbar-brand mb-0 h1 text-center" href="/itemList">Items</a>
+        </div>
+        <div>
+            <span class="navbar-text me-3 h6" th:text="${username}"></span>
             <a class="btn btn-outline-danger" href="/logout">Logout</a>
         </div>
     </div>
@@ -30,11 +33,11 @@
                     <div class="col-sm-8">
                         <input class="form-control" th:field="${itemDto.name}">
                         <p th:if="${#fields.hasErrors('name')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.name}" ></p>
+                           th:errors="${itemDto.name}"></p>
                     </div>
                 </div>
 
-                <div class="row mb-3" >
+                <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Status</label>
                     <div class="col-sm-8">
                         <select class="form-select" th:field="${itemDto.status}">
@@ -50,7 +53,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-3" >
+                <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Manufacturer</label>
                     <div class="col-sm-8">
                         <select class="form-select" th:field="${itemDto.manufacturer}">
@@ -68,7 +71,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-3" >
+                <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Category</label>
                     <div class="col-sm-8">
                         <select class="form-select" th:field="${itemDto.category}">
@@ -85,7 +88,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-3" >
+                <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Department</label>
                     <div class="col-sm-8">
                         <select class="form-select" th:field="${itemDto.department}">
@@ -109,7 +112,7 @@
                     <div class="col-sm-8">
                         <input class="form-control" th:field="${itemDto.serialNumber}">
                         <p th:if="${#fields.hasErrors('serialNumber')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.serialNumber}" ></p>
+                           th:errors="${itemDto.serialNumber}"></p>
                     </div>
                 </div>
 
@@ -118,7 +121,7 @@
                     <div class="col-sm-8">
                         <input class="form-control" th:field="${itemDto.productOrder}">
                         <p th:if="${#fields.hasErrors('productOrder')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.productOrder}" ></p>
+                           th:errors="${itemDto.productOrder}"></p>
                     </div>
                 </div>
 
@@ -127,7 +130,7 @@
                     <div class="col-sm-8">
                         <input class="form-control" th:field="${itemDto.inventoryNumber}">
                         <p th:if="${#fields.hasErrors('inventoryNumber')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.inventoryNumber}" ></p>
+                           th:errors="${itemDto.inventoryNumber}"></p>
                     </div>
                 </div>
 

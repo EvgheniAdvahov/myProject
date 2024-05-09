@@ -22,9 +22,12 @@
 
 <nav class="navbar fixed-top navbar-light bg-light">
     <div class="container-fluid d-flex justify-content-between align-items-center">
-        <span class="navbar-brand mb-0 h1 text-center">Items</span>
         <div>
-            <span class="navbar-text me-3" th:text="${username}"></span>
+            <a class="link-primary navbar-brand mb-0 h1 text-center" href="/">Home</a>
+            <a class="link-primary navbar-brand mb-0 h1 text-center" href="/itemList">Items</a>
+        </div>
+        <div>
+            <span class="navbar-text me-3 h6" th:text="${username}"></span>
             <a class="btn btn-outline-danger" href="/logout">Logout</a>
         </div>
     </div>
@@ -39,75 +42,75 @@
             <div class="my-buttons"></div>
         </div>
     </div>
-        <div class="data_table">
-            <table id="example" class="table table-striped table-bordered">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Manufacturer</th>
-                    <th>Category</th>
-                    <th>Department</th>
-                    <th>Image</th>
-                    <th>Serial_№</th>
-                    <th>Order_№</th>
-                    <th>Inventory_№</th>
-                    <th>Action</th>
-                    <th>Description</th>
-                    <th>Created</th>
-                    <th>Modified</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="item : ${items}">
-                    <td th:text="${item.name}"></td>
-                    <td th:text="${item.getManufacturer}"></td>
-                    <td th:text="${item.category}"></td>
-                    <td th:text="${item.getDepartment}"></td>
-                    <td>
-                        <img th:src="@{'/images/' + ${item.imageFileName}}"
-                             alt="..." width="100">
-                    </td>
-                    <td th:text="${item.serialNumber}"></td>
-                    <td th:text="${item.productOrder}"></td>
-                    <td th:text="${item.inventoryNumber}"></td>
-                    <td style="white-space: nowrap">
-                        <a th:href="@{/items/edit(id=${item.id})}">
-                            <img src="/icons/edit.svg" alt="Edit" width="32" height="32">
-                        </a>
-                        <a th:href="@{/items/delete(id=${item.id})}"
-                           onclick="return confirm('Are you sure?')">
-                            <img src="/icons/delete.svg" alt="Delete" width="32" height="32">
-                        </a>
-                    </td>
-                    <td class="overflow-auto">
-                        <div class="table-description-column" th:text="${item.description}">
-                        </div>
+    <div class="data_table">
+        <table id="example" class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Manufacturer</th>
+                <th>Category</th>
+                <th>Department</th>
+                <th>Image</th>
+                <th>Serial_№</th>
+                <th>Order_№</th>
+                <th>Inventory_№</th>
+                <th>Action</th>
+                <th>Description</th>
+                <th>Created</th>
+                <th>Modified</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${items}">
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.getManufacturer}"></td>
+                <td th:text="${item.category}"></td>
+                <td th:text="${item.getDepartment}"></td>
+                <td>
+                    <img th:src="@{'/images/' + ${item.imageFileName}}"
+                         alt="..." width="100">
+                </td>
+                <td th:text="${item.serialNumber}"></td>
+                <td th:text="${item.productOrder}"></td>
+                <td th:text="${item.inventoryNumber}"></td>
+                <td style="white-space: nowrap">
+                    <a th:href="@{/items/edit(id=${item.id})}">
+                        <img src="/icons/edit.svg" alt="Edit" width="32" height="32">
+                    </a>
+                    <a th:href="@{/items/delete(id=${item.id})}"
+                       onclick="return confirm('Are you sure?')">
+                        <img src="/icons/delete.svg" alt="Delete" width="32" height="32">
+                    </a>
+                </td>
+                <td class="overflow-auto">
+                    <div class="table-description-column" th:text="${item.description}">
+                    </div>
 
-                    </td>
-                    <td >
-                        <div class="table-created-column" th:text="${item.createdAt}">
-                        </div>
-                    </td>
-                    <td th:text="${item.modifiedAt}"></td>
-                </tr>
-                </tbody>
-                <tfoot class="text-primary">
-                <tr>
-                    <th>Name</th>
-                    <th>Manufacturer</th>
-                    <th>Category</th>
-                    <th>Department</th>
-                    <th>Image</th>
-                    <th>Serial_№</th>
-                    <th>Order_№</th>
-                    <th>Inventory_№</th>
-                    <th>Action</th>
-                    <th>Description</th>
-                    <th>Created</th>
-                    <th>Modified</th>
-                </tfoot>
-            </table>
-        </div>
+                </td>
+                <td>
+                    <div class="table-created-column" th:text="${item.createdAt}">
+                    </div>
+                </td>
+                <td th:text="${item.modifiedAt}"></td>
+            </tr>
+            </tbody>
+            <tfoot class="text-primary">
+            <tr>
+                <th>Name</th>
+                <th>Manufacturer</th>
+                <th>Category</th>
+                <th>Department</th>
+                <th>Image</th>
+                <th>Serial_№</th>
+                <th>Order_№</th>
+                <th>Inventory_№</th>
+                <th>Action</th>
+                <th>Description</th>
+                <th>Created</th>
+                <th>Modified</th>
+            </tfoot>
+        </table>
+    </div>
 
 </div>
 </body>
