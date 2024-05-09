@@ -27,7 +27,7 @@ public class Item {
     @Column(columnDefinition = "TEXT")
     private String description;
     private String createdAt;
-    private LocalDateTime modifiedAt;
+    private String modifiedAt;
     private String imageFileName;
     private String status;
 
