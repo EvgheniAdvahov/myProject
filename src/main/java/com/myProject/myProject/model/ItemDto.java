@@ -21,8 +21,8 @@ public class ItemDto {
     private String department;
 
     //Todo: валидация
-    @NotNull(message = "The serial number required")
-    private Integer serialNumber;
+    @NotEmpty(message = "The serial number required")
+    private String serialNumber;
 
     private Integer productOrder;
 

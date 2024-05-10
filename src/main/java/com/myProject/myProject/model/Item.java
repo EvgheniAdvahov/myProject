@@ -22,7 +22,7 @@ public class Item {
     private String model;
     private Integer productOrder;
     private Integer inventoryNumber;
-    private Integer serialNumber;
+    private String serialNumber;
     private String category;
     @Column(columnDefinition = "TEXT")
     private String description;
