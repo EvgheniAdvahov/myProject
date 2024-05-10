@@ -29,65 +29,68 @@
             <form method="post" enctype="multipart/form-data" th:object="${itemDto}">
 
                 <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Name</label>
-                    <div class="col-sm-8">
-                        <label class="form-control" th:text="${itemDto.name}"></label>
+                    <label class="col-md-3 col-form-label">Name</label>
+                    <div class="col-md-3 col-sm-4">
+                        <div class="form-control" th:text="${itemDto.name}"></div>
                     </div>
                 </div>
 
+
                 <div class="row mb-3">
                     <label class="col-sm-3 col-form-label">Status</label>
-                    <div class="col-sm-8">
+                    <div class="col-sm-2">
                         <label class="form-control" th:text="${itemDto.status}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label class="col-sm-3 col-form-label">Manufacturer</label>
-                    <div class="col-sm-8">
+                    <div class="col-sm-2">
                         <label class="form-control" th:text="${itemDto.manufacturer}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label class="col-sm-3 col-form-label">Category</label>
-                    <div class="col-sm-8">
+                    <div class="col-sm-2">
                         <label class="form-control" th:text="${itemDto.category}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label class="col-sm-3 col-form-label">Department</label>
-                    <div class="col-sm-8">
+                    <div class="col-sm-2">
                         <label class="form-control" th:text="${itemDto.department}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label class="col-sm-3 col-form-label">Serial Number</label>
-                    <div class="col-sm-8">
+                    <div class="col-sm-3">
                         <label class="form-control" th:text="${itemDto.serialNumber}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label class="col-sm-3 col-form-label">Product Order</label>
-                    <div class="col-sm-8">
-                        <label class="form-control" th:text="${itemDto.productOrder}"></label>
+                    <div class="col-sm-2">
+                        <label class="form-control info-placeholder-empty-label"
+                               th:text="${itemDto.productOrder}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label class="col-sm-3 col-form-label">Inventory Number</label>
-                    <div class="col-sm-8">
-                        <label class="form-control" th:text="${itemDto.inventoryNumber}"></label>
+                    <div class="col-sm-2">
+                        <label class="form-control info-placeholder-empty-label"
+                               th:text="${itemDto.inventoryNumber}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label class="col-sm-3 col-form-label">Description</label>
                     <div class="col-sm-8">
-                        <label class="form-control" th:text="${itemDto.description}"></label>
+                        <textarea class="form-control" rows="4" th:text="${itemDto.description}" readonly></textarea>
                     </div>
                 </div>
 
@@ -97,9 +100,14 @@
                     </div>
                 </div>
 
-                <div class="row justify-content-center">
-                        <a class="btn btn-outline-secondary" href="/itemList" role="button">Back to Items</a>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 text-center"> <!-- Измените размер колонки на нужный -->
+                            <a class="btn btn-outline-secondary btn-lg" href="/itemList" role="button">Back to Items</a>
+                        </div>
+                    </div>
                 </div>
+
 
             </form>
         </div>

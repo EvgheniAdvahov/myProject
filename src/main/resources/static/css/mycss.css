@@ -39,7 +39,10 @@ body{
 .btn-main-xl {
     font-size: 30px;
     border-radius: 10px;
-    /*width:50%;    //Specify your width here*/
+}
+
+.info-placeholder-empty-label{
+    height: 35px;
 }
 
 
