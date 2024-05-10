@@ -22,7 +22,7 @@ public class ItemDto {
 
     //Todo: валидация
     @NotNull(message = "The serial number required")
-    private Integer serialNumber;
+    private String serialNumber;
 
     private Integer productOrder;
 
