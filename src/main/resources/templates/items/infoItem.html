@@ -24,147 +24,81 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 mx-auto rounded border p-3 m-3 bg-white">
-            <h2 class="text-center">Edit Item</h2>
+            <h2 class="text-center">Info</h2>
 
             <form method="post" enctype="multipart/form-data" th:object="${itemDto}">
 
                 <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label">Name</label>
+                    <label class="col-sm-3 col-form-label">Name</label>
                     <div class="col-sm-8">
-                        <input class="form-control" th:field="${itemDto.name}">
-                        <p th:if="${#fields.hasErrors('name')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.name}"></p>
+                        <label class="form-control" th:text="${itemDto.name}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label">Status</label>
+                    <label class="col-sm-3 col-form-label">Status</label>
                     <div class="col-sm-8">
-                        <select class="form-select" th:field="${itemDto.status}">
-                            <option value='Other'>Other</option>
-                            <option value='Available'>Available</option>
-                            <option value='In use'>In use</option>
-                            <option value='In repair'>In repair</option>
-                            <option value='Scrapped'>Scrapped</option>
-                            <option value='Broken'>Broken</option>
-                        </select>
-                        <p th:if="${#fields.hasErrors('category')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.category}"></p>
+                        <label class="form-control" th:text="${itemDto.status}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label">Manufacturer</label>
+                    <label class="col-sm-3 col-form-label">Manufacturer</label>
                     <div class="col-sm-8">
-                        <select class="form-select" th:field="${itemDto.manufacturer}">
-                            <option value='Other'>Other</option>
-                            <option value='HP'>HP</option>
-                            <option value='Microsoft'>Microsoft</option>
-                            <option value='Advantech'>Advantech</option>
-                            <option value='Terra PC'>Terra PC</option>
-                            <option value='YIIAMA'>YIIAMA</option>
-                            <option value='Zebra'>Zebra</option>
-                            <option value='Intermec'>Intermec</option>
-                        </select>
-                        <p th:if="${#fields.hasErrors('manufacturer')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.getManufacturer}"></p>
+                        <label class="form-control" th:text="${itemDto.manufacturer}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label">Category</label>
+                    <label class="col-sm-3 col-form-label">Category</label>
                     <div class="col-sm-8">
-                        <select class="form-select" th:field="${itemDto.category}">
-                            <option value='Other'>Other</option>
-                            <option value='PC'>PC</option>
-                            <option value='Laptop'>Laptop</option>
-                            <option value='Monitor'>Monitor</option>
-                            <option value='Printer'>Printer</option>
-                            <option value='Tablet'>Printer</option>
-                            <option value='Scanner'>Scanner</option>
-                        </select>
-                        <p th:if="${#fields.hasErrors('category')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.category}"></p>
+                        <label class="form-control" th:text="${itemDto.category}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label">Department</label>
+                    <label class="col-sm-3 col-form-label">Department</label>
                     <div class="col-sm-8">
-                        <select class="form-select" th:field="${itemDto.department}">
-                            <option value='Other'>Other</option>
-                            <option value='Production'>Production</option>
-                            <option value='Logistics'>Logistics</option>
-                            <option value='Quality'>Quality</option>
-                            <option value='Engineering'>Engineering</option>
-                            <option value='Broker'>Broker</option>
-                            <option value='HR'>HR</option>
-                            <option value='School prod'>School productia</option>
-                            <option value='School'>School students</option>
-                        </select>
-                        <p th:if="${#fields.hasErrors('department')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.department}"></p>
+                        <label class="form-control" th:text="${itemDto.department}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label">Serial Number</label>
+                    <label class="col-sm-3 col-form-label">Serial Number</label>
                     <div class="col-sm-8">
-                        <input class="form-control" th:field="${itemDto.serialNumber}">
-                        <p th:if="${#fields.hasErrors('serialNumber')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.serialNumber}"></p>
+                        <label class="form-control" th:text="${itemDto.serialNumber}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label">Product Order</label>
+                    <label class="col-sm-3 col-form-label">Product Order</label>
                     <div class="col-sm-8">
-                        <input class="form-control" th:field="${itemDto.productOrder}">
-                        <p th:if="${#fields.hasErrors('productOrder')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.productOrder}"></p>
+                        <label class="form-control" th:text="${itemDto.productOrder}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label">Inventory Number</label>
+                    <label class="col-sm-3 col-form-label">Inventory Number</label>
                     <div class="col-sm-8">
-                        <input class="form-control" th:field="${itemDto.inventoryNumber}">
-                        <p th:if="${#fields.hasErrors('inventoryNumber')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.inventoryNumber}"></p>
+                        <label class="form-control" th:text="${itemDto.inventoryNumber}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label">Description</label>
+                    <label class="col-sm-3 col-form-label">Description</label>
                     <div class="col-sm-8">
-                        <textarea class="form-control" th:field="${itemDto.description}"></textarea>
-                        <p th:if="${#fields.hasErrors('description')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.description}"></p>
+                        <label class="form-control" th:text="${itemDto.description}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <div class="offset-sm-4 col-sm-8">
+                    <div class="offset-sm-3 col-sm-8">
                         <img th:src="@{'/images/' + ${item.imageFileName}}" alt="..." width="150">
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label">Image</label>
-                    <div class="col-sm-8">
-                        <input class="form-control" type="file" th:field="${itemDto.imageFile}">
-                        <p th:if="${#fields.hasErrors('imageFile')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.imageFile}"></p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="offset-sm-4 col-sm-4 d-grid">
-                        <button type="submit" class="btn btn-secondary">Submit</button>
-                    </div>
-                    <div class="col-sm-4 d-grid">
-                        <a class="btn btn-outline-secondary" href="/itemList" role="button">Cancel</a>
-                    </div>
+                <div class="row justify-content-center">
+                        <a class="btn btn-outline-secondary" href="/itemList" role="button">Back to Items</a>
                 </div>
 
             </form>

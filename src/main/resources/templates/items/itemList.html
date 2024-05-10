@@ -63,7 +63,9 @@
             </thead>
             <tbody>
             <tr th:each="item : ${items}">
-                <td th:text="${item.name}"></td>
+                <td>
+                    <a class="text-decoration-none" th:href="@{/items/info(id=${item.id})}" th:text="${item.name}"></a>
+                </td>
                 <td th:text="${item.getManufacturer}"></td>
                 <td th:text="${item.category}"></td>
                 <td th:text="${item.getDepartment}"></td>
@@ -75,7 +77,7 @@
                 <td th:text="${item.serialNumber}"></td>
                 <td th:text="${item.productOrder}"></td>
                 <td th:text="${item.inventoryNumber}"></td>
-                <td style="white-space: nowrap">
+                <td>
                     <a th:href="@{/items/edit(id=${item.id})}">
                         <img src="/site-images/icons/edit.svg" alt="Edit" width="32" height="32">
                     </a>

@@ -118,6 +118,34 @@ public class ItemController {
         return "redirect:/itemList";
     }
 
+    @GetMapping("/items/info")
+    public String showInfoPage(Model model, @RequestParam int id, Principal principal){
+        String username = principal.getName();
+        model.addAttribute("username",username);
+        try {
+            Item item = itemService.getById(id);
+            model.addAttribute("item", item);
+
+            ItemDto itemDto = new ItemDto();
+            itemDto.setName(item.getName());
+            itemDto.setStatus(item.getStatus());
+            itemDto.setManufacturer(item.getManufacturer());
+            itemDto.setCategory(item.getCategory());
+            itemDto.setDepartment(item.getDepartment());
+            itemDto.setSerialNumber(item.getSerialNumber());
+            itemDto.setProductOrder(item.getProductOrder());
+            itemDto.setInventoryNumber(item.getInventoryNumber());
+            itemDto.setDescription(item.getDescription());
+
+            model.addAttribute("itemDto", itemDto);
+        } catch (Exception ex) {
+            System.out.println("Exception: " + ex.getMessage());
+            return "redirect:/itemList";
+        }
+
+        return "items/infoItem";
+    }
+
     @GetMapping("/items/edit")
     public String showEditPage(Model model, @RequestParam int id, Principal principal) {
         String username = principal.getName();
