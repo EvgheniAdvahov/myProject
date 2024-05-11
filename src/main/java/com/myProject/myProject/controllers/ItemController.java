@@ -2,8 +2,11 @@ package com.myProject.myProject.controllers;
 
 import com.myProject.myProject.model.Item;
 import com.myProject.myProject.model.ItemDto;
+import com.myProject.myProject.model.User;
 import com.myProject.myProject.service.ItemService;
+import com.myProject.myProject.service.UserService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,23 +26,21 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/")
+@AllArgsConstructor
 public class ItemController {
 
     private final ItemService itemService;
+    private final UserService userService;
 
-    public ItemController(ItemService itemService) {
-        this.itemService = itemService;
-    }
 
     @GetMapping("/login")
-    public String loginPage(){
+    public String loginPage() {
         return "login";
     }
 
     @GetMapping
-    public String showMainPage(Model model, Principal principal){
-        String username = principal.getName();
-        model.addAttribute("username",username);
+    public String showMainPage(Model model, Principal principal) {
+        model.addAttribute("username", userFullName(principal));
         return "main";
     }
 
@@ -49,8 +50,7 @@ public class ItemController {
         List<Item> items = itemService.getAllItems();
         model.addAttribute("items", items);
         //Add username to html
-        String username = principal.getName();
-        model.addAttribute("username",username);
+        model.addAttribute("username", userFullName(principal));
         return "items/itemList";
     }
 
@@ -60,8 +60,7 @@ public class ItemController {
         ItemDto itemDto = new ItemDto();
         model.addAttribute("itemDto", itemDto);
         //Add username to html
-        String username = principal.getName();
-        model.addAttribute("username",username);
+        model.addAttribute("username", userFullName(principal));
         return "items/createItem";
     }
 
@@ -119,9 +118,8 @@ public class ItemController {
     }
 
     @GetMapping("/items/info")
-    public String showInfoPage(Model model, @RequestParam int id, Principal principal){
-        String username = principal.getName();
-        model.addAttribute("username",username);
+    public String showInfoPage(Model model, @RequestParam int id, Principal principal) {
+        model.addAttribute("username", userFullName(principal));
         try {
             Item item = itemService.getById(id);
             model.addAttribute("item", item);
@@ -148,8 +146,7 @@ public class ItemController {
 
     @GetMapping("/items/edit")
     public String showEditPage(Model model, @RequestParam int id, Principal principal) {
-        String username = principal.getName();
-        model.addAttribute("username",username);
+        model.addAttribute("username", userFullName(principal));
         try {
             Item item = itemService.getById(id);
             model.addAttribute("item", item);
@@ -216,7 +213,7 @@ public class ItemController {
             }
             //todo Where Inventory number, probably add modified at
 
-            if (!item.getName().equals(itemDto.getName())){
+            if (!item.getName().equals(itemDto.getName())) {
                 System.out.println("Name modified");
             }
             if (!item.getStatus().equals(itemDto.getStatus())) {
@@ -234,10 +231,10 @@ public class ItemController {
             if (!item.getSerialNumber().equals(itemDto.getSerialNumber())) {
                 System.out.println("Serial number modified");
             }
-            if (item.getProductOrder() !=null && !item.getProductOrder().equals(itemDto.getProductOrder())) {
+            if (item.getProductOrder() != null && !item.getProductOrder().equals(itemDto.getProductOrder())) {
                 System.out.println("Product number modified");
             }
-            if (item.getInventoryNumber() !=null && !item.getInventoryNumber().equals(itemDto.getInventoryNumber())) {
+            if (item.getInventoryNumber() != null && !item.getInventoryNumber().equals(itemDto.getInventoryNumber())) {
                 System.out.println("Inventory number modified");
             }
             if (!item.getDescription().equals(itemDto.getDescription())) {
@@ -289,14 +286,16 @@ public class ItemController {
     }
 
 
-    private String dateTime(){
+    private String dateTime() {
         LocalDateTime createdAt = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH∶mm∶ss");
         return createdAt.format(formatter);
     }
 
-
-
+    private String userFullName(Principal principal) {
+        User user = userService.getUserByUsername(principal.getName());
+        return user.getFullName();
+    }
 
 
 }
