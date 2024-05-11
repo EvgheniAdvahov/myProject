@@ -4,11 +4,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
-@Table(name = "log")
-public class Log {
+@Table(name = "mylog")
+public class MyLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -16,5 +18,13 @@ public class Log {
     @Column(columnDefinition = "TEXT")
     private String description;
     private String createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private Item item;
 
 }

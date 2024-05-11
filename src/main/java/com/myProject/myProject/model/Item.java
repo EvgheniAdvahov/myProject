@@ -4,13 +4,12 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "items")
+@Table(name = "item")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,5 +28,8 @@ public class Item {
     private String description;
     private String createdAt;
     private String modifiedAt;
+
+    @OneToMany(mappedBy = "item")
+    private List<MyLog> myLogs;
 
 }

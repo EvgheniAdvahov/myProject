@@ -2,8 +2,10 @@ package com.myProject.myProject.controllers;
 
 import com.myProject.myProject.model.Item;
 import com.myProject.myProject.model.ItemDto;
+import com.myProject.myProject.model.MyLog;
 import com.myProject.myProject.model.User;
 import com.myProject.myProject.service.ItemService;
+import com.myProject.myProject.service.LogService;
 import com.myProject.myProject.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -22,6 +24,7 @@ import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -31,6 +34,7 @@ public class ItemController {
 
     private final ItemService itemService;
     private final UserService userService;
+    private final LogService logService;
 
 
     @GetMapping("/login")
@@ -65,7 +69,7 @@ public class ItemController {
     }
 
     @PostMapping("/items/create")
-    public String createItem(@Valid @ModelAttribute ItemDto itemDto,
+    public String createItem(@Valid @ModelAttribute ItemDto itemDto, Principal principal,
                              BindingResult result) { // Данные из запроса привязываются к dto и валидируются. BindingResult- инфо об ошибках валидации
         if (itemDto.getImageFile().isEmpty()) {
             result.addError(new FieldError("itemDto", "imageFile", "The image file is required"));
@@ -111,8 +115,17 @@ public class ItemController {
         item.setCreatedAt(formattedDate);
         item.setModifiedAt(formattedDate);
         item.setImageFileName(storageFileName);
-
         itemService.saveToDd(item);
+
+
+        //creating log
+        MyLog myLog = new MyLog();
+        myLog.setDescription(userFullName(principal) +" created " + item.getName());
+        myLog.setItem(item);
+        myLog.setUser(userService.getUserByUsername(principal.getName()));
+        myLog.setCreatedAt(formattedDate);
+        logService.saveLogToDb(myLog);
+
 
         return "redirect:/itemList";
     }
