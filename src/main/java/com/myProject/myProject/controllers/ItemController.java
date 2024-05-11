@@ -120,12 +120,14 @@ public class ItemController {
 
         //creating log
         MyLog myLog = new MyLog();
-        myLog.setDescription(userFullName(principal) +" created " + item.getName());
+        myLog.setDescription(userFullName(principal) +" created " + item.getName()
+                + " serial nr= " + item.getSerialNumber()
+                + " PO= " + item.getProductOrder()
+                + " inv nr= " + item.getInventoryNumber());
         myLog.setItem(item);
         myLog.setUser(userService.getUserByUsername(principal.getName()));
         myLog.setCreatedAt(formattedDate);
         logService.saveLogToDb(myLog);
-
 
         return "redirect:/itemList";
     }
@@ -189,6 +191,7 @@ public class ItemController {
             Model model,
             @RequestParam int id,
             @Valid @ModelAttribute ItemDto itemDto,
+            Principal principal,
             BindingResult result
     ) {
         try {
@@ -226,6 +229,7 @@ public class ItemController {
             }
             //todo Where Inventory number, probably add modified at
 
+            String description;
             if (!item.getName().equals(itemDto.getName())) {
                 System.out.println("Name modified");
             }
@@ -265,8 +269,9 @@ public class ItemController {
             item.setInventoryNumber(itemDto.getInventoryNumber());
             item.setDescription(itemDto.getDescription());
             item.setModifiedAt(dateTime());
-
             itemService.editInDb(item);
+
+            //creating log
 
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
