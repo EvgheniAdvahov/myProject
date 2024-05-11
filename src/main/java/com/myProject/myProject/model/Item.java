@@ -18,17 +18,16 @@ public class Item {
 
     private String name;
     private String manufacturer;
+    private String category;
     private String department;
-    private String model;
+    private String status;
+    private String imageFileName;
+    private String serialNumber;
     private Integer productOrder;
     private Integer inventoryNumber;
-    private String serialNumber;
-    private String category;
     @Column(columnDefinition = "TEXT")
     private String description;
     private String createdAt;
     private String modifiedAt;
-    private String imageFileName;
-    private String status;
 
 }
