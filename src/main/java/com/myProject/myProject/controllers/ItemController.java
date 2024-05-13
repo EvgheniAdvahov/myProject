@@ -140,6 +140,9 @@ public class ItemController {
     @GetMapping("/items/info")
     public String showInfoPage(Model model, @RequestParam int id, Principal principal) {
         model.addAttribute("username", userFullName(principal));
+
+        List<MyLog> myLogList = logService.itemLogs(id);
+        model.addAttribute("itemlog", myLogList);
         try {
             Item item = itemService.getById(id);
             model.addAttribute("item", item);

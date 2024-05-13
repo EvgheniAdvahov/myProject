@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Item Info</title>
+    <title>Item info</title>
     <link href="/css/bootstrap-min.css" rel="stylesheet">
     <link href="/css/mycss.css" rel="stylesheet">
 </head>
@@ -29,73 +29,65 @@
             <form method="post" enctype="multipart/form-data" th:object="${itemDto}">
 
                 <div class="row mb-3">
-                    <label class="col-md-3 col-form-label">Name</label>
-                    <div class="col-md-3 col-sm-4">
-                        <div class="form-control" th:text="${itemDto.name}"></div>
-                    </div>
-                </div>
-
-
-                <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Status</label>
-                    <div class="col-sm-2">
+                    <label class="col-sm-4 col-form-label">Status</label>
+                    <div class="col-sm-8">
                         <label class="form-control" th:text="${itemDto.status}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Manufacturer</label>
-                    <div class="col-sm-2">
+                    <label class="col-sm-4 col-form-label">Manufacturer</label>
+                    <div class="col-sm-8">
                         <label class="form-control" th:text="${itemDto.manufacturer}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Category</label>
-                    <div class="col-sm-2">
+                    <label class="col-sm-4 col-form-label">Category</label>
+                    <div class="col-sm-8">
                         <label class="form-control" th:text="${itemDto.category}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Department</label>
-                    <div class="col-sm-2">
+                    <label class="col-sm-4 col-form-label">Department</label>
+                    <div class="col-sm-8">
                         <label class="form-control" th:text="${itemDto.department}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Serial Number</label>
-                    <div class="col-sm-3">
+                    <label class="col-sm-4 col-form-label">Serial Number</label>
+                    <div class="col-sm-8">
                         <label class="form-control" th:text="${itemDto.serialNumber}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Product Order</label>
-                    <div class="col-sm-2">
+                    <label class="col-sm-4 col-form-label">Product Order</label>
+                    <div class="col-sm-8">
                         <label class="form-control info-placeholder-empty-label"
                                th:text="${itemDto.productOrder}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Inventory Number</label>
-                    <div class="col-sm-2">
+                    <label class="col-sm-4 col-form-label">Inventory Number</label>
+                    <div class="col-sm-8">
                         <label class="form-control info-placeholder-empty-label"
                                th:text="${itemDto.inventoryNumber}"></label>
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Description</label>
+                    <label class="col-sm-4 col-form-label">Description</label>
                     <div class="col-sm-8">
-                        <textarea class="form-control" rows="4" th:text="${itemDto.description}" readonly></textarea>
+                        <textarea class="form-control" rows="2" th:text="${itemDto.description}" readonly></textarea>
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <div class="offset-sm-3 col-sm-8">
+                    <div class="offset-sm-4 col-sm-8">
                         <img th:src="@{'/images/' + ${item.imageFileName}}" alt="..." width="150">
                     </div>
                 </div>
@@ -108,8 +100,31 @@
                     </div>
                 </div>
 
-
             </form>
+            <div class="data_table">
+                <table id="example" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Created</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="log : ${itemlog}">
+                        <td>
+                            <div class="table-created-column" th:text="${log.createdAt}">
+                            </div>
+                        </td>
+                        <td class="overflow-auto">
+                            <div th:text="${log.description}">
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
         </div>
     </div>
 </div>
