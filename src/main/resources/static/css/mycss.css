@@ -7,6 +7,13 @@ body{
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.login-form {
+    background-image: url("../site-images/background/city-sky.jpg");
+    background-color: #ececec;
+    background-size: cover;
+    background-position: center;
+}
 .body-height{
     height: 100vh;
 }
