@@ -24,7 +24,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 mx-auto rounded border p-3 m-3 bg-white">
-            <h2 class="text-center">Info</h2>
+            <h2 class="text-center" th:text="${itemDto.name}"></h2>
 
             <form method="post" enctype="multipart/form-data" th:object="${itemDto}">
 

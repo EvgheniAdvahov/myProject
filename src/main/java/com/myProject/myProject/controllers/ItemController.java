@@ -120,10 +120,15 @@ public class ItemController {
 
         //creating log
         MyLog myLog = new MyLog();
-        myLog.setDescription(userFullName(principal) +" created " + item.getName()
-                + " serial nr= " + item.getSerialNumber()
-                + " PO= " + item.getProductOrder()
-                + " inv nr= " + item.getInventoryNumber());
+        myLog.setDescription(userFullName(principal) + " created " + item.getName()
+                + ", Status= " + item.getStatus()
+                + ", Manufacturer= " + item.getManufacturer()
+                + ", Category= " + item.getCategory()
+                + ", Department= " + item.getDepartment()
+                + ", S/N= " + item.getSerialNumber()
+                + ", PO= " + item.getProductOrder()
+                + ", Inv. nr.= " + item.getInventoryNumber()
+                + ", Desc: " + item.getDescription());
         myLog.setItem(item);
         myLog.setUser(userService.getUserByUsername(principal.getName()));
         myLog.setCreatedAt(formattedDate);
@@ -229,33 +234,42 @@ public class ItemController {
             }
             //todo Where Inventory number, probably add modified at
 
-            String description;
+            StringBuilder description = new StringBuilder();
             if (!item.getName().equals(itemDto.getName())) {
+                description.append("Name to= ").append(itemDto.getName()).append(",");
                 System.out.println("Name modified");
             }
             if (!item.getStatus().equals(itemDto.getStatus())) {
+                description.append(" Status to= ").append(itemDto.getStatus()).append(",");
                 System.out.println("Status modified");
             }
             if (!item.getManufacturer().equals(itemDto.getManufacturer())) {
+                description.append(" Manufacturer to= ").append(itemDto.getManufacturer()).append(",");
                 System.out.println("Manufacturer modified");
             }
             if (!item.getCategory().equals(itemDto.getCategory())) {
+                description.append(" Category to= ").append(itemDto.getCategory()).append(",");
                 System.out.println("Category modified");
             }
             if (!item.getDepartment().equals(itemDto.getDepartment())) {
+                description.append(" Department to= ").append(itemDto.getDepartment()).append(",");
                 System.out.println("Department modified");
             }
             if (!item.getSerialNumber().equals(itemDto.getSerialNumber())) {
+                description.append(" S/N to= ").append(itemDto.getSerialNumber()).append(",");
                 System.out.println("Serial number modified");
             }
             if (item.getProductOrder() != null && !item.getProductOrder().equals(itemDto.getProductOrder())) {
+                description.append(" PO to= ").append(itemDto.getProductOrder()).append(",");
                 System.out.println("Product number modified");
             }
             if (item.getInventoryNumber() != null && !item.getInventoryNumber().equals(itemDto.getInventoryNumber())) {
+                description.append(" Inv. nr. to= ").append(itemDto.getInventoryNumber()).append(",");
                 System.out.println("Inventory number modified");
             }
             if (!item.getDescription().equals(itemDto.getDescription())) {
-                System.out.println("Description number modified");
+                description.append(" Description to= ").append(itemDto.getDescription()).append(",");
+                System.out.println("Description modified");
             }
 
 
@@ -272,6 +286,15 @@ public class ItemController {
             itemService.editInDb(item);
 
             //creating log
+            if (!description.isEmpty()) {
+                description.setCharAt(description.length() - 1, '.');
+                MyLog myLog = new MyLog();
+                myLog.setDescription(userFullName(principal) + " modified: " + description);
+                myLog.setItem(item);
+                myLog.setUser(userService.getUserByUsername(principal.getName()));
+                myLog.setCreatedAt(dateTime());
+                logService.saveLogToDb(myLog);
+            }
 
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
