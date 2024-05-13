@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface LogRepository extends JpaRepository<MyLog, Integer> {
 
-    List<MyLog> findAllByItemId(int itemId);
+    List<MyLog> findAllByItemIdOrderByCreatedAtDesc(int itemId);
 }

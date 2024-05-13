@@ -101,8 +101,8 @@
                 </div>
 
             </form>
-            <div class="data_table">
-                <table id="example" class="table table-striped table-bordered">
+            <div class="data_table" >
+                <table id="log_table" class="table table-striped table-bordered">
                     <thead>
                     <tr>
                         <th>Created</th>
@@ -116,7 +116,7 @@
                             </div>
                         </td>
                         <td class="overflow-auto">
-                            <div th:text="${log.description}">
+                            <div class="log-table-created-at-max-height" th:text="${log.description}">
                             </div>
                         </td>
                     </tr>
