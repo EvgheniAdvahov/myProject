@@ -18,7 +18,9 @@ public class LogService {
     }
 
     public List<MyLog> itemLogs(int itemId){
-        return logRepository.findAllByItemIdOrderByCreatedAtDesc(itemId);
+        return logRepository.findAllByItemId(itemId);
     }
+
+
 
 }
