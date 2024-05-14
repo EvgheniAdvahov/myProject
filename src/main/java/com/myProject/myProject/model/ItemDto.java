@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 @Setter
 public class ItemDto {
-    @NotEmpty(message = "The name is required")
+//    @NotEmpty(message = "The name is required")
     private String name;
 
     @NotEmpty(message = "The brand is required")
@@ -21,7 +21,7 @@ public class ItemDto {
     private String department;
 
     //Todo: валидация
-    @NotEmpty(message = "The serial number required")
+//    @NotEmpty(message = "The serial number required")
     private String serialNumber;
 
     private Integer productOrder;
