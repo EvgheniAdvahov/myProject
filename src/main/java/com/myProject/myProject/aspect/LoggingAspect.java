@@ -43,7 +43,7 @@ public class LoggingAspect {
     @Before("@annotation(ToLogDelete)  && args(id)")
     public void deleteToLog(int id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Item item = itemService.getById(id);
+        Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
             System.out.println(dateTime() + " " + username + " deleted " + item.getName());

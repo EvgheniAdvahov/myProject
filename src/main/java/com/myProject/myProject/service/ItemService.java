@@ -6,10 +6,10 @@ import com.myProject.myProject.aspect.ToLogEdit;
 import com.myProject.myProject.model.Item;
 import com.myProject.myProject.repositories.ItemRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -36,8 +36,8 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
-    public Item getById(int id){
-        return itemRepository.findById(id).get();
+    public Optional<Item> getById(int id) {
+        return itemRepository.findById(id);
     }
 
 }

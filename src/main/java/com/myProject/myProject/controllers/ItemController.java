@@ -145,7 +145,7 @@ public class ItemController {
         List<MyLog> myLogList = logService.itemLogs(id);
         model.addAttribute("itemlog", myLogList);
         try {
-            Item item = itemService.getById(id);
+            Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
             model.addAttribute("item", item);
 
             ItemDto itemDto = new ItemDto();
@@ -172,7 +172,7 @@ public class ItemController {
     public String showEditPage(Model model, @RequestParam int id, Principal principal) {
         model.addAttribute("username", userFullName(principal));
         try {
-            Item item = itemService.getById(id);
+            Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
             model.addAttribute("item", item);
 
             ItemDto itemDto = new ItemDto();
@@ -204,7 +204,7 @@ public class ItemController {
             Principal principal
     ) {
         try {
-            Item item = itemService.getById(id);
+            Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
             model.addAttribute("item", item);
 
             if (result.hasErrors()) {
@@ -311,7 +311,7 @@ public class ItemController {
     public String deleteProduct(@RequestParam int id) {
         //todo Exception .... deleting photo
         try {
-            Item item = itemService.getById(id);
+            Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));;
 
             //delete item image
             Path imagePath = Paths.get("src/main/resources/static/images/" + item.getImageFileName());
