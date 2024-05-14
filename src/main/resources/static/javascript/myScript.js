@@ -34,6 +34,8 @@ $(document).ready(function () {
     });
 
     var table1 = $('#infoTable').DataTable({
+        pageLength : 5,
+        lengthMenu: [[5, 10, 20], [5, 10, 20]],
         scrollX: true,
         order: [[0, 'desc']],
         buttons: ['copy', 'csv', 'excel', 'print']
