@@ -29,10 +29,18 @@ $(document).ready(function () {
                 column.data().unique().sort().each(function (d, j) {
                     select.add(new Option(d));
                 });
-                // filterTable.append(select);
             });
         }
     });
+
+    var table1 = $('#infoTable').DataTable({
+        scrollX: true,
+        order: [[0, 'desc']],
+        buttons: ['copy', 'csv', 'excel', 'print']
+
+
+    });
+    table1.buttons().container().appendTo($('.my-buttons-info'));
 
     table.buttons().container().appendTo($('.my-buttons'));
 
