@@ -40,8 +40,4 @@ public class ItemService {
         return itemRepository.findById(id).get();
     }
 
-
-    public String getItemNameById(int id) {
-        return "Query for getItemNameById";
-    }
 }

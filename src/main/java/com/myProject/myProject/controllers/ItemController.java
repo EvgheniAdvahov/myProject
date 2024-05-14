@@ -321,11 +321,10 @@ public class ItemController {
             } catch (Exception ex) {
                 System.out.println("Exception: " + ex.getMessage());
             }
-
             //deleting product
             itemService.deleteById(id);
         } catch (Exception ex) {
-            System.out.println("Exception" + ex.getMessage());
+            System.out.println("Exception " + ex.getMessage());
         }
         return "redirect:/itemList";
     }

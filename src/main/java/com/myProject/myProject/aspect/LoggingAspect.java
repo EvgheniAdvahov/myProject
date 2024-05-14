@@ -4,6 +4,7 @@ import com.myProject.myProject.model.Item;
 import com.myProject.myProject.service.ItemService;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,13 +40,13 @@ public class LoggingAspect {
         }
     }
 
-    @AfterReturning("@annotation(ToLogDelete)  && args(id)")
+    @Before("@annotation(ToLogDelete)  && args(id)")
     public void deleteToLog(int id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String itemName = itemService.getItemNameById(id);
+        Item item = itemService.getById(id);
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
-            System.out.println(dateTime() + " " + username + " deleted " + itemName);
+            System.out.println(dateTime() + " " + username + " deleted " + item.getName());
         } else {
             System.out.println("Delete in DB: Unknown user");
         }
