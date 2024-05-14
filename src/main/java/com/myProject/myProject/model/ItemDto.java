@@ -21,6 +21,8 @@ public class ItemDto {
     @NotEmpty(message = "The department required")
     private String department;
 
+    private String model;
+
     @NotEmpty(message = "The serial number required")
     private String serialNumber;
 

@@ -19,6 +19,7 @@ public class Item {
     private String manufacturer;
     private String category;
     private String department;
+    private String model;
     private String status;
     private String imageFileName;
     private String serialNumber;

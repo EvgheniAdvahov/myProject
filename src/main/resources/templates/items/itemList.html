@@ -49,6 +49,7 @@
                 <th>Category</th>
                 <th>Department</th>
                 <th>Status✎</th>
+                <th>Model</th>
                 <th>Image</th>
                 <th>Serial_№</th>
                 <th>Order_№</th>
@@ -68,6 +69,11 @@
                 <td th:text="${item.category}"></td>
                 <td th:text="${item.getDepartment}"></td>
                 <td th:text="${item.status}"></td>
+                <td>
+                    <div class="table-model-column">
+                        <div th:text="${item.model}"></div>
+                    </div>
+                </td>
                 <td>
                     <img th:src="@{'/images/' + ${item.imageFileName}}"
                          alt="..." width="100">
@@ -107,6 +113,7 @@
                 <th>Category</th>
                 <th>Department</th>
                 <th>Status</th>
+                <th>Model</th>
                 <th>Image</th>
                 <th>Serial_№</th>
                 <th>Order_№</th>

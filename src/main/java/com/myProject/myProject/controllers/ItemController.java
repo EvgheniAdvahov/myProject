@@ -109,6 +109,7 @@ public class ItemController {
         item.setManufacturer(itemDto.getManufacturer());
         item.setCategory(itemDto.getCategory());
         item.setDepartment(itemDto.getDepartment());
+        item.setModel(itemDto.getModel());
         item.setSerialNumber(itemDto.getSerialNumber());
         item.setProductOrder(itemDto.getProductOrder());
         item.setInventoryNumber(itemDto.getInventoryNumber());
@@ -126,6 +127,7 @@ public class ItemController {
                 + ", Manufacturer= " + item.getManufacturer()
                 + ", Category= " + item.getCategory()
                 + ", Department= " + item.getDepartment()
+                + ", Model= " + item.getModel()
                 + ", S/N= " + item.getSerialNumber()
                 + ", PO= " + item.getProductOrder()
                 + ", Inv. nr.= " + item.getInventoryNumber()
@@ -154,6 +156,7 @@ public class ItemController {
             itemDto.setManufacturer(item.getManufacturer());
             itemDto.setCategory(item.getCategory());
             itemDto.setDepartment(item.getDepartment());
+            itemDto.setModel(item.getModel());
             itemDto.setSerialNumber(item.getSerialNumber());
             itemDto.setProductOrder(item.getProductOrder());
             itemDto.setInventoryNumber(item.getInventoryNumber());
@@ -181,6 +184,7 @@ public class ItemController {
             itemDto.setManufacturer(item.getManufacturer());
             itemDto.setCategory(item.getCategory());
             itemDto.setDepartment(item.getDepartment());
+            itemDto.setModel(item.getModel());
             itemDto.setSerialNumber(item.getSerialNumber());
             itemDto.setProductOrder(item.getProductOrder());
             itemDto.setInventoryNumber(item.getInventoryNumber());
@@ -259,6 +263,10 @@ public class ItemController {
                 description.append(" Department to= ").append(itemDto.getDepartment()).append(",");
                 System.out.println("Department modified");
             }
+            if (!item.getModel().equals(itemDto.getModel())) {
+                description.append(" Model to= ").append(itemDto.getModel()).append(",");
+                System.out.println("Model modified");
+            }
             if (!item.getSerialNumber().equals(itemDto.getSerialNumber())) {
                 description.append(" S/N to= ").append(itemDto.getSerialNumber()).append(",");
                 System.out.println("Serial number modified");
@@ -282,6 +290,7 @@ public class ItemController {
             item.setManufacturer(itemDto.getManufacturer());
             item.setCategory(itemDto.getCategory());
             item.setDepartment(itemDto.getDepartment());
+            item.setModel(itemDto.getModel());
             item.setSerialNumber(itemDto.getSerialNumber());
             item.setProductOrder(itemDto.getProductOrder());
             item.setInventoryNumber(itemDto.getInventoryNumber());
