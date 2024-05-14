@@ -35,7 +35,7 @@ public class LoggingAspect {
             String username = authentication.getName();
             System.out.println(dateTime() + " " + username + " edited " + item.getName());
         } else {
-            System.out.println("Edite in DB: Unknown user");
+            System.out.println("Edit in DB: Unknown user");
         }
     }
 
