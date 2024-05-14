@@ -69,8 +69,9 @@ public class ItemController {
     }
 
     @PostMapping("/items/create")
-    public String createItem(@Valid @ModelAttribute ItemDto itemDto, Principal principal,
-                             BindingResult result) { // Данные из запроса привязываются к dto и валидируются. BindingResult- инфо об ошибках валидации
+    public String createItem(@Valid @ModelAttribute ItemDto itemDto,
+                             BindingResult result,
+                             Principal principal) { // Данные из запроса привязываются к dto и валидируются. BindingResult- инфо об ошибках валидации
         if (itemDto.getImageFile().isEmpty()) {
             result.addError(new FieldError("itemDto", "imageFile", "The image file is required"));
             //вручную добавляем Валидацию для ImageFile
@@ -199,8 +200,8 @@ public class ItemController {
             Model model,
             @RequestParam int id,
             @Valid @ModelAttribute ItemDto itemDto,
-            Principal principal,
-            BindingResult result
+            BindingResult result,
+            Principal principal
     ) {
         try {
             Item item = itemService.getById(id);

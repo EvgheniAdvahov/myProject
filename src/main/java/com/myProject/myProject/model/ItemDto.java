@@ -10,7 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 @Setter
 public class ItemDto {
-//    @NotEmpty(message = "The name is required")
+
+    @NotEmpty(message = "The name is required")
     private String name;
 
     @NotEmpty(message = "The brand is required")
@@ -20,15 +21,14 @@ public class ItemDto {
     @NotEmpty(message = "The department required")
     private String department;
 
-    //Todo: валидация
-//    @NotEmpty(message = "The serial number required")
+    @NotEmpty(message = "The serial number required")
     private String serialNumber;
 
     private Integer productOrder;
 
     private Integer inventoryNumber;
 
-    @Size(max = 2000, message = "The description can't exceed 2000 characters")
+    @Size(max = 300, message = "The description can't exceed 300 characters")
     private String description;
 
     private MultipartFile imageFile;
