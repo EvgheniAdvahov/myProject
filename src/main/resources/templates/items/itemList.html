@@ -37,7 +37,6 @@
         <h1 class="text-center my-0">Items</h1>
         <div class="container-top-buttons">
             <a class="btn btn-secondary" href="/items/create">Add Item</a>
-<!--            <div class="filter_table"></div>-->
             <div class="my-buttons"></div>
         </div>
     </div>
@@ -85,8 +84,10 @@
                         <img src="/site-images/icons/delete.svg" alt="Delete" width="32" height="32">
                     </a>
                 </td>
-                <td class="overflow-auto">
-                    <div class="table-description-column" th:text="${item.description}">
+                <td>
+                    <div class="overflow-auto">
+                        <div class="table-description-column" th:text="${item.description}">
+                        </div>
                     </div>
                 </td>
                 <td>
