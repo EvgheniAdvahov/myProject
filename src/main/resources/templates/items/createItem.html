@@ -139,7 +139,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Description</label>
                     <div class="col-sm-8">
-                        <textarea class="form-control" th:field="${itemDto.description}"></textarea>
+                        <textarea class="form-control" rows="3" th:field="${itemDto.description}"></textarea>
                         <p th:if="${#fields.hasErrors('description')}" th:errorclass="text-danger"
                            th:errors="${itemDto.description}"></p>
                     </div>
