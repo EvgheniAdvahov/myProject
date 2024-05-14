@@ -23,7 +23,7 @@ public class MyLog {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "item_id")
     private Item item;
 

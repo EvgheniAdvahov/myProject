@@ -29,7 +29,8 @@ public class Item {
     private String createdAt;
     private String modifiedAt;
 
-    @OneToMany(mappedBy = "item")
+
+    @OneToMany(mappedBy = "item", cascade = CascadeType.REMOVE)
     private List<MyLog> myLogs;
 
 }
