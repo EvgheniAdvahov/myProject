@@ -5,43 +5,39 @@ import com.myProject.myProject.model.Item;
 import com.myProject.myProject.repositories.ItemRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.TestPropertySource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.Date;
 
-//Аннотация @AutoConfigureTestDatabase используется для указания того,
-// что тест должен использовать реальную базу данных, а не встроенную
-// (например, H2).
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@TestPropertySource(locations = "classpath:application-test.yml")
 public class ItemServiceWithAnnotationIntegrationTest {
+
+    @Autowired
+    private ItemRepository itemRepository;
 
     @Autowired
     private ItemService itemService;
 
-    @MockBean
-    private ItemRepository itemRepository;
-
     @Test
-    public void saveToDbTest(){
+    public void saveToDbIntegrationTest() {
         // Создаем объект Item для сохранения в базе данных
         Item item = new Item();
-        item.setName("Название товара");
-        item.setDescription("Описание товара");
+        // Установите необходимые поля item, если нужно
+        item.setName("Sample Item");
+        item.setCreatedAt(String.valueOf(new Date()));
+        item.setModifiedAt(String.valueOf(new Date()));
 
         // Сохраняем объект в базу данных
         itemService.saveToDd(item);
 
-        // Получаем объект из базы данных по его ID
-        Item savedItem = itemService.getById(item.getId()).get();
-
-        // Проверяем, что объект был успешно сохранен и получен из базы данных
-        assertNotNull(savedItem);
-        assertEquals("Название товара", savedItem.getName());
-        assertEquals("Описание товара", savedItem.getDescription());
-
+        // Проверяем, что объект был сохранен в базу данных
+        Item foundItem = itemRepository.findById(item.getId()).orElse(null);
+        assertThat(foundItem).isNotNull();
+        assertThat(foundItem.getName()).isEqualTo("Sample Item");
     }
+
 }
