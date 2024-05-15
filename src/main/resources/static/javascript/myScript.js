@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     var table = $('#example').DataTable({
         scrollX: true,
-        order: [[11, 'desc']],
+        order: [[12, 'desc']],
         buttons: [
             "copy", "csv", "excel", "print", 'colvis'
         ],

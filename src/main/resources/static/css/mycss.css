@@ -8,6 +8,10 @@ body{
     background-position: center;
 }
 
+.navbar-border-bottom {
+    border-bottom: 2px solid gray; /* Добавляем серую линию снизу */
+}
+
 .login-form {
     background-image: url("../site-images/background/city-sky.jpg");
     background-color: #ececec;
