@@ -24,7 +24,6 @@ import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -117,7 +116,7 @@ public class ItemController {
         item.setCreatedAt(formattedDate);
         item.setModifiedAt(formattedDate);
         item.setImageFileName(storageFileName);
-        itemService.saveToDd(item);
+        itemService.saveToDb(item);
 
 
         //creating log

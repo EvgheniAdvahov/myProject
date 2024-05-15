@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
 
 import java.util.Date;
 
@@ -33,7 +32,7 @@ public class ItemServiceWithAnnotationIntegrationTest {
         item.setModifiedAt(String.valueOf(new Date()));
 
         // Сохраняем объект в базу данных
-        itemService.saveToDd(item);
+        itemService.saveToDb(item);
 
         // Проверяем, что объект был сохранен в базу данных
         Item foundItem = itemRepository.findById(item.getId()).orElse(null);
