@@ -229,7 +229,6 @@ public class ItemController {
                 }
 
                 // save new image file
-                //todo moified insted of created + loging would be not bad
                 MultipartFile image = itemDto.getImageFile();
                 String formattedDate = dateTime();
                 String storageFileName = formattedDate + "_" + image.getOriginalFilename();
@@ -240,7 +239,6 @@ public class ItemController {
                 }
                 item.setImageFileName(storageFileName);
             }
-            //todo Where Inventory number, probably add modified at
 
             StringBuilder description = new StringBuilder();
             if (!item.getName().equals(itemDto.getName())) {
