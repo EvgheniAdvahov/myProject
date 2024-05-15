@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 
@@ -38,13 +39,16 @@ public class ItemServiceWithAnnotationTest {
     }
 
     @Test
-    public void deletyByIdTest(){
+    public void deleteByIdTest(){
         // Создаем объект Item для сохранения в базе данных
         Item item = new Item();
+        item.setName("Sample name");
 
         // Мокируем itemRepository
         when(itemRepository.save(item)).thenReturn(item);
         when(itemRepository.findById(item.getId())).thenReturn(Optional.of(item));
+        // Добавляем мок для метода deleteById
+        doNothing().when(itemRepository).deleteById(item.getId());
 
         // Вызываем метод сохранения в базе данных
         itemService.saveToDb(item);
@@ -54,14 +58,14 @@ public class ItemServiceWithAnnotationTest {
 
         int id = item.getId();
         // Удаляем объект из данных
-        itemService.deleteById(item.getId());
+        itemService.deleteById(id);
 
         // Проверяем, что метод deleteById был вызван один раз с правильным ID
         verify(itemRepository, times(1)).deleteById(item.getId());
 
         // После удаления объекта, он не должен быть найден
-        Item foundItem = itemRepository.findById(id).orElse(null);
+        Optional<Item> foundItem = itemRepository.findById(id);
 
-        assertThat(foundItem).isNull();
+        assertThat(foundItem).isEmpty();
     }
 }
