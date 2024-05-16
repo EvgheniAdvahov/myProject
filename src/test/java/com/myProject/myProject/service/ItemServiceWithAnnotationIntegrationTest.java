@@ -39,5 +39,19 @@ public class ItemServiceWithAnnotationIntegrationTest {
         assertThat(foundItem).isNotNull();
         assertThat(foundItem.getName()).isEqualTo("Sample Item");
     }
+    @Test
+    public void deleteByIdIntegrationTest(){
+        // Создаем объект Item для сохранения в базе данных
+        Item item = new Item();
+        // Установите необходимые поля item, если нужно
+        item.setName("Sample Item");
+        // Сохраняем объект в базу данных
+        itemService.saveToDb(item);
+        // Удаляем объект
+        itemService.deleteById(item.getId());
+        // Проверяем, что объект был сохранен в базу данных
+        Item foundItem = itemRepository.findById(item.getId()).orElse(null);
+        assertThat(foundItem).isNull();
+    }
 
 }

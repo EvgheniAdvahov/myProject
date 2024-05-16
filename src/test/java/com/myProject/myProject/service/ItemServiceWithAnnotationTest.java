@@ -46,7 +46,7 @@ public class ItemServiceWithAnnotationTest {
 
         // Мокируем itemRepository
         when(itemRepository.save(item)).thenReturn(item);
-        when(itemRepository.findById(item.getId())).thenReturn(Optional.of(item));
+        when(itemRepository.findById(item.getId())).thenReturn(Optional.empty());
         // Добавляем мок для метода deleteById
         doNothing().when(itemRepository).deleteById(item.getId());
 
@@ -56,15 +56,14 @@ public class ItemServiceWithAnnotationTest {
         // Проверяем, что метод save был вызван один раз с переданным item
         verify(itemRepository, times(1)).save(item);
 
-        int id = item.getId();
         // Удаляем объект из данных
-        itemService.deleteById(id);
+        itemService.deleteById(item.getId());
 
         // Проверяем, что метод deleteById был вызван один раз с правильным ID
         verify(itemRepository, times(1)).deleteById(item.getId());
 
         // После удаления объекта, он не должен быть найден
-        Optional<Item> foundItem = itemRepository.findById(id);
+        Optional<Item> foundItem = itemService.getById(item.getId());
 
         assertThat(foundItem).isEmpty();
     }
