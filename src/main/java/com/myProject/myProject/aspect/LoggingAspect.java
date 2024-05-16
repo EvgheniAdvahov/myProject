@@ -2,6 +2,7 @@ package com.myProject.myProject.aspect;
 
 import com.myProject.myProject.model.Item;
 import com.myProject.myProject.service.ItemService;
+import lombok.extern.java.Log;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -9,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -47,8 +51,21 @@ public class LoggingAspect {
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
             System.out.println(dateTime() + " " + username + " deleted " + item.getName());
+            writeLogToFile(dateTime() + " " + username + " deleted " + item.getName());
         } else {
             System.out.println("Delete in DB: Unknown user");
+        }
+    }
+
+    // Метод для записи строки в лог
+    private  void writeLogToFile(String message) {
+        String filePath = "Logs/Application.log";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            writer.write(message);
+            writer.newLine();
+            System.out.println("Сообщение успешно записано в файл.");
+        } catch (IOException e) {
+            System.err.println("Ошибка при записи сообщения в файл: " + e.getMessage());
         }
     }
 
