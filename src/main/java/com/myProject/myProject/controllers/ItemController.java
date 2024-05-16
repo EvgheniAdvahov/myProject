@@ -241,7 +241,7 @@ public class ItemController {
                 }
                 item.setImageFileName(storageFileName);
             }
-
+            String itemName = item.getName();
             StringBuilder description = new StringBuilder();
             if (!item.getName().equals(itemDto.getName())) {
                 description.append(" Name to= ").append(itemDto.getName()).append(",");
@@ -296,6 +296,10 @@ public class ItemController {
             item.setInventoryNumber(itemDto.getInventoryNumber());
             item.setDescription(itemDto.getDescription());
             item.setModifiedAt(dateTime());
+            //experimetn
+            if(!description.isEmpty()){
+                description.insert(0, itemName);
+            }
             itemService.editInDb(item, description);
 
             //creating log

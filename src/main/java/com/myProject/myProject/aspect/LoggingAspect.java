@@ -53,7 +53,7 @@ public class LoggingAspect {
             if (!description.isEmpty()) {
                 System.out.println(dateTime() + " " + username + " edited " + item.getName());
                 description.setCharAt(description.length() - 1, '.');
-                writeLogToFile(dateTime() + " " + username + " modified" + description);
+                writeLogToFile(dateTime() + " " + username + " modified " + description);
             }
             // Вызываем метод, к которому применен аспект
             joinPoint.proceed();
