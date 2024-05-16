@@ -260,7 +260,7 @@ public class ItemController {
                 description.append(" Department to= ").append(itemDto.getDepartment()).append(",");
                 System.out.println("Department modified");
             }
-            if (!item.getModel().equals(itemDto.getModel())) {
+            if (item.getModel() != null && !item.getModel().equals(itemDto.getModel())) {
                 description.append(" Model to= ").append(itemDto.getModel()).append(",");
                 System.out.println("Model modified");
             }
@@ -293,7 +293,7 @@ public class ItemController {
             item.setInventoryNumber(itemDto.getInventoryNumber());
             item.setDescription(itemDto.getDescription());
             item.setModifiedAt(dateTime());
-            itemService.editInDb(item);
+            itemService.editInDb(item, description);
 
             //creating log
             if (!description.isEmpty()) {

@@ -3,7 +3,9 @@ package com.myProject.myProject.aspect;
 import com.myProject.myProject.model.Item;
 import com.myProject.myProject.service.ItemService;
 import lombok.extern.java.Log;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,17 +30,24 @@ public class LoggingAspect {
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
             System.out.println(dateTime() + " " + username + " added " + item.getName());
+            writeLogToFile(dateTime() + " " + username + " added " + item.getName());
         } else {
             System.out.println("Saved to DB: Unknown user");
         }
     }
 
-    @AfterReturning("@annotation(ToLogEdit)  && args(item)")
-    public void editToLog(Item item) {
+    @Around("@annotation(ToLogEdit) && execution(* *(..)) && args(item, description)")
+    public void editToLog(ProceedingJoinPoint joinPoint, Item item, StringBuilder description) throws Throwable {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
             System.out.println(dateTime() + " " + username + " edited " + item.getName());
+            //todo проверить елси пустое
+            description.setCharAt(description.length() - 1, '.');
+            writeLogToFile(dateTime() + " " + username + " modified " + description);
+
+            // Вызываем метод, к которому применен аспект
+            joinPoint.proceed();
         } else {
             System.out.println("Edit in DB: Unknown user");
         }
@@ -58,9 +67,9 @@ public class LoggingAspect {
     }
 
     // Метод для записи строки в лог
-    private  void writeLogToFile(String message) {
+    private void writeLogToFile(String message) {
         String filePath = "Logs/Application.log";
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write(message);
             writer.newLine();
             System.out.println("Сообщение успешно записано в файл.");
@@ -69,7 +78,7 @@ public class LoggingAspect {
         }
     }
 
-    private String dateTime(){
+    private String dateTime() {
         LocalDateTime createdAt = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH∶mm∶ss");
         return createdAt.format(formatter);

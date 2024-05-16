@@ -23,7 +23,7 @@ public class ItemService {
     }
 
     @ToLogEdit
-    public void editInDb(Item item){
+    public void editInDb(Item item, StringBuilder description){
         itemRepository.save(item);
     }
 
