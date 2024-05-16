@@ -241,7 +241,8 @@ public class ItemController {
                 }
                 item.setImageFileName(storageFileName);
             }
-            String itemName = item.getName();
+
+
             StringBuilder description = new StringBuilder();
             if (!item.getName().equals(itemDto.getName())) {
                 description.append(" Name to= ").append(itemDto.getName()).append(",");
@@ -284,7 +285,10 @@ public class ItemController {
                 System.out.println("Description modified");
             }
 
+/           //сохраняем имя, всвязи с тем, что оно может быть переопределенно
+            String itemName = item.getName();
 
+            //записываем данные обьекта Dto в Item
             item.setName(itemDto.getName());
             item.setStatus(itemDto.getStatus());
             item.setManufacturer(itemDto.getManufacturer());
@@ -296,10 +300,12 @@ public class ItemController {
             item.setInventoryNumber(itemDto.getInventoryNumber());
             item.setDescription(itemDto.getDescription());
             item.setModifiedAt(dateTime());
-            //experimetn
-            if(!description.isEmpty()){
+
+            //добавляем имя в начало строки если были произведенны изменения
+            if (!description.isEmpty()) {
                 description.insert(0, itemName);
             }
+
             itemService.editInDb(item, description);
 
             //creating log
@@ -324,7 +330,8 @@ public class ItemController {
     public String deleteProduct(@RequestParam int id) {
         //todo Exception .... deleting photo
         try {
-            Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));;
+            Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
+            ;
 
             //delete item image
             Path imagePath = Paths.get("src/main/resources/static/images/" + item.getImageFileName());
