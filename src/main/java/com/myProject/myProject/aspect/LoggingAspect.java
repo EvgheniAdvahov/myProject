@@ -1,8 +1,9 @@
 package com.myProject.myProject.aspect;
 
 import com.myProject.myProject.model.Item;
+import com.myProject.myProject.model.User;
 import com.myProject.myProject.service.ItemService;
-import lombok.extern.java.Log;
+import com.myProject.myProject.service.UserService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
@@ -23,23 +24,26 @@ public class LoggingAspect {
 
     @Autowired
     private ItemService itemService;
+    @Autowired
+    private UserService userService;
 
     @AfterReturning("@annotation(ToLogAdd)  && args(item)")
     public void addToLog(Item item) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
-            System.out.println(dateTime() + " " + username + " added " + item.getName());
-            writeLogToFile(dateTime() + " " + username + " added " + item.getName()
-                    + ", Status= " +item.getStatus()
-                    + ", Manufacturer= " +item.getManufacturer()
-                    + ", Category " +item.getCategory()
-                    + ", Department= " +item.getDepartment()
-                    + ", Model= " +item.getModel()
-                    + ", S/N= " +item.getSerialNumber()
-                    + ", PO= " +item.getProductOrder()
-                    + ", Inv. nr.= " +item.getInventoryNumber()
-                    + ", Descr.= " +item.getDescription());
+            User user = userService.getUserByUsername(username);
+            System.out.println(dateTime() + " " + user.getFullName() + " added " + item.getName());
+            writeLogToFile(dateTime() + " " + user.getFullName() + " added " + item.getName()
+                    + ", Status= " + item.getStatus()
+                    + ", Manufacturer= " + item.getManufacturer()
+                    + ", Category " + item.getCategory()
+                    + ", Department= " + item.getDepartment()
+                    + ", Model= " + item.getModel()
+                    + ", S/N= " + item.getSerialNumber()
+                    + ", PO= " + item.getProductOrder()
+                    + ", Inv. nr.= " + item.getInventoryNumber()
+                    + ", Descr.= " + item.getDescription());
         } else {
             System.out.println("Saved to DB: Unknown user");
         }
@@ -50,10 +54,11 @@ public class LoggingAspect {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
+            User user = userService.getUserByUsername(username);
             if (!description.isEmpty()) {
-                System.out.println(dateTime() + " " + username + " edited " + item.getName());
+                System.out.println(dateTime() + " " + user.getFullName() + " edited " + item.getName());
                 description.setCharAt(description.length() - 1, '.');
-                writeLogToFile(dateTime() + " " + username + " modified " + description);
+                writeLogToFile(dateTime() + " " + user.getFullName() + " modified " + description);
             }
             // Вызываем метод, к которому применен аспект
             joinPoint.proceed();
@@ -68,8 +73,9 @@ public class LoggingAspect {
         Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
-            System.out.println(dateTime() + " " + username + " deleted " + item.getName());
-            writeLogToFile(dateTime() + " " + username + " deleted " + item.getName());
+            User user = userService.getUserByUsername(username);
+            System.out.println(dateTime() + " " + user.getFullName() + " deleted " + item.getName());
+            writeLogToFile(dateTime() + " " + user.getFullName() + " deleted " + item.getName());
         } else {
             System.out.println("Delete in DB: Unknown user");
         }

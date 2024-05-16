@@ -49,8 +49,17 @@
                             <option value='Scrapped'>Scrapped</option>
                             <option value='Broken'>Broken</option>
                         </select>
-                        <p th:if="${#fields.hasErrors('category')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.category}"></p>
+                        <p th:if="${#fields.hasErrors('status')}" th:errorclass="text-danger"
+                           th:errors="${itemDto.status}"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Model</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" th:field="${itemDto.model}">
+                        <p th:if="${#fields.hasErrors('model')}" th:errorclass="text-danger"
+                           th:errors="${itemDto.model}"></p>
                     </div>
                 </div>
 
@@ -123,15 +132,6 @@
                         <input class="form-control" th:field="${itemDto.productOrder}">
                         <p th:if="${#fields.hasErrors('productOrder')}" th:errorclass="text-danger"
                            th:errors="${itemDto.productOrder}"></p>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label">Model</label>
-                    <div class="col-sm-8">
-                        <input class="form-control" th:field="${itemDto.model}">
-                        <p th:if="${#fields.hasErrors('model')}" th:errorclass="text-danger"
-                           th:errors="${itemDto.model}"></p>
                     </div>
                 </div>
 

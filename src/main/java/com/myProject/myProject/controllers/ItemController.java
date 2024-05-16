@@ -49,7 +49,6 @@ public class ItemController {
 
     @GetMapping("/itemList")
     public String showItemList(Model model, Principal principal) {
-
         List<Item> items = itemService.getAllItems();
         model.addAttribute("items", items);
         //Add username to html
@@ -83,12 +82,11 @@ public class ItemController {
         //save image file
         MultipartFile image = itemDto.getImageFile();
         String formattedDate = dateTime();
-
         String storageFileName = formattedDate + "_" + image.getOriginalFilename();
+
         try {
             String uploadDir = "src/main/resources/static/images/";
             Path uploadPath = Paths.get(uploadDir);
-
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
             }
@@ -145,7 +143,6 @@ public class ItemController {
     @GetMapping("/items/info")
     public String showInfoPage(Model model, @RequestParam int id, Principal principal) {
         model.addAttribute("username", userFullName(principal));
-
         List<MyLog> myLogList = logService.itemLogs(id);
         model.addAttribute("itemlog", myLogList);
         try {
@@ -169,7 +166,6 @@ public class ItemController {
             System.out.println("Exception: " + ex.getMessage());
             return "redirect:/itemList";
         }
-
         return "items/infoItem";
     }
 
@@ -242,7 +238,6 @@ public class ItemController {
                 item.setImageFileName(storageFileName);
             }
 
-
             StringBuilder description = new StringBuilder();
             if (!item.getName().equals(itemDto.getName())) {
                 description.append(" Name to= ").append(itemDto.getName()).append(",");
@@ -285,7 +280,7 @@ public class ItemController {
                 System.out.println("Description modified");
             }
 
-          //сохраняем имя, всвязи с тем, что оно может быть переопределенно
+            //сохраняем имя, всвязи с тем, что оно может быть переопределенно
             String itemName = item.getName();
 
             //записываем данные обьекта Dto в Item
@@ -322,7 +317,6 @@ public class ItemController {
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
         }
-
         return "redirect:/itemList";
     }
 
@@ -331,8 +325,6 @@ public class ItemController {
         //todo Exception .... deleting photo
         try {
             Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
-            ;
-
             //delete item image
             Path imagePath = Paths.get("src/main/resources/static/images/" + item.getImageFileName());
 
@@ -348,7 +340,6 @@ public class ItemController {
         }
         return "redirect:/itemList";
     }
-
 
     private String dateTime() {
         LocalDateTime createdAt = LocalDateTime.now();
