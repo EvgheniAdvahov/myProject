@@ -30,7 +30,16 @@ public class LoggingAspect {
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
             System.out.println(dateTime() + " " + username + " added " + item.getName());
-            writeLogToFile(dateTime() + " " + username + " added " + item.getName());
+            writeLogToFile(dateTime() + " " + username + " added " + item.getName()
+                    + ", Status= " +item.getStatus()
+                    + ", Manufacturer= " +item.getManufacturer()
+                    + ", Category " +item.getCategory()
+                    + ", Department= " +item.getDepartment()
+                    + ", Model= " +item.getModel()
+                    + ", S/N= " +item.getSerialNumber()
+                    + ", PO= " +item.getProductOrder()
+                    + ", Inv. nr.= " +item.getInventoryNumber()
+                    + ", Descr.= " +item.getDescription());
         } else {
             System.out.println("Saved to DB: Unknown user");
         }
