@@ -11,19 +11,17 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 public class ItemDto {
 
-    @NotEmpty(message = "The name is required")
+    @NotEmpty(message = "Name is required")
+    @Size(max = 7, message = "Name couldn't exceed 7 characters")
     private String name;
 
-    @NotEmpty(message = "The brand is required")
     private String manufacturer;
-    @NotEmpty(message = "The category is required")
     private String category;
-    @NotEmpty(message = "The department required")
     private String department;
 
     private String model;
 
-    @NotEmpty(message = "The serial number required")
+    @NotEmpty(message = "Serial number required")
     private String serialNumber;
 
     private Integer productOrder;
