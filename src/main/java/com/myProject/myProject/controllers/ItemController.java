@@ -285,7 +285,7 @@ public class ItemController {
                 System.out.println("Description modified");
             }
 
-/           //сохраняем имя, всвязи с тем, что оно может быть переопределенно
+          //сохраняем имя, всвязи с тем, что оно может быть переопределенно
             String itemName = item.getName();
 
             //записываем данные обьекта Dto в Item
