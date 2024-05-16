@@ -244,7 +244,7 @@ public class ItemController {
 
             StringBuilder description = new StringBuilder();
             if (!item.getName().equals(itemDto.getName())) {
-                description.append("Name to= ").append(itemDto.getName()).append(",");
+                description.append(" Name to= ").append(itemDto.getName()).append(",");
                 System.out.println("Name modified");
             }
             if (!item.getStatus().equals(itemDto.getStatus())) {
