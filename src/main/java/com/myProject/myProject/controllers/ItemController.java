@@ -116,6 +116,9 @@ public class ItemController {
         item.setCreatedAt(formattedDate);
         item.setModifiedAt(formattedDate);
         item.setImageFileName(storageFileName);
+
+        //todo to manual logging description
+
         itemService.saveToDb(item);
 
 
