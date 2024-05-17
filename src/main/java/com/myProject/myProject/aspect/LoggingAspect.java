@@ -87,7 +87,6 @@ public class LoggingAspect {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write(message);
             writer.newLine();
-            System.out.println("Сообщение успешно записано в файл.");
         } catch (IOException e) {
             System.err.println("Ошибка при записи сообщения в файл: " + e.getMessage());
         }

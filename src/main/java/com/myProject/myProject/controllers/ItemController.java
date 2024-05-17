@@ -249,43 +249,33 @@ public class ItemController {
             StringBuilder description = new StringBuilder();
             if (!item.getName().equals(itemDto.getName())) {
                 description.append(" Name to= ").append(itemDto.getName()).append(",");
-                System.out.println("Name modified");
             }
             if (!item.getStatus().equals(itemDto.getStatus())) {
                 description.append(" Status to= ").append(itemDto.getStatus()).append(",");
-                System.out.println("Status modified");
             }
             if (!item.getManufacturer().equals(itemDto.getManufacturer())) {
                 description.append(" Manufacturer to= ").append(itemDto.getManufacturer()).append(",");
-                System.out.println("Manufacturer modified");
             }
             if (!item.getCategory().equals(itemDto.getCategory())) {
                 description.append(" Category to= ").append(itemDto.getCategory()).append(",");
-                System.out.println("Category modified");
             }
             if (!item.getDepartment().equals(itemDto.getDepartment())) {
                 description.append(" Department to= ").append(itemDto.getDepartment()).append(",");
-                System.out.println("Department modified");
             }
             if (item.getModel() != null && !item.getModel().equals(itemDto.getModel())) {
                 description.append(" Model to= ").append(itemDto.getModel()).append(",");
-                System.out.println("Model modified");
             }
             if (!item.getSerialNumber().equals(itemDto.getSerialNumber())) {
                 description.append(" S/N to= ").append(itemDto.getSerialNumber()).append(",");
-                System.out.println("Serial number modified");
             }
             if (item.getProductOrder() != null && !item.getProductOrder().equals(itemDto.getProductOrder())) {
                 description.append(" PO to= ").append(itemDto.getProductOrder()).append(",");
-                System.out.println("Product number modified");
             }
             if (item.getInventoryNumber() != null && !item.getInventoryNumber().equals(itemDto.getInventoryNumber())) {
                 description.append(" Inv. nr. to= ").append(itemDto.getInventoryNumber()).append(",");
-                System.out.println("Inventory number modified");
             }
             if (!item.getDescription().equals(itemDto.getDescription())) {
                 description.append(" Description to= ").append(itemDto.getDescription()).append(",");
-                System.out.println("Description modified");
             }
 
             //сохраняем имя, всвязи с тем, что оно может быть переопределенно
@@ -330,7 +320,6 @@ public class ItemController {
 
     @GetMapping("/items/delete")
     public String deleteProduct(@RequestParam int id) {
-        //todo Exception .... deleting photo
         try {
             Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
             //delete item image
