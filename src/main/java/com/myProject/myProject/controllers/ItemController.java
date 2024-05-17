@@ -7,6 +7,8 @@ import com.myProject.myProject.model.User;
 import com.myProject.myProject.service.ItemService;
 import com.myProject.myProject.service.LogService;
 import com.myProject.myProject.service.UserService;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Metrics;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,9 @@ import java.util.List;
 @RequestMapping("/")
 @AllArgsConstructor
 public class ItemController {
+
+    //graphana prometeus
+    private final Counter itemsCounter = Metrics.counter("my_items_counter");
 
     private final ItemService itemService;
     private final UserService userService;
@@ -137,6 +142,7 @@ public class ItemController {
         myLog.setCreatedAt(formattedDate);
         logService.saveLogToDb(myLog);
 
+        itemsCounter.increment();
         return "redirect:/itemList";
     }
 
@@ -338,6 +344,7 @@ public class ItemController {
         } catch (Exception ex) {
             System.out.println("Exception " + ex.getMessage());
         }
+
         return "redirect:/itemList";
     }
 

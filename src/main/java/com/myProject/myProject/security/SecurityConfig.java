@@ -21,10 +21,9 @@ public class SecurityConfig {
     private AuthHandler authHandler;
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        //todo favicon
         http
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/css/**", "/favicon.ico","/login").permitAll()
+                        .requestMatchers("/css/**", "/favicon.ico","/login", "/actuator/prometheus").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
