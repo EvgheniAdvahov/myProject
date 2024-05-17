@@ -13,6 +13,7 @@ import java.util.List;
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //probably long
     private int id;
 
     private String name;
@@ -23,8 +24,11 @@ public class Item {
     private String status;
     private String imageFileName;
     private String serialNumber;
+    //todo String
     private Integer productOrder;
+    //probably long
     private Integer inventoryNumber;
+
     @Column(columnDefinition = "TEXT")
     private String description;
     private String createdAt;
