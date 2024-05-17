@@ -34,7 +34,9 @@ import java.util.List;
 public class ItemController {
 
     //graphana prometeus
-    private final Counter itemsCounter = Metrics.counter("my_items_counter");
+    private final Counter itemsCounterAdded = Metrics.counter("my_items_added_counter");
+    private final Counter itemsCounterRemoved = Metrics.counter("my_items_removed_counter");
+
 
     private final ItemService itemService;
     private final UserService userService;
@@ -142,7 +144,7 @@ public class ItemController {
         myLog.setCreatedAt(formattedDate);
         logService.saveLogToDb(myLog);
 
-        itemsCounter.increment();
+        itemsCounterAdded.increment();
         return "redirect:/itemList";
     }
 
@@ -344,7 +346,7 @@ public class ItemController {
         } catch (Exception ex) {
             System.out.println("Exception " + ex.getMessage());
         }
-
+        itemsCounterRemoved.increment();
         return "redirect:/itemList";
     }
 
