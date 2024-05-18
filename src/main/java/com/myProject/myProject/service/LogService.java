@@ -17,7 +17,7 @@ public class LogService {
         logRepository.save(myLog);
     }
 
-    public List<MyLog> itemLogs(int itemId){
+    public List<MyLog> getItemLogsById(int itemId){
         return logRepository.findAllByItemId(itemId);
     }
 

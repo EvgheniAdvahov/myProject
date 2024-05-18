@@ -91,3 +91,8 @@
 17-05-2024 19∶25∶57 First User added C032632, Status= Other, Manufacturer= Other, Category Other, Department= Other, Model= , S/N= 1234, PO= null, Inv. nr.= null, Descr.= 
 17-05-2024 19∶30∶45 First User deleted C032632
 17-05-2024 19∶46∶25 First User added C032632, Status= Other, Manufacturer= Other, Category Other, Department= Other, Model= , S/N= 1234, PO= null, Inv. nr.= null, Descr.= 
+18-05-2024 12∶58∶11 Second User added С012345, Status= Available, Manufacturer= HP, Category PC, Department= Production, Model= G5, S/N= 23456, PO= 1234567890, Inv. nr.= 987654321, Descr.= Description
+18-05-2024 13∶23∶53 Second User added С012345, Status= Other, Manufacturer= Other, Category Other, Department= Other, Model= , S/N= 23456, PO= null, Inv. nr.= null, Descr.= 
+18-05-2024 13∶24∶19 Second User modified С012345 Status to= In use, Manufacturer to= Terra PC, Model to= G5.
+18-05-2024 15∶43∶22 Second User modified С012345 Description to= rfgjhkl.
+18-05-2024 15∶44∶41 Second User modified С012345 Status to= Available, Manufacturer to= Microsoft, Category to= Laptop, Department to= Logistics, Model to= G52, Description to= rtyjhkl.

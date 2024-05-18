@@ -33,15 +33,14 @@ import java.util.List;
 @AllArgsConstructor
 public class ItemController {
 
+    //todo magic variables
+    private static final String UPLOAD_DIR_IMG = "src/main/resources/static/images/";
     //graphana prometeus
     private final Counter itemsCounterAdded = Metrics.counter("my_items_added_counter");
     private final Counter itemsCounterRemoved = Metrics.counter("my_items_removed_counter");
-
-
     private final ItemService itemService;
     private final UserService userService;
     private final LogService logService;
-
 
     @GetMapping("/login")
     public String loginPage() {
@@ -50,7 +49,7 @@ public class ItemController {
 
     @GetMapping
     public String showMainPage(Model model, Principal principal) {
-        model.addAttribute("username", userFullName(principal));
+        model.addAttribute("username", getUserFullName(principal));
         return "main";
     }
 
@@ -59,7 +58,7 @@ public class ItemController {
         List<Item> items = itemService.getAllItems();
         model.addAttribute("items", items);
         //Add username to html
-        model.addAttribute("username", userFullName(principal));
+        model.addAttribute("username", getUserFullName(principal));
         return "items/itemList";
     }
 
@@ -69,7 +68,7 @@ public class ItemController {
         ItemDto itemDto = new ItemDto();
         model.addAttribute("itemDto", itemDto);
         //Add username to html
-        model.addAttribute("username", userFullName(principal));
+        model.addAttribute("username", getUserFullName(principal));
         return "items/createItem";
     }
 
@@ -129,7 +128,7 @@ public class ItemController {
 
         //creating log
         MyLog myLog = new MyLog();
-        myLog.setDescription(userFullName(principal) + " created " + item.getName()
+        myLog.setDescription(getUserFullName(principal) + " created " + item.getName()
                 + ", Status= " + item.getStatus()
                 + ", Manufacturer= " + item.getManufacturer()
                 + ", Category= " + item.getCategory()
@@ -150,24 +149,15 @@ public class ItemController {
 
     @GetMapping("/items/info")
     public String showInfoPage(Model model, @RequestParam int id, Principal principal) {
-        model.addAttribute("username", userFullName(principal));
-        List<MyLog> myLogList = logService.itemLogs(id);
+        model.addAttribute("username", getUserFullName(principal));
+        List<MyLog> myLogList = logService.getItemLogsById(id);
         model.addAttribute("itemlog", myLogList);
         try {
             Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
             model.addAttribute("item", item);
 
-            ItemDto itemDto = new ItemDto();
-            itemDto.setName(item.getName());
-            itemDto.setStatus(item.getStatus());
-            itemDto.setManufacturer(item.getManufacturer());
-            itemDto.setCategory(item.getCategory());
-            itemDto.setDepartment(item.getDepartment());
-            itemDto.setModel(item.getModel());
-            itemDto.setSerialNumber(item.getSerialNumber());
-            itemDto.setProductOrder(item.getProductOrder());
-            itemDto.setInventoryNumber(item.getInventoryNumber());
-            itemDto.setDescription(item.getDescription());
+            //transfer data from item to itemDto
+            ItemDto itemDto = convertToItemDto(item);
 
             model.addAttribute("itemDto", itemDto);
         } catch (Exception ex) {
@@ -179,22 +169,13 @@ public class ItemController {
 
     @GetMapping("/items/edit")
     public String showEditPage(Model model, @RequestParam int id, Principal principal) {
-        model.addAttribute("username", userFullName(principal));
+        model.addAttribute("username", getUserFullName(principal));
         try {
             Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
             model.addAttribute("item", item);
 
-            ItemDto itemDto = new ItemDto();
-            itemDto.setName(item.getName());
-            itemDto.setStatus(item.getStatus());
-            itemDto.setManufacturer(item.getManufacturer());
-            itemDto.setCategory(item.getCategory());
-            itemDto.setDepartment(item.getDepartment());
-            itemDto.setModel(item.getModel());
-            itemDto.setSerialNumber(item.getSerialNumber());
-            itemDto.setProductOrder(item.getProductOrder());
-            itemDto.setInventoryNumber(item.getInventoryNumber());
-            itemDto.setDescription(item.getDescription());
+            //transfer data from item to itemDto
+            ItemDto itemDto = convertToItemDto(item);
 
             model.addAttribute("itemDto", itemDto);
         } catch (Exception ex) {
@@ -305,7 +286,7 @@ public class ItemController {
             if (!description.isEmpty()) {
                 description.setCharAt(description.length() - 1, '.');
                 MyLog myLog = new MyLog();
-                myLog.setDescription(userFullName(principal) + " modified: " + description);
+                myLog.setDescription(getUserFullName(principal) + " modified: " + description);
                 myLog.setItem(item);
                 myLog.setUser(userService.getUserByUsername(principal.getName()));
                 myLog.setCreatedAt(dateTime());
@@ -339,13 +320,28 @@ public class ItemController {
         return "redirect:/itemList";
     }
 
+    private ItemDto convertToItemDto(Item item) {
+        ItemDto itemDto = new ItemDto();
+        itemDto.setName(item.getName());
+        itemDto.setStatus(item.getStatus());
+        itemDto.setManufacturer(item.getManufacturer());
+        itemDto.setCategory(item.getCategory());
+        itemDto.setDepartment(item.getDepartment());
+        itemDto.setModel(item.getModel());
+        itemDto.setSerialNumber(item.getSerialNumber());
+        itemDto.setProductOrder(item.getProductOrder());
+        itemDto.setInventoryNumber(item.getInventoryNumber());
+        itemDto.setDescription(item.getDescription());
+        return itemDto;
+    }
+
     private String dateTime() {
         LocalDateTime createdAt = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH∶mm∶ss");
         return createdAt.format(formatter);
     }
 
-    private String userFullName(Principal principal) {
+    private String getUserFullName(Principal principal) {
         User user = userService.getUserByUsername(principal.getName());
         return user.getFullName();
     }
