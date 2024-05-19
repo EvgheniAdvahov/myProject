@@ -255,19 +255,21 @@ public class ItemController {
     public String deleteProduct(@RequestParam int id) {
         try {
             Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
+
             //delete item image
             Path imagePath = Paths.get(UPLOAD_DIR_IMG + item.getImageFileName());
-
             try {
                 Files.delete(imagePath);
             } catch (Exception ex) {
                 System.out.println("Exception: " + ex.getMessage());
             }
+
             //deleting product
             itemService.deleteById(id);
         } catch (Exception ex) {
             System.out.println("Exception " + ex.getMessage());
         }
+        //prometheus->grafana
         itemsCounterRemoved.increment();
         return "redirect:/itemList";
     }
@@ -275,7 +277,7 @@ public class ItemController {
     private String descriptionOnSave(Principal principal, Item item){
         String description;
         return description = getUserFullName(principal)
-                + " created " + item.getName()
+                + " added " + item.getName()
                 + ", Status= " + item.getStatus()
                 + ", Manufacturer= " + item.getManufacturer()
                 + ", Category= " + item.getCategory()

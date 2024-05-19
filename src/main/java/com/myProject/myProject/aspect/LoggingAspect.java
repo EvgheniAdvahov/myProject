@@ -22,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 @Aspect
 public class LoggingAspect {
 
+    private static final String UPLOAD_DIR_LOG = "Logs/Application.log";
     @Autowired
     private ItemService itemService;
     @Autowired
@@ -49,8 +50,7 @@ public class LoggingAspect {
 
     // Метод для записи строки в лог
     private void writeLogToFile(String message) {
-        String filePath = "Logs/Application.log";
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(UPLOAD_DIR_LOG, true))) {
             writer.write(message);
             writer.newLine();
         } catch (IOException e) {
