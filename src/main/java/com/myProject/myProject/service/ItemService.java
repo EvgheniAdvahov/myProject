@@ -1,8 +1,7 @@
 package com.myProject.myProject.service;
 
-import com.myProject.myProject.aspect.ToLogAdd;
+import com.myProject.myProject.aspect.ToLogSave;
 import com.myProject.myProject.aspect.ToLogDelete;
-import com.myProject.myProject.aspect.ToLogEdit;
 import com.myProject.myProject.model.Item;
 import com.myProject.myProject.repositories.ItemRepository;
 import lombok.AllArgsConstructor;
@@ -17,13 +16,8 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    @ToLogAdd
+    @ToLogSave
     public void saveToDb(Item item, String description){
-        itemRepository.save(item);
-    }
-
-    @ToLogEdit
-    public void editInDb(Item item, StringBuilder description){
         itemRepository.save(item);
     }
 

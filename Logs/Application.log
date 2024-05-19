@@ -132,3 +132,10 @@ Second User created С012346, Status= Other, Manufacturer= Other, Category= Othe
 19-05-2024 16∶45∶00 First User modified С012345 Name to= С0123, Status to= Available, Manufacturer to= Microsoft, Category to= PC, Department to= Logistics, Model to= G5.
 19-05-2024 16∶47∶59 First User created С012345, Status= Other, Manufacturer= Other, Category= Other, Department= Other, Model= , S/N= 23456, PO= null, Inv. nr.= null, Desc: 
 19-05-2024 16∶50∶49 First User created С012345, Status= Other, Manufacturer= Other, Category= Other, Department= Other, Model= , S/N= 23456, PO= null, Inv. nr.= null, Desc: 
+19-05-2024 17∶04∶48 First User modified С012345 Name to= С01234, Status to= Available.
+19-05-2024 17∶18∶38 First User modified С01234 Status to= Available.
+19-05-2024 17∶19∶32 First User modified С01234 Name to= С012345, Status to= In use, Manufacturer to= HP, Category to= Laptop, Department to= Production, Model to= G524, Description to= asdgh.
+19-05-2024 17∶20∶43 First User created С01, Status= Other, Manufacturer= Other, Category= Other, Department= Other, Model= , S/N= 23456, PO= null, Inv. nr.= null, Desc: 
+19-05-2024 17∶21∶01 First User deleted С012345
+19-05-2024 17∶23∶31 First User created С012345, Status= Other, Manufacturer= Other, Category= Other, Department= Other, Model= , S/N= 123, PO= null, Inv. nr.= null, Desc: 
+19-05-2024 17∶23∶52 First User modified С012345 Status to= Available.

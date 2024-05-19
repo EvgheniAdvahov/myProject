@@ -27,28 +27,11 @@ public class LoggingAspect {
     @Autowired
     private UserService userService;
 
-    @AfterReturning("@annotation(ToLogAdd) && args(item, description)")
+    @AfterReturning("@annotation(com.myProject.myProject.aspect.ToLogSave) && args(item, description)")
     public void addToLog(Item item, String description) {
         writeLogToFile(dateTime() + " " + description);
     }
 
-    @Around("@annotation(ToLogEdit) && execution(* *(..)) && args(item, description)")
-    public void editToLog(ProceedingJoinPoint joinPoint, Item item, StringBuilder description) throws Throwable {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            String username = authentication.getName();
-            User user = userService.getUserByUsername(username);
-            if (!description.isEmpty()) {
-                System.out.println(dateTime() + " " + user.getFullName() + " edited " + item.getName());
-                description.setCharAt(description.length() - 1, '.');
-                writeLogToFile(dateTime() + " " + user.getFullName() + " modified " + description);
-            }
-            // Вызываем метод, к которому применен аспект
-            joinPoint.proceed();
-        } else {
-            System.out.println("Edit in DB: Unknown user");
-        }
-    }
 
     @Before("@annotation(ToLogDelete)  && args(id)")
     public void deleteToLog(int id) {

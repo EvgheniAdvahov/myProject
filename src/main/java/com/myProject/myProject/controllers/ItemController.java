@@ -215,7 +215,7 @@ public class ItemController {
             }
 
             //create description for Logs
-            StringBuilder description = descriptionOnEdit(item, itemDto);
+            String description = descriptionOnEdit(principal, item, itemDto);
 
 
             //записываем данные обьекта Dto в Item
@@ -233,12 +233,12 @@ public class ItemController {
 
 
             // Saving edited item and transfer description for Application log
-            itemService.editInDb(item, description);
+            itemService.saveToDb(item, description);
 
             //Saving log in database
             if (!description.isEmpty()) {
                 MyLog myLog = new MyLog();
-                myLog.setDescription(getUserFullName(principal) + " modified: " + description);
+                myLog.setDescription(description);
                 myLog.setItem(item);
                 myLog.setUser(userService.getUserByUsername(principal.getName()));
                 myLog.setCreatedAt(dateTime());
@@ -287,7 +287,7 @@ public class ItemController {
                 + ", Desc: " + item.getDescription();
     }
 
-    private StringBuilder descriptionOnEdit(Item item, ItemDto itemDto){
+    private String descriptionOnEdit(Principal principal, Item item, ItemDto itemDto){
         StringBuilder description = new StringBuilder();
         //Save name, in case that it could be redefined
         String itemName = item.getName();
@@ -324,11 +324,11 @@ public class ItemController {
         }
         //Add name to the beginning of the line if changes have been made
         if (!description.isEmpty()) {
-            description.insert(0, itemName);
+            description.insert(0, getUserFullName(principal) + " modified " +  itemName);
         //modify last symbol to "." in case if ","
             description.setCharAt(description.length() - 1, '.');
         }
-        return description;
+        return description.toString();
     }
 
     private ItemDto convertToItemDto(Item item) {
