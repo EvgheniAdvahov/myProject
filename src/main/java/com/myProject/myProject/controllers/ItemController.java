@@ -66,8 +66,8 @@ public class ItemController {
 
     @GetMapping("/items/create")
     public String showCreatePage(Model model, Principal principal) {
-        ItemDto itemDto = new ItemDto();
-        model.addAttribute("itemDto", itemDto);
+        //нужна ли эта строчка
+        model.addAttribute("itemDto", new ItemDto());
         //Add user full name to html page
         model.addAttribute("username", getUserFullName(principal));
         return "items/createItem";
@@ -151,39 +151,64 @@ public class ItemController {
         model.addAttribute("username", getUserFullName(principal));
         List<MyLog> myLogList = logService.getItemLogsById(id);
         model.addAttribute("itemlog", myLogList);
-        try {
-            Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
-            model.addAttribute("item", item);
-
-            //transfer data from item to itemDto
-            ItemDto itemDto = convertToItemDto(item);
-
-            model.addAttribute("itemDto", itemDto);
-        } catch (Exception ex) {
-            System.out.println("Exception: " + ex.getMessage());
+        Optional<Item> optionalItem = itemService.getById(id);
+        if (optionalItem.isEmpty()) {
             return "redirect:/itemList";
         }
+        //todo
+        //нужен ли сдесь ItemDto?
+        //нужно ли в модель передавать item?
+        Item item = optionalItem.get();
+        model.addAttribute("item", item);
+        model.addAttribute("itemDto", convertToItemDto(item));
         return "items/infoItem";
     }
+//        try {
+//            Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
+//            model.addAttribute("item", item);
+//
+//            //transfer data from item to itemDto
+//            ItemDto itemDto = convertToItemDto(item);
+//
+//            model.addAttribute("itemDto", itemDto);
+//        } catch (Exception ex) {
+//            System.out.println("Exception: " + ex.getMessage());
+//            return "redirect:/itemList";
+//        }
+//        return "items/infoItem";
+//    }
 
     @GetMapping("/items/edit")
     public String showEditPage(Model model, @RequestParam int id, Principal principal) {
         model.addAttribute("username", getUserFullName(principal));
-        try {
-            Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
-            model.addAttribute("item", item);
-
-            //transfer data from item to itemDto
-            ItemDto itemDto = convertToItemDto(item);
-
-            model.addAttribute("itemDto", itemDto);
-        } catch (Exception ex) {
-            System.out.println("Exception: " + ex.getMessage());
+        Optional<Item> optionalItem = itemService.getById(id);
+        if (optionalItem.isEmpty()) {
             return "redirect:/itemList";
         }
-
+        //todo
+        //нужен ли ItemDto разобраться
+        Item item = optionalItem.get();
+        model.addAttribute("item", item);
+        model.addAttribute("itemDto", convertToItemDto(item));
         return "items/editItem";
     }
+
+//
+//        try {
+//            Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
+//            model.addAttribute("item", item);
+//
+//            //transfer data from item to itemDto
+//            ItemDto itemDto = convertToItemDto(item);
+//
+//            model.addAttribute("itemDto", itemDto);
+//        } catch (Exception ex) {
+//            System.out.println("Exception: " + ex.getMessage());
+//            return "redirect:/itemList";
+//        }
+//
+//        return "items/editItem";
+//    }
 
     @PostMapping("/items/edit")
     public String updateProduct(
@@ -192,57 +217,91 @@ public class ItemController {
             @Valid @ModelAttribute ItemDto itemDto,
             BindingResult result,
             Principal principal
-    ) {
-        try {
-            Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
-            model.addAttribute("item", item);
+    )
+    {
+        //todo разобраться
+        if (result.hasErrors()) {
+            return "items/editItem";
+        }
+        //todo разобраться
+        Optional<Item> optionalItem = itemService.getById(id);
+        if (optionalItem.isEmpty()) {
+            return "redirect:/itemList";
+        }
 
-            if (result.hasErrors()) {
+        Item item = optionalItem.get();
+
+        if (!itemDto.getImageFile().isEmpty()) {
+            deleteOldImage(item.getImageFileName());
+            String storageFileName = saveImage(itemDto.getImageFile());
+            if (storageFileName == null) {
+                result.addError(new FieldError("itemDto", "imageFile", "Error saving image file"));
                 return "items/editItem";
             }
-
-            if (!itemDto.getImageFile().isEmpty()) {
-                //delete old image
-                Path oldImagePath = Paths.get(UPLOAD_DIR_IMG + item.getImageFileName());
-
-                //Todo: files разобраться + Exception
-                try {
-                    Files.delete(oldImagePath);
-                } catch (Exception ex) {
-                    System.out.println("Exception: " + ex.getMessage());
-                }
-
-                // save new image file
-                MultipartFile image = itemDto.getImageFile();
-                String formattedDate = dateTime();
-                String storageFileName = formattedDate + "_" + image.getOriginalFilename();
-
-                try (InputStream inputStream = image.getInputStream()) {
-                    Files.copy(inputStream, Paths.get(UPLOAD_DIR_IMG + storageFileName),
-                            StandardCopyOption.REPLACE_EXISTING);
-                }
-                item.setImageFileName(storageFileName);
-            }
-
-            //create description for Logs
-            String description = descriptionOnEdit(principal, item, itemDto);
-
-            //writing data from ItemDto to item
-            convertToItem(item, itemDto);
-
-            // Saving edited item and transfer description for Application log
-            itemService.saveToDb(item, description);
-
-            //Saving log in database
-            if (!description.isEmpty()) {
-                saveLog(principal, item, description);
-            }
-
-        } catch (Exception ex) {
-            System.out.println("Exception: " + ex.getMessage());
+            item.setImageFileName(storageFileName);
         }
+
+        String description = descriptionOnEdit(principal, item, itemDto);
+        convertToItem(item, itemDto);
+        itemService.saveToDb(item, description);
+
+        if (!description.isEmpty()) {
+            saveLog(principal, item, description);
+        }
+
         return "redirect:/itemList";
     }
+//    {
+//        try {
+//            Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
+//            model.addAttribute("item", item);
+//
+//            if (result.hasErrors()) {
+//                return "items/editItem";
+//            }
+//
+//            if (!itemDto.getImageFile().isEmpty()) {
+//                //delete old image
+//                Path oldImagePath = Paths.get(UPLOAD_DIR_IMG + item.getImageFileName());
+//
+//                //Todo: files разобраться + Exception
+//                try {
+//                    Files.delete(oldImagePath);
+//                } catch (Exception ex) {
+//                    System.out.println("Exception: " + ex.getMessage());
+//                }
+//
+//                // save new image file
+//                MultipartFile image = itemDto.getImageFile();
+//                String formattedDate = dateTime();
+//                String storageFileName = formattedDate + "_" + image.getOriginalFilename();
+//
+//                try (InputStream inputStream = image.getInputStream()) {
+//                    Files.copy(inputStream, Paths.get(UPLOAD_DIR_IMG + storageFileName),
+//                            StandardCopyOption.REPLACE_EXISTING);
+//                }
+//                item.setImageFileName(storageFileName);
+//            }
+//
+//            //create description for Logs
+//            String description = descriptionOnEdit(principal, item, itemDto);
+//
+//            //writing data from ItemDto to item
+//            convertToItem(item, itemDto);
+//
+//            // Saving edited item and transfer description for Application log
+//            itemService.saveToDb(item, description);
+//
+//            //Saving log in database
+//            if (!description.isEmpty()) {
+//                saveLog(principal, item, description);
+//            }
+//
+//        } catch (Exception ex) {
+//            System.out.println("Exception: " + ex.getMessage());
+//        }
+//        return "redirect:/itemList";
+//    }
 
 
     //GetMapping or Post???
