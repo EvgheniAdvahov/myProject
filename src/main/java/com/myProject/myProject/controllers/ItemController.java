@@ -223,37 +223,8 @@ public class ItemController {
                 item.setImageFileName(storageFileName);
             }
 
-            StringBuilder description = new StringBuilder();
-            if (!item.getName().equals(itemDto.getName())) {
-                description.append(" Name to= ").append(itemDto.getName()).append(",");
-            }
-            if (!item.getStatus().equals(itemDto.getStatus())) {
-                description.append(" Status to= ").append(itemDto.getStatus()).append(",");
-            }
-            if (!item.getManufacturer().equals(itemDto.getManufacturer())) {
-                description.append(" Manufacturer to= ").append(itemDto.getManufacturer()).append(",");
-            }
-            if (!item.getCategory().equals(itemDto.getCategory())) {
-                description.append(" Category to= ").append(itemDto.getCategory()).append(",");
-            }
-            if (!item.getDepartment().equals(itemDto.getDepartment())) {
-                description.append(" Department to= ").append(itemDto.getDepartment()).append(",");
-            }
-            if (item.getModel() != null && !item.getModel().equals(itemDto.getModel())) {
-                description.append(" Model to= ").append(itemDto.getModel()).append(",");
-            }
-            if (!item.getSerialNumber().equals(itemDto.getSerialNumber())) {
-                description.append(" S/N to= ").append(itemDto.getSerialNumber()).append(",");
-            }
-            if (item.getProductOrder() != null && !item.getProductOrder().equals(itemDto.getProductOrder())) {
-                description.append(" PO to= ").append(itemDto.getProductOrder()).append(",");
-            }
-            if (item.getInventoryNumber() != null && !item.getInventoryNumber().equals(itemDto.getInventoryNumber())) {
-                description.append(" Inv. nr. to= ").append(itemDto.getInventoryNumber()).append(",");
-            }
-            if (!item.getDescription().equals(itemDto.getDescription())) {
-                description.append(" Description to= ").append(itemDto.getDescription()).append(",");
-            }
+            //create description for Logs
+            StringBuilder description = descriptionChanges(item, itemDto);
 
             //сохраняем имя, всвязи с тем, что оно может быть переопределенно
             String itemName = item.getName();
@@ -271,14 +242,15 @@ public class ItemController {
             item.setDescription(itemDto.getDescription());
             item.setModifiedAt(dateTime());
 
-            //добавляем имя в начало строки если были произведенны изменения
+            //Add name to the beginning of the line if changes have been made
             if (!description.isEmpty()) {
                 description.insert(0, itemName);
             }
 
+            // Saving edited item and transfer description for Application log
             itemService.editInDb(item, description);
 
-            //creating log
+            //Saving log in database
             if (!description.isEmpty()) {
                 description.setCharAt(description.length() - 1, '.');
                 MyLog myLog = new MyLog();
@@ -314,6 +286,41 @@ public class ItemController {
         }
         itemsCounterRemoved.increment();
         return "redirect:/itemList";
+    }
+
+    private StringBuilder descriptionChanges(Item item, ItemDto itemDto){
+        StringBuilder description = new StringBuilder();
+        if (!item.getName().equals(itemDto.getName())) {
+            description.append(" Name to= ").append(itemDto.getName()).append(",");
+        }
+        if (!item.getStatus().equals(itemDto.getStatus())) {
+            description.append(" Status to= ").append(itemDto.getStatus()).append(",");
+        }
+        if (!item.getManufacturer().equals(itemDto.getManufacturer())) {
+            description.append(" Manufacturer to= ").append(itemDto.getManufacturer()).append(",");
+        }
+        if (!item.getCategory().equals(itemDto.getCategory())) {
+            description.append(" Category to= ").append(itemDto.getCategory()).append(",");
+        }
+        if (!item.getDepartment().equals(itemDto.getDepartment())) {
+            description.append(" Department to= ").append(itemDto.getDepartment()).append(",");
+        }
+        if (item.getModel() != null && !item.getModel().equals(itemDto.getModel())) {
+            description.append(" Model to= ").append(itemDto.getModel()).append(",");
+        }
+        if (!item.getSerialNumber().equals(itemDto.getSerialNumber())) {
+            description.append(" S/N to= ").append(itemDto.getSerialNumber()).append(",");
+        }
+        if (item.getProductOrder() != null && !item.getProductOrder().equals(itemDto.getProductOrder())) {
+            description.append(" PO to= ").append(itemDto.getProductOrder()).append(",");
+        }
+        if (item.getInventoryNumber() != null && !item.getInventoryNumber().equals(itemDto.getInventoryNumber())) {
+            description.append(" Inv. nr. to= ").append(itemDto.getInventoryNumber()).append(",");
+        }
+        if (!item.getDescription().equals(itemDto.getDescription())) {
+            description.append(" Description to= ").append(itemDto.getDescription()).append(",");
+        }
+        return description;
     }
 
     private ItemDto convertToItemDto(Item item) {
