@@ -224,7 +224,7 @@ public class ItemController {
             }
 
             //create description for Logs
-            StringBuilder description = descriptionChanges(item, itemDto);
+            StringBuilder description = descriptionEditChanges(item, itemDto);
 
 
             //записываем данные обьекта Dto в Item
@@ -281,7 +281,7 @@ public class ItemController {
         return "redirect:/itemList";
     }
 
-    private StringBuilder descriptionChanges(Item item, ItemDto itemDto){
+    private StringBuilder descriptionEditChanges(Item item, ItemDto itemDto){
         StringBuilder description = new StringBuilder();
         //Save name, in case that it could be redefined
         String itemName = item.getName();
