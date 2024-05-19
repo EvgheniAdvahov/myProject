@@ -62,7 +62,6 @@ public class ItemController {
         return "items/itemList";
     }
 
-    // todo //??
     @GetMapping("/items/create")
     public String showCreatePage(Model model, Principal principal) {
         ItemDto itemDto = new ItemDto();
@@ -106,23 +105,13 @@ public class ItemController {
         }
 
         Item item = new Item();
-        item.setName(itemDto.getName());
-        item.setStatus(itemDto.getStatus());
-        item.setManufacturer(itemDto.getManufacturer());
-        item.setCategory(itemDto.getCategory());
-        item.setDepartment(itemDto.getDepartment());
-        item.setModel(itemDto.getModel());
-        item.setSerialNumber(itemDto.getSerialNumber());
-        item.setProductOrder(itemDto.getProductOrder());
-        item.setInventoryNumber(itemDto.getInventoryNumber());
-        item.setDescription(itemDto.getDescription());
+        //writing data from ItemDto to item
+        convertToItem(item, itemDto);
+        //add additional fields
         item.setCreatedAt(formattedDate);
-        item.setModifiedAt(formattedDate);
         item.setImageFileName(storageFileName);
 
-
         itemService.saveToDb(item, descriptionOnSave(principal, item));
-
 
         //creating log
         MyLog myLog = new MyLog();
@@ -217,20 +206,8 @@ public class ItemController {
             //create description for Logs
             String description = descriptionOnEdit(principal, item, itemDto);
 
-
-            //записываем данные обьекта Dto в Item
-            item.setName(itemDto.getName());
-            item.setStatus(itemDto.getStatus());
-            item.setManufacturer(itemDto.getManufacturer());
-            item.setCategory(itemDto.getCategory());
-            item.setDepartment(itemDto.getDepartment());
-            item.setModel(itemDto.getModel());
-            item.setSerialNumber(itemDto.getSerialNumber());
-            item.setProductOrder(itemDto.getProductOrder());
-            item.setInventoryNumber(itemDto.getInventoryNumber());
-            item.setDescription(itemDto.getDescription());
-            item.setModifiedAt(dateTime());
-
+            //writing data from ItemDto to item
+            convertToItem(item,itemDto);
 
             // Saving edited item and transfer description for Application log
             itemService.saveToDb(item, description);
@@ -346,6 +323,20 @@ public class ItemController {
         itemDto.setInventoryNumber(item.getInventoryNumber());
         itemDto.setDescription(item.getDescription());
         return itemDto;
+    }
+
+    private void convertToItem(Item item,ItemDto itemDto){
+        item.setName(itemDto.getName());
+        item.setStatus(itemDto.getStatus());
+        item.setManufacturer(itemDto.getManufacturer());
+        item.setCategory(itemDto.getCategory());
+        item.setDepartment(itemDto.getDepartment());
+        item.setModel(itemDto.getModel());
+        item.setSerialNumber(itemDto.getSerialNumber());
+        item.setProductOrder(itemDto.getProductOrder());
+        item.setInventoryNumber(itemDto.getInventoryNumber());
+        item.setDescription(itemDto.getDescription());
+        item.setModifiedAt(dateTime());
     }
 
     private String dateTime() {
