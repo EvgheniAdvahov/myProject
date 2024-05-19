@@ -66,7 +66,7 @@ public class ItemController {
     public String showCreatePage(Model model, Principal principal) {
         ItemDto itemDto = new ItemDto();
         model.addAttribute("itemDto", itemDto);
-        //Add username to html
+        //Add user full name to html page
         model.addAttribute("username", getUserFullName(principal));
         return "items/createItem";
     }
@@ -113,13 +113,8 @@ public class ItemController {
 
         itemService.saveToDb(item, descriptionOnSave(principal, item));
 
-        //creating log
-        MyLog myLog = new MyLog();
-        myLog.setDescription(descriptionOnSave(principal, item));
-        myLog.setItem(item);
-        myLog.setUser(userService.getUserByUsername(principal.getName()));
-        myLog.setCreatedAt(formattedDate);
-        logService.saveLogToDb(myLog);
+        //Saving log to database
+        saveLog(principal, item, descriptionOnSave(principal, item));
 
         itemsCounterAdded.increment();
         return "redirect:/itemList";
@@ -214,12 +209,7 @@ public class ItemController {
 
             //Saving log in database
             if (!description.isEmpty()) {
-                MyLog myLog = new MyLog();
-                myLog.setDescription(description);
-                myLog.setItem(item);
-                myLog.setUser(userService.getUserByUsername(principal.getName()));
-                myLog.setCreatedAt(dateTime());
-                logService.saveLogToDb(myLog);
+                saveLog(principal, item, description);
             }
 
         } catch (Exception ex) {
@@ -249,6 +239,15 @@ public class ItemController {
         //prometheus->grafana
         itemsCounterRemoved.increment();
         return "redirect:/itemList";
+    }
+
+    private void saveLog(Principal principal, Item item, String description) {
+        MyLog myLog = new MyLog();
+        myLog.setDescription(description);
+        myLog.setItem(item);
+        myLog.setUser(userService.getUserByUsername(principal.getName()));
+        myLog.setCreatedAt(dateTime());
+        logService.saveLogToDb(myLog);
     }
 
     private String descriptionOnSave(Principal principal, Item item) {
