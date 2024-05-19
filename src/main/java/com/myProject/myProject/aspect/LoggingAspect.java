@@ -27,13 +27,14 @@ public class LoggingAspect {
     @Autowired
     private UserService userService;
 
-    @AfterReturning("@annotation(ToLogAdd)  && args(item)")
+    @AfterReturning("@annotation(ToLogAdd)  && execution(* *(..)) && args(item)")
     public void addToLog(Item item) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
             User user = userService.getUserByUsername(username);
             System.out.println(dateTime() + " " + user.getFullName() + " added " + item.getName());
+//            writeLogToFile(description);
             writeLogToFile(dateTime() + " " + user.getFullName() + " added " + item.getName()
                     + ", Status= " + item.getStatus()
                     + ", Manufacturer= " + item.getManufacturer()

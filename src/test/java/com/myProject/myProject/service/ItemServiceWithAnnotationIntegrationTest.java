@@ -26,6 +26,8 @@ public class ItemServiceWithAnnotationIntegrationTest {
     public void saveToDbIntegrationTest() {
         // Создаем объект Item для сохранения в базе данных
         Item item = new Item();
+        //
+        String description = "Item saved";
         // Установите необходимые поля item, если нужно
         item.setName("Sample Item");
         item.setCreatedAt(String.valueOf(new Date()));
@@ -43,6 +45,8 @@ public class ItemServiceWithAnnotationIntegrationTest {
     public void deleteByIdIntegrationTest(){
         // Создаем объект Item для сохранения в базе данных
         Item item = new Item();
+        //
+        String description = "Item saved";
         // Установите необходимые поля item, если нужно
         item.setName("Sample Item");
         // Сохраняем объект в базу данных

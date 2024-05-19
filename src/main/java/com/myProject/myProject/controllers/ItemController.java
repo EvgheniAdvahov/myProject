@@ -126,16 +126,7 @@ public class ItemController {
 
         //creating log
         MyLog myLog = new MyLog();
-        myLog.setDescription(getUserFullName(principal) + " created " + item.getName()
-                + ", Status= " + item.getStatus()
-                + ", Manufacturer= " + item.getManufacturer()
-                + ", Category= " + item.getCategory()
-                + ", Department= " + item.getDepartment()
-                + ", Model= " + item.getModel()
-                + ", S/N= " + item.getSerialNumber()
-                + ", PO= " + item.getProductOrder()
-                + ", Inv. nr.= " + item.getInventoryNumber()
-                + ", Desc: " + item.getDescription());
+        myLog.setDescription(descriptionOnSave(principal, item));
         myLog.setItem(item);
         myLog.setUser(userService.getUserByUsername(principal.getName()));
         myLog.setCreatedAt(formattedDate);
@@ -224,7 +215,7 @@ public class ItemController {
             }
 
             //create description for Logs
-            StringBuilder description = descriptionEditChanges(item, itemDto);
+            StringBuilder description = descriptionOnEdit(item, itemDto);
 
 
             //записываем данные обьекта Dto в Item
@@ -281,7 +272,22 @@ public class ItemController {
         return "redirect:/itemList";
     }
 
-    private StringBuilder descriptionEditChanges(Item item, ItemDto itemDto){
+    private String descriptionOnSave(Principal principal, Item item){
+        String description;
+        return description = getUserFullName(principal)
+                + " created " + item.getName()
+                + ", Status= " + item.getStatus()
+                + ", Manufacturer= " + item.getManufacturer()
+                + ", Category= " + item.getCategory()
+                + ", Department= " + item.getDepartment()
+                + ", Model= " + item.getModel()
+                + ", S/N= " + item.getSerialNumber()
+                + ", PO= " + item.getProductOrder()
+                + ", Inv. nr.= " + item.getInventoryNumber()
+                + ", Desc: " + item.getDescription();
+    }
+
+    private StringBuilder descriptionOnEdit(Item item, ItemDto itemDto){
         StringBuilder description = new StringBuilder();
         //Save name, in case that it could be redefined
         String itemName = item.getName();

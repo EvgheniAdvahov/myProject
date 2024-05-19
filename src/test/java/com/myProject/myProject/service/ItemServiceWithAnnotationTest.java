@@ -30,6 +30,8 @@ public class ItemServiceWithAnnotationTest {
     public void saveToDbTest(){
         // Создаем объект Item для сохранения в базе данных
         Item item = new Item();
+        //
+        String description = "Item saved";
 
         // Сохраняем объект в базу данных
         itemService.saveToDb(item);
@@ -43,6 +45,9 @@ public class ItemServiceWithAnnotationTest {
         // Создаем объект Item для сохранения в базе данных
         Item item = new Item();
         item.setName("Sample name");
+        //
+        String description = "Item saved";
+
 
         // Мокируем itemRepository
         when(itemRepository.save(item)).thenReturn(item);
