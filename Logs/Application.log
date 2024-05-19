@@ -151,3 +151,14 @@ Second User created С012346, Status= Other, Manufacturer= Other, Category= Othe
 19-05-2024 18∶44∶32 First User modified С012345 Name to= С01234, Status to= In use, Manufacturer to= Microsoft, Category to= Laptop, Department to= Logistics, Model to= G52, S/N to= 2345, PO to= 123333, Inv. nr. to= 123, Description to= ыавпфпаоао.
 19-05-2024 19∶20∶29 Second User added С012346, Status= Other, Manufacturer= Other, Category= Other, Department= Other, Model= , S/N= 23456, PO= null, Inv. nr.= null, Desc: 
 19-05-2024 19∶20∶56 Second User modified С012346 Status to= Available.
+19-05-2024 19∶44∶58 Second User added С012345, Status= Available, Manufacturer= HP, Category= PC, Department= Production, Model= G5, S/N= 23456, PO= 4321, Inv. nr.= 321, Desc: апролджэ
+19-05-2024 19∶47∶26 Second User added с0, Status= Available, Manufacturer= HP, Category= PC, Department= Logistics, Model= G5, S/N= 123, PO= 4321, Inv. nr.= 123333, Desc: йвапврмо
+19-05-2024 19∶56∶07 Second User added my item, Status= Available, Manufacturer= Microsoft, Category= PC, Department= Production, Model= G5, S/N= 23456, PO= 1234, Inv. nr.= 123, Desc: dfgl;'fdrertyuioprtryu
+19-05-2024 19∶56∶43 Second User modified my item Name to= С012345.
+19-05-2024 20∶29∶44 Second User deleted С012345
+19-05-2024 20∶29∶47 Second User deleted С012346
+19-05-2024 20∶29∶50 Second User deleted С01234
+19-05-2024 20∶30∶21 Second User deleted С0123
+19-05-2024 20∶30∶25 Second User deleted С012345
+19-05-2024 20∶30∶29 Second User deleted С012345
+19-05-2024 20∶30∶37 Second User deleted С01

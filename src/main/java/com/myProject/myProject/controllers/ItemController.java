@@ -18,6 +18,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,6 +28,7 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/")
@@ -77,47 +79,71 @@ public class ItemController {
                              Principal principal) { // Данные из запроса привязываются к dto и валидируются. BindingResult- инфо об ошибках валидации
         if (itemDto.getImageFile().isEmpty()) {
             result.addError(new FieldError("itemDto", "imageFile", "The image file is required"));
-            //вручную добавляем Валидацию для ImageFile
         }
 
         if (result.hasErrors()) {
-            System.out.println("error" + result);
             return "items/createItem";
         }
-        //save image file
-        MultipartFile image = itemDto.getImageFile();
-        String formattedDate = dateTime();
-        String storageFileName = formattedDate + "_" + image.getOriginalFilename();
 
-        try {
-            Path uploadPath = Paths.get(UPLOAD_DIR_IMG);
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
-            }
-            //TODO: Разобраться как и куда копируем
-            try (InputStream inputStream = image.getInputStream()) {
-                Files.copy(inputStream, Paths.get(UPLOAD_DIR_IMG + storageFileName),
-                        StandardCopyOption.REPLACE_EXISTING);
-            }
-            //Todo: Exception - слишком обобщённо
-        } catch (Exception ex) {
-            System.out.println("Exception: " + ex.getMessage());
+        String storageFileName = saveImage(itemDto.getImageFile());
+        if (storageFileName == null) {
+            result.addError(new FieldError("itemDto", "imageFile", "Error saving image file"));
+            return "items/createItem";
         }
 
-        Item item = new Item();
-        //writing data from ItemDto to item
-        convertToItem(item, itemDto);
-        //add additional fields
-        item.setCreatedAt(formattedDate);
-        item.setImageFileName(storageFileName);
+        Item item = convertToItem(itemDto, storageFileName);
+        String description = descriptionOnSave(principal, item);
+        itemService.saveToDb(item, description);
 
-        itemService.saveToDb(item, descriptionOnSave(principal, item));
-
-        //Saving log to database
-        saveLog(principal, item, descriptionOnSave(principal, item));
+        saveLog(principal, item, description);
 
         itemsCounterAdded.increment();
         return "redirect:/itemList";
+
+
+        //        if (itemDto.getImageFile().isEmpty()) {
+//            result.addError(new FieldError("itemDto", "imageFile", "The image file is required"));
+//            //вручную добавляем Валидацию для ImageFile
+//        }
+//
+//        if (result.hasErrors()) {
+//            System.out.println("error" + result);
+//            return "items/createItem";
+//        }
+//        //save image file
+//        MultipartFile image = itemDto.getImageFile();
+//        String formattedDate = dateTime();
+//        String storageFileName = formattedDate + "_" + image.getOriginalFilename();
+//
+//        try {
+//            Path uploadPath = Paths.get(UPLOAD_DIR_IMG);
+//            if (!Files.exists(uploadPath)) {
+//                Files.createDirectories(uploadPath);
+//            }
+//            //TODO: Разобраться как и куда копируем
+//            try (InputStream inputStream = image.getInputStream()) {
+//                Files.copy(inputStream, Paths.get(UPLOAD_DIR_IMG + storageFileName),
+//                        StandardCopyOption.REPLACE_EXISTING);
+//            }
+//            //Todo: Exception - слишком обобщённо
+//        } catch (Exception ex) {
+//            System.out.println("Exception: " + ex.getMessage());
+//        }
+//
+//        Item item = new Item();
+//        //writing data from ItemDto to item
+//        convertToItem(item, itemDto);
+//        //add additional fields
+//        item.setCreatedAt(formattedDate);
+//        item.setImageFileName(storageFileName);
+//
+//        itemService.saveToDb(item, descriptionOnSave(principal, item));
+//
+//        //Saving log to database
+//        saveLog(principal, item, descriptionOnSave(principal, item));
+//
+//        itemsCounterAdded.increment();
+//        return "redirect:/itemList";
     }
 
     @GetMapping("/items/info")
@@ -218,27 +244,67 @@ public class ItemController {
         return "redirect:/itemList";
     }
 
+
+    //GetMapping or Post???
     @GetMapping("/items/delete")
     public String deleteProduct(@RequestParam int id) {
-        try {
-            Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
-
-            //delete item image
-            Path imagePath = Paths.get(UPLOAD_DIR_IMG + item.getImageFileName());
-            try {
-                Files.delete(imagePath);
-            } catch (Exception ex) {
-                System.out.println("Exception: " + ex.getMessage());
-            }
-
-            //deleting product
+        Optional<Item> optionalItem = itemService.getById(id);
+        if (optionalItem.isPresent()) {
+            Item item = optionalItem.get();
+            deleteOldImage(item.getImageFileName());
             itemService.deleteById(id);
-        } catch (Exception ex) {
-            System.out.println("Exception " + ex.getMessage());
+            itemsCounterRemoved.increment();
         }
-        //prometheus->grafana
-        itemsCounterRemoved.increment();
         return "redirect:/itemList";
+    }
+//        try {
+//            Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
+//
+//            //delete item image
+//            Path imagePath = Paths.get(UPLOAD_DIR_IMG + item.getImageFileName());
+//            try {
+//                Files.delete(imagePath);
+//            } catch (Exception ex) {
+//                System.out.println("Exception: " + ex.getMessage());
+//            }
+//
+//            //deleting product
+//            itemService.deleteById(id);
+//        } catch (Exception ex) {
+//            System.out.println("Exception " + ex.getMessage());
+//        }
+//        //prometheus->grafana
+//        itemsCounterRemoved.increment();
+//        return "redirect:/itemList";
+//    }
+
+    private void deleteOldImage(String imageFileName) {
+        Path oldImagePath = Paths.get(UPLOAD_DIR_IMG + imageFileName);
+        try {
+            Files.deleteIfExists(oldImagePath);
+        } catch (IOException ex) {
+            System.out.println("Exception: " + ex.getMessage());
+        }
+    }
+
+    private String saveImage(MultipartFile image) {
+        String formattedDate = dateTime();
+        String storageFileName = formattedDate + "_" + image.getOriginalFilename();
+
+        try {
+            Path uploadPath = Paths.get(UPLOAD_DIR_IMG);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+            try (InputStream inputStream = image.getInputStream()) {
+                Files.copy(inputStream, Paths.get(UPLOAD_DIR_IMG + storageFileName)
+                        , StandardCopyOption.REPLACE_EXISTING);
+            }
+            return storageFileName;
+        } catch (IOException ex) {
+            System.out.println("Exception: " + ex.getMessage());
+            return null;
+        }
     }
 
     private void saveLog(Principal principal, Item item, String description) {
@@ -322,6 +388,24 @@ public class ItemController {
         itemDto.setInventoryNumber(item.getInventoryNumber());
         itemDto.setDescription(item.getDescription());
         return itemDto;
+    }
+
+    private Item convertToItem(ItemDto itemDto, String storageFileName) {
+        Item item = new Item();
+        item.setName(itemDto.getName());
+        item.setStatus(itemDto.getStatus());
+        item.setManufacturer(itemDto.getManufacturer());
+        item.setCategory(itemDto.getCategory());
+        item.setDepartment(itemDto.getDepartment());
+        item.setModel(itemDto.getModel());
+        item.setSerialNumber(itemDto.getSerialNumber());
+        item.setProductOrder(itemDto.getProductOrder());
+        item.setInventoryNumber(itemDto.getInventoryNumber());
+        item.setDescription(itemDto.getDescription());
+        item.setImageFileName(storageFileName);
+        item.setCreatedAt(dateTime());
+        item.setModifiedAt(dateTime());
+        return item;
     }
 
     private void convertToItem(Item item, ItemDto itemDto) {
