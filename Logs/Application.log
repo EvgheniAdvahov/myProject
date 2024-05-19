@@ -115,3 +115,8 @@
 19-05-2024 11∶37∶55 Second User added С012345, Status= Available, Manufacturer= HP, Category PC, Department= Production, Model= G5, S/N= 2345, PO= 1234567890, Inv. nr.= 123333, Descr.= hkjl;;l
 19-05-2024 11∶38∶17 Second User modified С012345 Status to= In use, Department to= Logistics.
 19-05-2024 11∶39∶22 Second User deleted С012345
+19-05-2024 11∶45∶57 Second User modified С012345 Name to= С01234.
+19-05-2024 11∶50∶16 Second User added С012345, Status= Other, Manufacturer= Other, Category Other, Department= Other, Model= , S/N= 23456, PO= null, Inv. nr.= null, Descr.= 
+19-05-2024 11∶51∶21 Second User modified С012345 Status to= Available, Department to= Logistics.
+19-05-2024 11∶51∶51 Second User modified С012345 Name to= С012346.
+19-05-2024 11∶52∶32 Second User deleted С012346

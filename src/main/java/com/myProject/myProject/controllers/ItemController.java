@@ -226,8 +226,6 @@ public class ItemController {
             //create description for Logs
             StringBuilder description = descriptionChanges(item, itemDto);
 
-            //сохраняем имя, всвязи с тем, что оно может быть переопределенно
-            String itemName = item.getName();
 
             //записываем данные обьекта Dto в Item
             item.setName(itemDto.getName());
@@ -242,17 +240,12 @@ public class ItemController {
             item.setDescription(itemDto.getDescription());
             item.setModifiedAt(dateTime());
 
-            //Add name to the beginning of the line if changes have been made
-            if (!description.isEmpty()) {
-                description.insert(0, itemName);
-            }
 
             // Saving edited item and transfer description for Application log
             itemService.editInDb(item, description);
 
             //Saving log in database
             if (!description.isEmpty()) {
-                description.setCharAt(description.length() - 1, '.');
                 MyLog myLog = new MyLog();
                 myLog.setDescription(getUserFullName(principal) + " modified: " + description);
                 myLog.setItem(item);
@@ -290,6 +283,9 @@ public class ItemController {
 
     private StringBuilder descriptionChanges(Item item, ItemDto itemDto){
         StringBuilder description = new StringBuilder();
+        //Save name, in case that it could be redefined
+        String itemName = item.getName();
+
         if (!item.getName().equals(itemDto.getName())) {
             description.append(" Name to= ").append(itemDto.getName()).append(",");
         }
@@ -319,6 +315,12 @@ public class ItemController {
         }
         if (!item.getDescription().equals(itemDto.getDescription())) {
             description.append(" Description to= ").append(itemDto.getDescription()).append(",");
+        }
+        //Add name to the beginning of the line if changes have been made
+        if (!description.isEmpty()) {
+            description.insert(0, itemName);
+        //modify last symbol to "." in case if ","
+            description.setCharAt(description.length() - 1, '.');
         }
         return description;
     }
