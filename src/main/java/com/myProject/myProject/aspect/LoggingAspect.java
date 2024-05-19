@@ -27,27 +27,9 @@ public class LoggingAspect {
     @Autowired
     private UserService userService;
 
-    @AfterReturning("@annotation(ToLogAdd)  && execution(* *(..)) && args(item)")
-    public void addToLog(Item item) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            String username = authentication.getName();
-            User user = userService.getUserByUsername(username);
-            System.out.println(dateTime() + " " + user.getFullName() + " added " + item.getName());
-//            writeLogToFile(description);
-            writeLogToFile(dateTime() + " " + user.getFullName() + " added " + item.getName()
-                    + ", Status= " + item.getStatus()
-                    + ", Manufacturer= " + item.getManufacturer()
-                    + ", Category " + item.getCategory()
-                    + ", Department= " + item.getDepartment()
-                    + ", Model= " + item.getModel()
-                    + ", S/N= " + item.getSerialNumber()
-                    + ", PO= " + item.getProductOrder()
-                    + ", Inv. nr.= " + item.getInventoryNumber()
-                    + ", Descr.= " + item.getDescription());
-        } else {
-            System.out.println("Saved to DB: Unknown user");
-        }
+    @AfterReturning("@annotation(ToLogAdd) && args(item, description)")
+    public void addToLog(Item item, String description) {
+        writeLogToFile(dateTime() + " " + description);
     }
 
     @Around("@annotation(ToLogEdit) && execution(* *(..)) && args(item, description)")

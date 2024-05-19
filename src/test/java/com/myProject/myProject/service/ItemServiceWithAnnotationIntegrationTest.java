@@ -34,7 +34,7 @@ public class ItemServiceWithAnnotationIntegrationTest {
         item.setModifiedAt(String.valueOf(new Date()));
 
         // Сохраняем объект в базу данных
-        itemService.saveToDb(item);
+        itemService.saveToDb(item, description);
 
         // Проверяем, что объект был сохранен в базу данных
         Item foundItem = itemRepository.findById(item.getId()).orElse(null);
@@ -50,7 +50,7 @@ public class ItemServiceWithAnnotationIntegrationTest {
         // Установите необходимые поля item, если нужно
         item.setName("Sample Item");
         // Сохраняем объект в базу данных
-        itemService.saveToDb(item);
+        itemService.saveToDb(item, description);
         // Удаляем объект
         itemService.deleteById(item.getId());
         // Проверяем, что объект был сохранен в базу данных

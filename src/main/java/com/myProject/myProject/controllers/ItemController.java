@@ -121,7 +121,7 @@ public class ItemController {
         item.setImageFileName(storageFileName);
 
 
-        itemService.saveToDb(item);
+        itemService.saveToDb(item, descriptionOnSave(principal, item));
 
 
         //creating log

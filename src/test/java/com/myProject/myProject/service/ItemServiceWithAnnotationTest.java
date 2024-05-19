@@ -34,7 +34,7 @@ public class ItemServiceWithAnnotationTest {
         String description = "Item saved";
 
         // Сохраняем объект в базу данных
-        itemService.saveToDb(item);
+        itemService.saveToDb(item, description);
 
         // Проверяем, что метод save был вызван один раз с переданным item
         verify(itemRepository, times(1)).save(item);
@@ -56,7 +56,7 @@ public class ItemServiceWithAnnotationTest {
         doNothing().when(itemRepository).deleteById(item.getId());
 
         // Вызываем метод сохранения в базе данных
-        itemService.saveToDb(item);
+        itemService.saveToDb(item, description);
 
         // Проверяем, что метод save был вызван один раз с переданным item
         verify(itemRepository, times(1)).save(item);

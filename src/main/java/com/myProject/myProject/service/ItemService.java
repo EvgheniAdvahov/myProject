@@ -18,7 +18,7 @@ public class ItemService {
     private final ItemRepository itemRepository;
 
     @ToLogAdd
-    public void saveToDb(Item item){
+    public void saveToDb(Item item, String description){
         itemRepository.save(item);
     }
 
