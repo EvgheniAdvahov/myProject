@@ -33,7 +33,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ItemController {
 
-    //todo magic variables
+    //static variable for img path
     private static final String UPLOAD_DIR_IMG = "src/main/resources/static/images/";
     //variables for prometheus->grafana
     private final Counter itemsCounterAdded = Metrics.counter("my_items_added_counter");
@@ -207,7 +207,7 @@ public class ItemController {
             String description = descriptionOnEdit(principal, item, itemDto);
 
             //writing data from ItemDto to item
-            convertToItem(item,itemDto);
+            convertToItem(item, itemDto);
 
             // Saving edited item and transfer description for Application log
             itemService.saveToDb(item, description);
@@ -251,7 +251,7 @@ public class ItemController {
         return "redirect:/itemList";
     }
 
-    private String descriptionOnSave(Principal principal, Item item){
+    private String descriptionOnSave(Principal principal, Item item) {
         String description;
         return description = getUserFullName(principal)
                 + " added " + item.getName()
@@ -266,7 +266,7 @@ public class ItemController {
                 + ", Desc: " + item.getDescription();
     }
 
-    private String descriptionOnEdit(Principal principal, Item item, ItemDto itemDto){
+    private String descriptionOnEdit(Principal principal, Item item, ItemDto itemDto) {
         StringBuilder description = new StringBuilder();
         //Save name, in case that it could be redefined
         String itemName = item.getName();
@@ -303,8 +303,8 @@ public class ItemController {
         }
         //Add name to the beginning of the line if changes have been made
         if (!description.isEmpty()) {
-            description.insert(0, getUserFullName(principal) + " modified " +  itemName);
-        //modify last symbol to "." in case if ","
+            description.insert(0, getUserFullName(principal) + " modified " + itemName);
+            //modify last symbol to "." in case if ","
             description.setCharAt(description.length() - 1, '.');
         }
         return description.toString();
@@ -325,7 +325,7 @@ public class ItemController {
         return itemDto;
     }
 
-    private void convertToItem(Item item,ItemDto itemDto){
+    private void convertToItem(Item item, ItemDto itemDto) {
         item.setName(itemDto.getName());
         item.setStatus(itemDto.getStatus());
         item.setManufacturer(itemDto.getManufacturer());
