@@ -166,3 +166,6 @@ Second User created С012346, Status= Other, Manufacturer= Other, Category= Othe
 19-05-2024 20∶57∶34 Second User added С012345, Status= Available, Manufacturer= HP, Category= PC, Department= Production, Model= G5, S/N= 123, PO= 1234, Inv. nr.= 321, Desc: пвапролд
 19-05-2024 20∶58∶22 Second User modified С012345 Status to= In use, Manufacturer to= Microsoft, Category to= Laptop, Department to= Logistics, Model to= G52, S/N to= 12345, PO to= 1234567890, Inv. nr. to= 345678, Description to= пвапролдвыапролд.
 19-05-2024 20∶59∶23 Second User deleted С012345
+19-05-2024 21∶02∶24 
+19-05-2024 21∶12∶32 
+19-05-2024 21∶13∶12 Second User added С012345, Status= Available, Manufacturer= HP, Category= PC, Department= Production, Model= G5, S/N= 23456, PO= 1234, Inv. nr.= 1234, Desc: testImage
