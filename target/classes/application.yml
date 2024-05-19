@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: myProject
   datasource:
     url: jdbc:mysql://localhost:3305/sqlFinalProject
     username: user
@@ -9,3 +11,12 @@ spring:
       ddl-auto: update
     database: mysql
     show-sql: true
+#    for actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: metrics, prometheus, health
+  endpoint:
+    health:
+      show-details: always

@@ -35,7 +35,7 @@ public class ItemController {
 
     //todo magic variables
     private static final String UPLOAD_DIR_IMG = "src/main/resources/static/images/";
-    //graphana prometeus
+    //variables for prometheus->grafana
     private final Counter itemsCounterAdded = Metrics.counter("my_items_added_counter");
     private final Counter itemsCounterRemoved = Metrics.counter("my_items_removed_counter");
     private final ItemService itemService;
@@ -91,14 +91,13 @@ public class ItemController {
         String storageFileName = formattedDate + "_" + image.getOriginalFilename();
 
         try {
-            String uploadDir = "src/main/resources/static/images/";
-            Path uploadPath = Paths.get(uploadDir);
+            Path uploadPath = Paths.get(UPLOAD_DIR_IMG);
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
             }
             //TODO: Разобраться как и куда копируем
             try (InputStream inputStream = image.getInputStream()) {
-                Files.copy(inputStream, Paths.get(uploadDir + storageFileName),
+                Files.copy(inputStream, Paths.get(UPLOAD_DIR_IMG + storageFileName),
                         StandardCopyOption.REPLACE_EXISTING);
             }
             //Todo: Exception - слишком обобщённо
@@ -121,7 +120,6 @@ public class ItemController {
         item.setModifiedAt(formattedDate);
         item.setImageFileName(storageFileName);
 
-        //todo to manual logging description
 
         itemService.saveToDb(item);
 
@@ -203,10 +201,8 @@ public class ItemController {
             }
 
             if (!itemDto.getImageFile().isEmpty()) {
-                //magic variables
                 //delete old image
-                String uploadDir = "src/main/resources/static/images/";
-                Path oldImagePath = Paths.get(uploadDir + item.getImageFileName());
+                Path oldImagePath = Paths.get(UPLOAD_DIR_IMG + item.getImageFileName());
 
                 //Todo: files разобраться + Exception
                 try {
@@ -221,7 +217,7 @@ public class ItemController {
                 String storageFileName = formattedDate + "_" + image.getOriginalFilename();
 
                 try (InputStream inputStream = image.getInputStream()) {
-                    Files.copy(inputStream, Paths.get(uploadDir + storageFileName),
+                    Files.copy(inputStream, Paths.get(UPLOAD_DIR_IMG + storageFileName),
                             StandardCopyOption.REPLACE_EXISTING);
                 }
                 item.setImageFileName(storageFileName);
@@ -304,7 +300,7 @@ public class ItemController {
         try {
             Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
             //delete item image
-            Path imagePath = Paths.get("src/main/resources/static/images/" + item.getImageFileName());
+            Path imagePath = Paths.get(UPLOAD_DIR_IMG + item.getImageFileName());
 
             try {
                 Files.delete(imagePath);
