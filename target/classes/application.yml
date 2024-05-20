@@ -11,6 +11,9 @@ spring:
       ddl-auto: update
     database: mysql
     show-sql: true
+  web:
+    resources:
+      static-locations: classpath:/static/,file:src/main/resources/static/
 #    for actuator
 management:
   endpoints:

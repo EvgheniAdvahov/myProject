@@ -14,7 +14,6 @@ spring:
   web:
     resources:
       static-locations: classpath:/static/,file:src/main/resources/static/
-
 #    for actuator
 management:
   endpoints:

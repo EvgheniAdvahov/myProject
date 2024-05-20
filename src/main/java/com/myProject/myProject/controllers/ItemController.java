@@ -99,51 +99,6 @@ public class ItemController {
 
         itemsCounterAdded.increment();
         return "redirect:/itemList";
-
-
-        //        if (itemDto.getImageFile().isEmpty()) {
-//            result.addError(new FieldError("itemDto", "imageFile", "The image file is required"));
-//            //вручную добавляем Валидацию для ImageFile
-//        }
-//
-//        if (result.hasErrors()) {
-//            System.out.println("error" + result);
-//            return "items/createItem";
-//        }
-//        //save image file
-//        MultipartFile image = itemDto.getImageFile();
-//        String formattedDate = dateTime();
-//        String storageFileName = formattedDate + "_" + image.getOriginalFilename();
-//
-//        try {
-//            Path uploadPath = Paths.get(UPLOAD_DIR_IMG);
-//            if (!Files.exists(uploadPath)) {
-//                Files.createDirectories(uploadPath);
-//            }
-//            //TODO: Разобраться как и куда копируем
-//            try (InputStream inputStream = image.getInputStream()) {
-//                Files.copy(inputStream, Paths.get(UPLOAD_DIR_IMG + storageFileName),
-//                        StandardCopyOption.REPLACE_EXISTING);
-//            }
-//            //Todo: Exception - слишком обобщённо
-//        } catch (Exception ex) {
-//            System.out.println("Exception: " + ex.getMessage());
-//        }
-//
-//        Item item = new Item();
-//        //writing data from ItemDto to item
-//        convertToItem(item, itemDto);
-//        //add additional fields
-//        item.setCreatedAt(formattedDate);
-//        item.setImageFileName(storageFileName);
-//
-//        itemService.saveToDb(item, descriptionOnSave(principal, item));
-//
-//        //Saving log to database
-//        saveLog(principal, item, descriptionOnSave(principal, item));
-//
-//        itemsCounterAdded.increment();
-//        return "redirect:/itemList";
     }
 
     @GetMapping("/items/info")
@@ -163,20 +118,6 @@ public class ItemController {
         model.addAttribute("itemDto", convertToItemDto(item));
         return "items/infoItem";
     }
-//        try {
-//            Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
-//            model.addAttribute("item", item);
-//
-//            //transfer data from item to itemDto
-//            ItemDto itemDto = convertToItemDto(item);
-//
-//            model.addAttribute("itemDto", itemDto);
-//        } catch (Exception ex) {
-//            System.out.println("Exception: " + ex.getMessage());
-//            return "redirect:/itemList";
-//        }
-//        return "items/infoItem";
-//    }
 
     @GetMapping("/items/edit")
     public String showEditPage(Model model, @RequestParam int id, Principal principal) {
@@ -192,23 +133,6 @@ public class ItemController {
         model.addAttribute("itemDto", convertToItemDto(item));
         return "items/editItem";
     }
-
-//
-//        try {
-//            Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
-//            model.addAttribute("item", item);
-//
-//            //transfer data from item to itemDto
-//            ItemDto itemDto = convertToItemDto(item);
-//
-//            model.addAttribute("itemDto", itemDto);
-//        } catch (Exception ex) {
-//            System.out.println("Exception: " + ex.getMessage());
-//            return "redirect:/itemList";
-//        }
-//
-//        return "items/editItem";
-//    }
 
     @PostMapping("/items/edit")
     public String updateProduct(
@@ -251,58 +175,6 @@ public class ItemController {
 
         return "redirect:/itemList";
     }
-//    {
-//        try {
-//            Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
-//            model.addAttribute("item", item);
-//
-//            if (result.hasErrors()) {
-//                return "items/editItem";
-//            }
-//
-//            if (!itemDto.getImageFile().isEmpty()) {
-//                //delete old image
-//                Path oldImagePath = Paths.get(UPLOAD_DIR_IMG + item.getImageFileName());
-//
-//                //Todo: files разобраться + Exception
-//                try {
-//                    Files.delete(oldImagePath);
-//                } catch (Exception ex) {
-//                    System.out.println("Exception: " + ex.getMessage());
-//                }
-//
-//                // save new image file
-//                MultipartFile image = itemDto.getImageFile();
-//                String formattedDate = dateTime();
-//                String storageFileName = formattedDate + "_" + image.getOriginalFilename();
-//
-//                try (InputStream inputStream = image.getInputStream()) {
-//                    Files.copy(inputStream, Paths.get(UPLOAD_DIR_IMG + storageFileName),
-//                            StandardCopyOption.REPLACE_EXISTING);
-//                }
-//                item.setImageFileName(storageFileName);
-//            }
-//
-//            //create description for Logs
-//            String description = descriptionOnEdit(principal, item, itemDto);
-//
-//            //writing data from ItemDto to item
-//            convertToItem(item, itemDto);
-//
-//            // Saving edited item and transfer description for Application log
-//            itemService.saveToDb(item, description);
-//
-//            //Saving log in database
-//            if (!description.isEmpty()) {
-//                saveLog(principal, item, description);
-//            }
-//
-//        } catch (Exception ex) {
-//            System.out.println("Exception: " + ex.getMessage());
-//        }
-//        return "redirect:/itemList";
-//    }
-
 
     //GetMapping or Post???
     @GetMapping("/items/delete")
@@ -316,26 +188,6 @@ public class ItemController {
         }
         return "redirect:/itemList";
     }
-//        try {
-//            Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
-//
-//            //delete item image
-//            Path imagePath = Paths.get(UPLOAD_DIR_IMG + item.getImageFileName());
-//            try {
-//                Files.delete(imagePath);
-//            } catch (Exception ex) {
-//                System.out.println("Exception: " + ex.getMessage());
-//            }
-//
-//            //deleting product
-//            itemService.deleteById(id);
-//        } catch (Exception ex) {
-//            System.out.println("Exception " + ex.getMessage());
-//        }
-//        //prometheus->grafana
-//        itemsCounterRemoved.increment();
-//        return "redirect:/itemList";
-//    }
 
     private void deleteOldImage(String imageFileName) {
         Path oldImagePath = Paths.get(UPLOAD_DIR_IMG + imageFileName);
