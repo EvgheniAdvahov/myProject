@@ -46,7 +46,8 @@ public class ItemServiceWithAnnotationTest {
         Item item = new Item();
         item.setName("Sample name");
         //
-        String description = "Item saved";
+        String descriptionOnSave = "Item saved";
+        String descriptionOnDelete = "Item deleted";
 
 
         // Мокируем itemRepository
@@ -56,13 +57,13 @@ public class ItemServiceWithAnnotationTest {
         doNothing().when(itemRepository).deleteById(item.getId());
 
         // Вызываем метод сохранения в базе данных
-        itemService.saveToDb(item, description);
+        itemService.saveToDb(item, descriptionOnSave);
 
         // Проверяем, что метод save был вызван один раз с переданным item
         verify(itemRepository, times(1)).save(item);
 
         // Удаляем объект из данных
-        itemService.deleteById(item.getId());
+        itemService.deleteById(item.getId(), descriptionOnDelete);
 
         // Проверяем, что метод deleteById был вызван один раз с правильным ID
         verify(itemRepository, times(1)).deleteById(item.getId());

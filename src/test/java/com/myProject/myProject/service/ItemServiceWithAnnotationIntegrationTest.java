@@ -46,13 +46,14 @@ public class ItemServiceWithAnnotationIntegrationTest {
         // Создаем объект Item для сохранения в базе данных
         Item item = new Item();
         //
-        String description = "Item saved";
+        String descriptionOnSave = "Item saved";
+        String descriptionOnDelete = "Item deleted";
         // Установите необходимые поля item, если нужно
         item.setName("Sample Item");
         // Сохраняем объект в базу данных
-        itemService.saveToDb(item, description);
+        itemService.saveToDb(item, descriptionOnSave);
         // Удаляем объект
-        itemService.deleteById(item.getId());
+        itemService.deleteById(item.getId(), descriptionOnDelete);
         // Проверяем, что объект был сохранен в базу данных
         Item foundItem = itemRepository.findById(item.getId()).orElse(null);
         assertThat(foundItem).isNull();

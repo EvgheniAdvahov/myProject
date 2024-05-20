@@ -34,19 +34,11 @@ public class LoggingAspect {
     }
 
 
-    @Before("@annotation(ToLogDelete)  && args(id)")
-    public void deleteToLog(int id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Item item = itemService.getById(id).orElseThrow(() -> new RuntimeException("Item with id " + id + " not found"));
-        if (authentication != null && authentication.isAuthenticated()) {
-            String username = authentication.getName();
-            User user = userService.getUserByUsername(username);
-            System.out.println(dateTime() + " " + user.getFullName() + " deleted " + item.getName());
-            writeLogToFile(dateTime() + " " + user.getFullName() + " deleted " + item.getName());
-        } else {
-            System.out.println("Delete in DB: Unknown user");
-        }
+    @Before("@annotation(ToLogDelete) && args(id, description)")
+    public void deleteToLog(int id, String description) {
+        writeLogToFile(dateTime() + " " + description);
     }
+
 
     // Метод для записи строки в лог
     private void writeLogToFile(String message) {
@@ -54,7 +46,7 @@ public class LoggingAspect {
             writer.write(message);
             writer.newLine();
         } catch (IOException e) {
-            System.err.println("Ошибка при записи сообщения в файл: " + e.getMessage());
+            System.err.println("Error when writing log to file: " + e.getMessage());
         }
     }
 

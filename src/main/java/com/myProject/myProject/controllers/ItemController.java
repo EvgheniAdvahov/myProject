@@ -141,8 +141,7 @@ public class ItemController {
             @Valid @ModelAttribute ItemDto itemDto,
             BindingResult result,
             Principal principal
-    )
-    {
+    ) {
         //todo разобраться
         if (result.hasErrors()) {
             return "items/editItem";
@@ -178,12 +177,12 @@ public class ItemController {
 
     //GetMapping or Post???
     @GetMapping("/items/delete")
-    public String deleteProduct(@RequestParam int id) {
+    public String deleteProduct(@RequestParam int id, Principal principal) {
         Optional<Item> optionalItem = itemService.getById(id);
         if (optionalItem.isPresent()) {
             Item item = optionalItem.get();
             deleteOldImage(item.getImageFileName());
-            itemService.deleteById(id);
+            itemService.deleteById(id, descriptionOnDelete(principal, item));
             itemsCounterRemoved.increment();
         }
         return "redirect:/itemList";
@@ -228,8 +227,7 @@ public class ItemController {
     }
 
     private String descriptionOnSave(Principal principal, Item item) {
-        String description;
-        return description = getUserFullName(principal)
+        return getUserFullName(principal)
                 + " added " + item.getName()
                 + ", Status= " + item.getStatus()
                 + ", Manufacturer= " + item.getManufacturer()
@@ -284,6 +282,10 @@ public class ItemController {
             description.setCharAt(description.length() - 1, '.');
         }
         return description.toString();
+    }
+
+    private String descriptionOnDelete(Principal principal, Item item) {
+        return getUserFullName(principal) + " deleted " + item.getName();
     }
 
     private ItemDto convertToItemDto(Item item) {

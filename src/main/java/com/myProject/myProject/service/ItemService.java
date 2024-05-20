@@ -22,7 +22,7 @@ public class ItemService {
     }
 
     @ToLogDelete
-    public void deleteById(int id){
+    public void deleteById(int id, String description){
         itemRepository.deleteById(id);
     }
 
