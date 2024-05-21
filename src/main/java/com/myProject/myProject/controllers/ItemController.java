@@ -126,8 +126,6 @@ public class ItemController {
         if (optionalItem.isEmpty()) {
             return "redirect:/itemList";
         }
-        //todo
-        //нужен ли ItemDto разобраться
         Item item = optionalItem.get();
         model.addAttribute("item", item);
         model.addAttribute("itemDto", convertToItemDto(item));
@@ -175,7 +173,6 @@ public class ItemController {
         return "redirect:/itemList";
     }
 
-    //GetMapping or Post???
     @GetMapping("/items/delete")
     public String deleteProduct(@RequestParam int id, Principal principal) {
         Optional<Item> optionalItem = itemService.getById(id);
