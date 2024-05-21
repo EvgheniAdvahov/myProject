@@ -110,12 +110,8 @@ public class ItemController {
         if (optionalItem.isEmpty()) {
             return "redirect:/itemList";
         }
-        //todo
-        //нужен ли сдесь ItemDto?
-        //нужно ли в модель передавать item?
         Item item = optionalItem.get();
         model.addAttribute("item", item);
-        model.addAttribute("itemDto", convertToItemDto(item));
         return "items/infoItem";
     }
 
