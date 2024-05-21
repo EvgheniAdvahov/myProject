@@ -13,7 +13,6 @@ import java.util.List;
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //probably long
     private int id;
 
     private String name;

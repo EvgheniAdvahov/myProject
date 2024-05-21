@@ -23,16 +23,11 @@ import java.time.format.DateTimeFormatter;
 public class LoggingAspect {
 
     private static final String UPLOAD_DIR_LOG = "Logs/Application.log";
-    @Autowired
-    private ItemService itemService;
-    @Autowired
-    private UserService userService;
 
     @AfterReturning("@annotation(com.myProject.myProject.aspect.ToLogSave) && args(item, description)")
     public void addToLog(Item item, String description) {
         writeLogToFile(dateTime() + " " + description);
     }
-
 
     @Before("@annotation(ToLogDelete) && args(id, description)")
     public void deleteToLog(int id, String description) {

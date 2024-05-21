@@ -187,3 +187,6 @@ Second User created С012346, Status= Other, Manufacturer= Other, Category= Othe
 21-05-2024 22∶47∶27 Second User added С012345, Status= In use, Manufacturer= HP, Category= PC, Department= Quality, Model= G52, S/N= 123, PO= 4321, Inv. nr.= 123333, Desc: ythrgfeasdd
 21-05-2024 22∶47∶42 Second User modified С012345 Status to= Available.
 21-05-2024 22∶52∶20 Second User modified С012345 Name to= С01234, Status to= In use, Manufacturer to= Microsoft, Category to= Monitor, Department to= Engineering, Model to= G524, S/N to= 1234f, PO to= 432, Inv. nr. to= 1233, Description to= ythrgfeashujkl;dd.
+21-05-2024 23∶01∶23 Second User added С012345, Status= Other, Manufacturer= Other, Category= Other, Department= Other, Model= , S/N= 23456, PO= null, Inv. nr.= null, Desc: 
+21-05-2024 23∶01∶29 Second User modified С012345 Status to= Available.
+21-05-2024 23∶01∶37 Second User deleted С012345
