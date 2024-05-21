@@ -105,7 +105,7 @@ public class ItemController {
     public String showInfoPage(Model model, @RequestParam int id, Principal principal) {
         model.addAttribute("username", getUserFullName(principal));
         List<MyLog> myLogList = logService.getItemLogsById(id);
-        model.addAttribute("itemlog", myLogList);
+        model.addAttribute("itemLog", myLogList);
         Optional<Item> optionalItem = itemService.getById(id);
         if (optionalItem.isEmpty()) {
             return "redirect:/itemList";
@@ -130,17 +130,14 @@ public class ItemController {
 
     @PostMapping("/items/edit")
     public String updateProduct(
-            Model model,
             @RequestParam int id,
             @Valid @ModelAttribute ItemDto itemDto,
             BindingResult result,
             Principal principal
     ) {
-        //todo разобраться
         if (result.hasErrors()) {
             return "items/editItem";
         }
-        //todo разобраться
         Optional<Item> optionalItem = itemService.getById(id);
         if (optionalItem.isEmpty()) {
             return "redirect:/itemList";
