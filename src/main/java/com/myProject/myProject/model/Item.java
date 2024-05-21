@@ -23,16 +23,12 @@ public class Item {
     private String status;
     private String imageFileName;
     private String serialNumber;
-    //todo String
     private Integer productOrder;
-    //probably long
     private Integer inventoryNumber;
-
     @Column(columnDefinition = "TEXT")
     private String description;
     private String createdAt;
     private String modifiedAt;
-
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.REMOVE)
     private List<MyLog> myLogs;
