@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class ZenQuote {
 
+    //todo remove unnecessary h lomboc construct
     private String q;
     private String a;
     private String h;

@@ -1,6 +1,7 @@
 package com.myProject.myProject.controllers;
 
 import com.myProject.myProject.model.*;
+import com.myProject.myProject.properties.Params;
 import com.myProject.myProject.service.ItemService;
 import com.myProject.myProject.service.LogService;
 import com.myProject.myProject.service.ServiceApi;
@@ -35,10 +36,6 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ItemController {
 
-    //static variable for quotes
-    private static final String QUOTE_URL = "https://zenquotes.io/api/random/";
-    //static variable for img path
-    private static final String UPLOAD_DIR_IMG = "src/main/resources/static/images/";
     //variables for prometheus->grafana
     private final Counter itemsCounterAdded = Metrics.counter("my_items_added_counter");
     private final Counter itemsCounterRemoved = Metrics.counter("my_items_removed_counter");
@@ -49,6 +46,10 @@ public class ItemController {
     @Autowired
     private ServiceApi serviceApi;
 
+    //static variable for params
+    @Autowired
+    private Params param;
+
     @GetMapping("/login")
     public String loginPage() {
         return "login";
@@ -58,7 +59,7 @@ public class ItemController {
     public String showMainPage(Model model, Principal principal) {
         model.addAttribute("username", getUserFullName(principal));
         try{
-            ZenQuote[] zenQuote = serviceApi.getZenQuote(QUOTE_URL);
+            ZenQuote[] zenQuote = serviceApi.getZenQuote(param.getQUOTE_URL());
             if (zenQuote.length > 0) {
                 model.addAttribute("quote", zenQuote[0]);
             }
@@ -193,7 +194,7 @@ public class ItemController {
     }
 
     private void deleteOldImage(String imageFileName) {
-        Path oldImagePath = Paths.get(UPLOAD_DIR_IMG + imageFileName);
+        Path oldImagePath = Paths.get( param.getUPLOAD_DIR_IMG() + imageFileName);
         try {
             Files.deleteIfExists(oldImagePath);
         } catch (IOException ex) {
@@ -206,12 +207,12 @@ public class ItemController {
         String storageFileName = formattedDate + "_" + image.getOriginalFilename();
 
         try {
-            Path uploadPath = Paths.get(UPLOAD_DIR_IMG);
+            Path uploadPath = Paths.get(param.getUPLOAD_DIR_IMG());
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
             }
             try (InputStream inputStream = image.getInputStream()) {
-                Files.copy(inputStream, Paths.get(UPLOAD_DIR_IMG + storageFileName)
+                Files.copy(inputStream, Paths.get(param.getUPLOAD_DIR_IMG() + storageFileName)
                         , StandardCopyOption.REPLACE_EXISTING);
             }
             return storageFileName;
