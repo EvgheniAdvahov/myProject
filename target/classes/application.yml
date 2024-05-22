@@ -23,7 +23,7 @@ management:
   endpoint:
     health:
       show-details: always
-#      for params
+#    links for params
 param:
   quote_url: https://zenquotes.io/api/random/
   upload_dir_img: src/main/resources/static/images/

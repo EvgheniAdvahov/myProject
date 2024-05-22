@@ -1,18 +1,15 @@
 package com.myProject.myProject.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ZenQuote {
 
-    //todo remove unnecessary h lomboc construct
     private String q;
     private String a;
-    private String h;
 
-    public ZenQuote(String q, String a) {
-        this.q = q;
-        this.a = a;
-    }
-    public ZenQuote(){}
 }
