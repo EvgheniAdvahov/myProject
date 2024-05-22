@@ -1,21 +1,21 @@
 package com.myProject.myProject.controllers;
 
-import com.myProject.myProject.model.Item;
-import com.myProject.myProject.model.ItemDto;
-import com.myProject.myProject.model.MyLog;
-import com.myProject.myProject.model.User;
+import com.myProject.myProject.model.*;
 import com.myProject.myProject.service.ItemService;
 import com.myProject.myProject.service.LogService;
+import com.myProject.myProject.service.ServiceApi;
 import com.myProject.myProject.service.UserService;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Metrics;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -35,6 +35,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ItemController {
 
+    //static variable for quotes
+    private static final String QUOTE_URL = "https://zenquotes.io/api/random/";
     //static variable for img path
     private static final String UPLOAD_DIR_IMG = "src/main/resources/static/images/";
     //variables for prometheus->grafana
@@ -44,6 +46,9 @@ public class ItemController {
     private final UserService userService;
     private final LogService logService;
 
+    @Autowired
+    private ServiceApi serviceApi;
+
     @GetMapping("/login")
     public String loginPage() {
         return "login";
@@ -52,6 +57,15 @@ public class ItemController {
     @GetMapping
     public String showMainPage(Model model, Principal principal) {
         model.addAttribute("username", getUserFullName(principal));
+        try{
+            ZenQuote[] zenQuote = serviceApi.getZenQuote(QUOTE_URL);
+            if (zenQuote.length > 0) {
+                model.addAttribute("quote", zenQuote[0]);
+            }
+        } catch (RestClientException e){
+            model.addAttribute("quote", new ZenQuote(null, ""));
+            model.addAttribute("error", "Unable to fetch quote. Please try again later.");
+        }
         return "main";
     }
 

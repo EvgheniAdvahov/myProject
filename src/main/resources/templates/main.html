@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,7 +22,17 @@
     </div>
 </nav>
 <div class="container">
-    <h1 class="text-center my-3">You are Welcome</h1>
+    <div th:if="${quote.q != null}">
+        <span th:utext="|&ldquo;${quote.q}&rdquo;&mdash;|"></span><br>
+        <span th:utext="${quote.a}"></span>
+    </div>
+    <div th:if="${quote.q == null}">
+        <span>No quote available.</span>
+    </div>
+    <div th:if="${error != null}">
+        <span th:text="${error}"></span>
+    </div>
+<!--    <h1 class="text-center my-3">You are Welcome</h1>-->
     <div class="d-flex justify-content-center">
         <a class="btn btn-outline-secondary btn-main-xl" href="/itemList">Products</a>
         <a class="btn btn-secondary btn-main-xl" href="/itemList">Warehouse</a>
