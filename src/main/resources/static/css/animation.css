@@ -1,0 +1,7 @@
+.svg_main:hover {
+    transform: scale(1.02);
+}
+
+.svg_main:hover path {
+    fill: rgb(100, 96, 96)
+}
