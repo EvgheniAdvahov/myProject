@@ -1,14 +1,13 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>IT Warehouse</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
     <link rel="icon" href="/site-images/icons/favicon.png" type="image/x-icon" >
     <link href="/css/bootstrap-min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/mycss.css">
 </head>
-<body class="body-height">
+<body>
 <nav class="navbar fixed-top navbar-light bg-light navbar-border-bottom">
     <div class="container-fluid d-flex justify-content-between align-items-center">
         <div>
@@ -22,26 +21,9 @@
         </div>
     </div>
 </nav>
-<div class="container">
-    <div th:if="${quote.q != null}">
-        <span th:utext="|&ldquo;${quote.q}&rdquo;&mdash;|"></span><br>
-        <span th:utext="${quote.a}"></span>
-    </div>
-    <div th:if="${quote.q == null}">
-        <span>No quote available.</span>
-    </div>
-    <div th:if="${error != null}">
-        <span th:text="${error}"></span>
-    </div>
-<!--    <h1 class="text-center my-3">You are Welcome</h1>-->
-    <div class="d-flex justify-content-center">
-        <a class="btn btn-outline-secondary btn-main-xl" href="/itemList">Products</a>
-        <a class="btn btn-secondary btn-main-xl" href="/itemList">Warehouse</a>
-    </div>
+<h1>Hello Post page</h1>
+<a class="btn btn-outline-secondary btn-main-xl" href="/posts/create">New Post</a>
 
-
-
-</div>
 <script src="/javascript/bootstrap-bundle-min.js"></script>
 </body>
 </html>

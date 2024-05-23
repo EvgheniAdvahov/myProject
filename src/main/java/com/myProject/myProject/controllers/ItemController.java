@@ -43,11 +43,8 @@ public class ItemController {
     private final UserService userService;
     private final LogService logService;
 
-    @Autowired
     private ServiceApi serviceApi;
-
     //static variable for params
-    @Autowired
     private Params param;
 
     @GetMapping("/login")
