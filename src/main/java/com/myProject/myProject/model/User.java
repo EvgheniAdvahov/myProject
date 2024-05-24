@@ -1,13 +1,12 @@
 package com.myProject.myProject.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "users")
 public class User {
@@ -17,9 +16,14 @@ public class User {
     @Column(nullable = false, unique = true)
     private String username;
     private String password;
-    private String roles;
     private String fullName;
 
     @OneToMany(mappedBy = "user")
     private List<MyLog> myLogs;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+                inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id"))
+    private List<Role> roles = new ArrayList<>();
+
 }
