@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
@@ -32,6 +33,12 @@ public class UserController {
         User user = userService.getUserById(id).get();
         model.addAttribute("user", user);
         return "users/userUpdate";
+    }
+
+    @PostMapping("/userUpdate")
+    public String updateUser(User user) {
+        userService.saveToDb(user);
+        return "redirect:/userList";
     }
 
 
