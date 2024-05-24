@@ -1,5 +1,7 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,6 +18,7 @@
             <a class="link-underline-secondary navbar-brand mb-0 h1 text-center " href="/">Home</a>
             <a class="link-secondary navbar-brand mb-0 h1 text-center " href="/itemList">Items</a>
             <a class="link-secondary navbar-brand mb-0 h1 text-center" href="/posts">How To</a>
+            <a sec:authorize="hasAuthority('admin')" class="link-secondary navbar-brand mb-0 h1 text-center" href="/posts">Admin</a>
         </div>
         <div>
             <span class="navbar-text me-3 h6" th:text="${username}"></span>
