@@ -15,11 +15,13 @@ public class SecurityConfig {
 
     @Autowired
     private AuthHandler authHandler;
+
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/css/**", "/site-images/**", "/login", "/actuator/prometheus").permitAll()
+                        .requestMatchers("/userList", "/userUpdate/**").hasAuthority("admin")
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
@@ -37,8 +39,6 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
 
 
 }

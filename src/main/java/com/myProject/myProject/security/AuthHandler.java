@@ -15,7 +15,7 @@ public class AuthHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response, Authentication authentication) throws IOException, jakarta.servlet.ServletException {
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         System.out.println(roles);
-        if (roles.contains("user")) {
+        if (roles.contains("user") || roles.contains("admin")){
             response.sendRedirect("/");
         }
     }
