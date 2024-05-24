@@ -223,7 +223,7 @@ public class ItemController {
         MyLog myLog = new MyLog();
         myLog.setDescription(description);
         myLog.setItem(item);
-        myLog.setUser(userService.getUserByUsername(principal.getName()));
+        myLog.setUser(userService.getUserByUsername(principal.getName()).get());
         myLog.setCreatedAt(dateTime());
         logService.saveLogToDb(myLog);
     }
@@ -344,7 +344,7 @@ public class ItemController {
     }
 
     private String getUserFullName(Principal principal) {
-        User user = userService.getUserByUsername(principal.getName());
+        User user = userService.getUserByUsername(principal.getName()).get();
         return user.getFullName();
     }
 

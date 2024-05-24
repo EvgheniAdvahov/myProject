@@ -38,7 +38,7 @@ public class UserController {
 
 
     private String getUserFullName(Principal principal) {
-        User user = userService.getUserByUsername(principal.getName());
+        User user = userService.getUserByUsername(principal.getName()).get();
         return user.getFullName();
     }
 
