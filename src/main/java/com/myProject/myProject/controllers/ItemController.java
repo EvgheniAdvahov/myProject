@@ -188,6 +188,11 @@ public class ItemController {
         }
         return "redirect:/itemList";
     }
+    @GetMapping("/adminPanel")
+    public String showAdminPanel(Model model, Principal principal){
+        model.addAttribute("username", getUserFullName(principal));
+        return "admin/admin-panel";
+    }
 
     private void deleteOldImage(String imageFileName) {
         Path oldImagePath = Paths.get( param.getUPLOAD_DIR_IMG() + imageFileName);
