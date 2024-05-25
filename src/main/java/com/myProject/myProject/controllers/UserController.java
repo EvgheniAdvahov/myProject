@@ -4,7 +4,6 @@ package com.myProject.myProject.controllers;
 import com.myProject.myProject.model.User;
 import com.myProject.myProject.model.UserDto;
 import com.myProject.myProject.security.PasswordService;
-import com.myProject.myProject.service.RoleService;
 import com.myProject.myProject.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -26,7 +25,6 @@ public class UserController {
 
     private final UserService userService;
     private final PasswordService passwordService;
-    private final RoleService roleService;
 
     @GetMapping("/userList")
     public String showAdminPanel(Model model, Principal principal) {
@@ -110,7 +108,8 @@ public class UserController {
 
     @GetMapping("userDelete/{id}")
     public String deleteUser(@PathVariable("id") int id) {
-        roleService.deleteRole(id);
+//        roleService.deleteRole(id);
+        userService.deleteUserAndRoles(id);
         return "redirect:/userList";
     }
 

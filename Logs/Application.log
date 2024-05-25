@@ -201,3 +201,17 @@ Second User created С012346, Status= Other, Manufacturer= Other, Category= Othe
 25-05-2024 15∶06∶27 Create User modified С01234 Status to= Available.
 25-05-2024 15∶07∶26 Create User added С012345, Status= Other, Manufacturer= Other, Category= Other, Department= Other, Model= , S/N= 23456, PO= null, Inv. nr.= null, Desc: 
 25-05-2024 15∶07∶46 Create User modified С012345 Department to= Logistics.
+25-05-2024 16∶27∶03 Admin Administrator deleted С012345
+25-05-2024 16∶27∶04 Admin Administrator deleted С01234
+25-05-2024 16∶27∶05 Admin Administrator deleted С01234
+25-05-2024 16∶27∶06 Admin Administrator deleted С012345
+25-05-2024 16∶27∶07 Admin Administrator deleted С012345
+25-05-2024 16∶27∶08 Admin Administrator deleted С013456
+25-05-2024 16∶27∶09 Admin Administrator deleted С012345
+25-05-2024 16∶27∶09 Admin Administrator deleted С012345
+25-05-2024 16∶27∶10 Admin Administrator deleted С012345
+25-05-2024 16∶27∶11 Admin Administrator deleted С012345
+25-05-2024 16∶27∶12 Admin Administrator deleted С012345
+25-05-2024 16∶27∶14 Admin Administrator deleted С012345
+25-05-2024 16∶27∶26 Admin Administrator added С012345, Status= Available, Manufacturer= Other, Category= Other, Department= Other, Model= , S/N= 23456, PO= null, Inv. nr.= null, Desc: 
+25-05-2024 16∶27∶34 Admin Administrator modified С012345 Status to= In use.
