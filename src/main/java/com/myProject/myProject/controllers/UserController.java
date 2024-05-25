@@ -64,13 +64,8 @@ public class UserController {
             if (result.hasErrors()) {
                 return "users/userUpdate";
             }
-//         update fields
-            existingUser.setUsername(userDto.getUsername());
-            existingUser.setPassword(encryptPassword(userDto.getPassword()));
-            existingUser.setFullName(userDto.getFullName());
-            existingUser.setRoles(userDto.getRoles());
             // saving to db
-            userService.saveToDb(existingUser);
+            userService.saveToDb(contverToUserDto(userDto, existingUser));
 
             return "redirect:/userList";
         }
@@ -95,13 +90,7 @@ public class UserController {
                 return "users/userCreate";
             }
 
-            User user = new User();
-            user.setUsername(userDto.getUsername());
-            user.setPassword(encryptPassword(userDto.getPassword()));
-            user.setFullName(userDto.getFullName());
-            user.setRoles(userDto.getRoles());
-
-            userService.saveToDb(user);
+            userService.saveToDb(contverToUserDto(userDto, new User()));
             return "redirect:/userList";
         }
     }
@@ -117,6 +106,15 @@ public class UserController {
     private String getUserFullName(Principal principal) {
         User user = userService.getUserByUsername(principal.getName()).get();
         return user.getFullName();
+    }
+
+    private User contverToUserDto(UserDto userDto, User user){
+        //         update fields
+        user.setUsername(userDto.getUsername());
+        user.setPassword(encryptPassword(userDto.getPassword()));
+        user.setFullName(userDto.getFullName());
+        user.setRoles(userDto.getRoles());
+        return user;
     }
 
     //encrypting pass
