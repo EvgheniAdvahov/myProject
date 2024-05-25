@@ -30,6 +30,10 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public void deteleFromDb(int id){
+        userRepository.deleteById(id);
+    }
+
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
     }

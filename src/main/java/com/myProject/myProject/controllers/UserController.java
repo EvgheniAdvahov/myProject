@@ -1,19 +1,19 @@
 package com.myProject.myProject.controllers;
 
 
+import com.myProject.myProject.model.ItemDto;
 import com.myProject.myProject.model.User;
+import com.myProject.myProject.model.UserDto;
 import com.myProject.myProject.security.PasswordService;
 import com.myProject.myProject.service.UserService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @PostMapping("/userUpdate")
-    public String updateUser(User user, Model model, BindingResult result) {
+    public String updateUser(User user, BindingResult result) {
         // get user from db by ID
         User existingUser = userService.getUserById(user.getId()).get();
 
@@ -52,17 +52,53 @@ public class UserController {
         if (!existingUser.getUsername().equals(user.getUsername()) &&
                 userService.existsByUsername(user.getUsername())) {
             result.addError(new FieldError("itemDto", "username", "username already exists"));
-            return "users/userUpdate"; // возвращает форму редактирования с ошибкой
+            return "users/userUpdate"; // return form with error
         } else {
 //         update fields
             existingUser.setUsername(user.getUsername());
             existingUser.setPassword(encryptPassword(user.getPassword()));
             existingUser.setFullName(user.getFullName());
+            existingUser.setRoles(user.getRoles());
             // saving to db
             userService.saveToDb(existingUser);
 
             return "redirect:/userList";
         }
+    }
+
+    @GetMapping("/userCreate")
+    public String createUserForm(Model model, Principal principal) {
+        //Add user full name to html page
+        model.addAttribute("username", getUserFullName(principal));
+        model.addAttribute("userDto", new UserDto());
+        return "users/userCreate";
+    }
+
+    @PostMapping("/userCreate")
+    public String createUser(@Valid @ModelAttribute UserDto userDto, BindingResult result) {
+//        if (userService.existsByUsername(userDto.getUsername())) {
+//            result.addError(new FieldError("user", "username", "username already exists"));
+//            return "users/userCreate"; // return form with error
+//        }
+        if (result.hasErrors()) {
+            return "users/userCreate";
+        }
+        else {
+            User user = new User();
+            user.setUsername(userDto.getUsername());
+            user.setPassword(encryptPassword(userDto.getPassword()));
+            user.setFullName(userDto.getFullName());
+            user.setRoles(userDto.getRoles());
+
+            userService.saveToDb(user);
+            return "redirect:/userList";
+        }
+    }
+
+    @GetMapping("userDelete/{id}")
+    public String deleteUser(@PathVariable("id") int id) {
+        userService.deteleFromDb(id);
+        return "redirect:/userList";
     }
 
 
@@ -72,7 +108,7 @@ public class UserController {
     }
 
     //encrypting pass
-    private String encryptPassword(String password){
+    private String encryptPassword(String password) {
         return passwordService.encryptPassword(password);
     }
 
