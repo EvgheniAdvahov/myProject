@@ -197,3 +197,7 @@ Second User created С012346, Status= Other, Manufacturer= Other, Category= Othe
 22-05-2024 12∶15∶57 Second User added С012345, Status= In use, Manufacturer= HP, Category= PC, Department= Production, Model= , S/N= 23456, PO= null, Inv. nr.= null, Desc: 
 22-05-2024 12∶16∶13 
 22-05-2024 12∶16∶30 Second User deleted С012345
+25-05-2024 15∶06∶18 
+25-05-2024 15∶06∶27 Create User modified С01234 Status to= Available.
+25-05-2024 15∶07∶26 Create User added С012345, Status= Other, Manufacturer= Other, Category= Other, Department= Other, Model= , S/N= 23456, PO= null, Inv. nr.= null, Desc: 
+25-05-2024 15∶07∶46 Create User modified С012345 Department to= Logistics.

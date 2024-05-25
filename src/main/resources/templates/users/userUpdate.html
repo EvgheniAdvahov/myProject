@@ -33,15 +33,15 @@
             <div class="card rounded-0 border-0 shadow">
                 <div class="card-body p-5">
                     <div class="d-flex justify-content-between">
-                            <p class="display-5">Update User</p>
-                            <p><b><i>
-                                <br>Hint: Roles
-                                <br>1 = user
-                                <br>2 = admin
-                                <br>1,2 = user and admin
-                            </i></b></p>
+                        <p class="display-5">Update User</p>
+                        <p><b><i>
+                            <br>Hint: Roles
+                            <br>1 = user
+                            <br>2 = admin
+                            <br>1,2 = user and admin
+                        </i></b></p>
                     </div>
-                    <form action="#" th:action="@{/userUpdate}" th:object="${user}" method="post">
+                    <form action="#" th:action="@{/userUpdate}" th:object="${userDto}" method="post">
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -59,11 +59,23 @@
                                 <td>
                                     <input type="text" th:field="*{username}" id="username">
                                     <p th:if="${#fields.hasErrors('username')}" th:errorclass="text-danger"
-                                       th:errors="${user.username}"></p>
+                                       th:errors="${userDto.username}"></p>
                                 </td>
-                                <td><input type="text" th:field="*{password}" id="password"></td>
-                                <td><input type="text" th:field="*{fullName}" id="fullName"></td>
-                                <td><input type="text" th:field="*{roles}" id="roles"></td>
+                                <td>
+                                    <input type="text" th:field="*{password}" id="password">
+                                    <p th:if="${#fields.hasErrors('password')}" th:errorclass="text-danger"
+                                       th:errors="${userDto.password}"></p>
+                                </td>
+                                <td>
+                                    <input type="text" th:field="*{fullName}" id="fullName">
+                                    <p th:if="${#fields.hasErrors('fullName')}" th:errorclass="text-danger"
+                                       th:errors="${userDto.fullName}"></p>
+                                </td>
+                                <td>
+                                    <input type="text" th:field="*{roles}" id="roles">
+                                    <p th:if="${#fields.hasErrors('roles')}" th:errorclass="text-danger"
+                                       th:errors="${userDto.roles}"></p>
+                                </td>
                                 </tbody>
                             </table>
                         </div>

@@ -1,31 +1,32 @@
 package com.myProject.myProject.controllers;
 
 
-import com.myProject.myProject.model.ItemDto;
 import com.myProject.myProject.model.User;
 import com.myProject.myProject.model.UserDto;
 import com.myProject.myProject.security.PasswordService;
+import com.myProject.myProject.service.RoleService;
 import com.myProject.myProject.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
 public class UserController {
 
     private final UserService userService;
-
     private final PasswordService passwordService;
+    private final RoleService roleService;
 
     @GetMapping("/userList")
     public String showAdminPanel(Model model, Principal principal) {
@@ -39,26 +40,37 @@ public class UserController {
     public String updateUser(@PathVariable("id") int id, Model model, Principal principal) {
         model.addAttribute("username", getUserFullName(principal));
         User user = userService.getUserById(id).get();
-        model.addAttribute("user", user);
+
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
+        userDto.setUsername(user.getUsername());
+        userDto.setPassword(user.getPassword());
+        userDto.setFullName(user.getFullName());
+        userDto.setRoles(user.getRoles());
+
+        model.addAttribute("userDto", userDto);
         return "users/userUpdate";
     }
 
     @PostMapping("/userUpdate")
-    public String updateUser(User user, BindingResult result) {
+    public String updateUser(@Valid @ModelAttribute UserDto userDto, BindingResult result) {
         // get user from db by ID
-        User existingUser = userService.getUserById(user.getId()).get();
+        User existingUser = userService.getUserById(userDto.getId()).get();
 
         // verify if username already exists
-        if (!existingUser.getUsername().equals(user.getUsername()) &&
-                userService.existsByUsername(user.getUsername())) {
+        if (!existingUser.getUsername().equals(userDto.getUsername()) &&
+                userService.existsByUsername(userDto.getUsername())) {
             result.addError(new FieldError("itemDto", "username", "username already exists"));
             return "users/userUpdate"; // return form with error
         } else {
+            if (result.hasErrors()) {
+                return "users/userUpdate";
+            }
 //         update fields
-            existingUser.setUsername(user.getUsername());
-            existingUser.setPassword(encryptPassword(user.getPassword()));
-            existingUser.setFullName(user.getFullName());
-            existingUser.setRoles(user.getRoles());
+            existingUser.setUsername(userDto.getUsername());
+            existingUser.setPassword(encryptPassword(userDto.getPassword()));
+            existingUser.setFullName(userDto.getFullName());
+            existingUser.setRoles(userDto.getRoles());
             // saving to db
             userService.saveToDb(existingUser);
 
@@ -76,14 +88,15 @@ public class UserController {
 
     @PostMapping("/userCreate")
     public String createUser(@Valid @ModelAttribute UserDto userDto, BindingResult result) {
-//        if (userService.existsByUsername(userDto.getUsername())) {
-//            result.addError(new FieldError("user", "username", "username already exists"));
-//            return "users/userCreate"; // return form with error
-//        }
-        if (result.hasErrors()) {
-            return "users/userCreate";
-        }
-        else {
+        if (userService.existsByUsername(userDto.getUsername())) {
+            result.addError(new FieldError("user", "username", "username already exists"));
+            return "users/userCreate"; // return form with error
+        } else {
+
+            if (result.hasErrors()) {
+                return "users/userCreate";
+            }
+
             User user = new User();
             user.setUsername(userDto.getUsername());
             user.setPassword(encryptPassword(userDto.getPassword()));
@@ -97,7 +110,7 @@ public class UserController {
 
     @GetMapping("userDelete/{id}")
     public String deleteUser(@PathVariable("id") int id) {
-        userService.deteleFromDb(id);
+        roleService.deleteRole(id);
         return "redirect:/userList";
     }
 
