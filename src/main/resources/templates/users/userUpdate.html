@@ -37,6 +37,7 @@
                             <table class="table">
                                 <thead>
                                 <tr>
+                                    <th scope="col">id</th>
                                     <th scope="col">username</th>
                                     <th scope="col">password</th>
                                     <th scope="col">Full name</th>
@@ -44,7 +45,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <td><input type="text" th:field="*{username}" id="username"></td>
+                                <td><input style="width: 30px;" type="text" th:field="*{id}" id="id" th:readonly="true"></td>
+                                <td>
+                                    <input type="text" th:field="*{username}" id="username">
+                                    <p th:if="${#fields.hasErrors('username')}" th:errorclass="text-danger"
+                                       th:errors="${user.username}"></p>
+                                </td>
                                 <td><input type="text" th:field="*{password}" id="password"></td>
                                 <td><input type="text" th:field="*{fullName}" id="fullName"></td>
                                 <td><input type="text" th:field="*{roles}" id="roles"></td>

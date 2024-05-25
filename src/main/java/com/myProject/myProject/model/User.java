@@ -27,6 +27,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles = new ArrayList<>();
 
+
     //Method for Thymeleaf to display user roles
     public String getStringRoles() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -35,5 +36,7 @@ public class User {
         }
         return stringBuilder.toString();
     }
+
+
 
 }
