@@ -35,12 +35,15 @@
                             <tr>
                                 <th scope="col">Id</th>
                                 <th scope="col">Title</th>
-                                <th scope="col">Description</th>
+                                <th scope="col">Content</th>
                                 <th scope="col">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr th:each="post : ${posts}">
+                                <td th:text="${post.getId()}"></td>
+                                <td th:text="${post.getTitle()}"></td>
+                                <td th:utext="${post.getContent()}"></td>
                                 <td ></td>
                                 <td ></td>
                                 <td ></td>

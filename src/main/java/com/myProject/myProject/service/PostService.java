@@ -5,6 +5,8 @@ import com.myProject.myProject.repositories.PostRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class PostService {
@@ -15,4 +17,7 @@ public class PostService {
         postRepository.save(post);
     }
 
+    public List<Post> getAllPosts() {
+        return postRepository.findAll();
+    }
 }

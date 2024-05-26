@@ -1,6 +1,5 @@
 package com.myProject.myProject.controllers;
 
-import com.myProject.myProject.model.Item;
 import com.myProject.myProject.model.Post;
 import com.myProject.myProject.model.PostDto;
 import com.myProject.myProject.model.User;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @AllArgsConstructor
 @Controller
@@ -31,6 +31,9 @@ public class PostController {
     @GetMapping
     public String showPostsPage(Model model, Principal principal) {
         model.addAttribute("username", getUserFullName(principal));
+        List<Post> posts = postService.getAllPosts();
+        model.addAttribute("posts", posts);
+
         return "posts/postList";
     }
 
