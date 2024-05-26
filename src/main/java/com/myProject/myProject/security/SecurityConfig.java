@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -19,9 +20,10 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(AbstractHttpConfigurer::disable) // disable scrf protection(since 6.1)
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/css/**", "/site-images/**", "/login", "/actuator/prometheus").permitAll()
-                        .requestMatchers("/userList", "/userUpdate/**").hasAuthority("admin")
+                        .requestMatchers("/userList", "/userUpdate/**","/userCreate", "/userDelete/").hasAuthority("admin")
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
@@ -29,8 +31,7 @@ public class SecurityConfig {
                         .successHandler(authHandler)
                         .permitAll())
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/"))
-                .csrf().disable();
+                        .logoutSuccessUrl("/"));
         return http.build();
     }
 
