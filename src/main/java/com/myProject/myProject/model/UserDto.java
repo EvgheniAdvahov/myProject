@@ -1,5 +1,6 @@
 package com.myProject.myProject.model;
 
+import com.myProject.myProject.validation.ValidRoles;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +22,9 @@ public class UserDto {
     private String password;
     @NotEmpty(message = "full name is required")
     private String fullName;
+
     @NotEmpty(message = "roles is required")
+    @ValidRoles
     private List<Role> roles = new ArrayList<>();
 
 }

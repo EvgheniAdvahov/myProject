@@ -65,7 +65,7 @@ public class UserController {
                 return "users/userUpdate";
             }
             // saving to db
-            userService.saveToDb(contverToUserDto(userDto, existingUser));
+            userService.saveToDb(convertToUserDto(userDto, existingUser));
 
             return "redirect:/userList";
         }
@@ -90,7 +90,7 @@ public class UserController {
                 return "users/userCreate";
             }
 
-            userService.saveToDb(contverToUserDto(userDto, new User()));
+            userService.saveToDb(convertToUserDto(userDto, new User()));
             return "redirect:/userList";
         }
     }
@@ -108,7 +108,7 @@ public class UserController {
         return user.getFullName();
     }
 
-    private User contverToUserDto(UserDto userDto, User user){
+    private User convertToUserDto(UserDto userDto, User user){
         //         update fields
         user.setUsername(userDto.getUsername());
         user.setPassword(encryptPassword(userDto.getPassword()));
