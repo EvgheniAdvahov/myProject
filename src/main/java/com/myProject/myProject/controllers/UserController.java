@@ -54,7 +54,6 @@ public class UserController {
     public String updateUser(@Valid @ModelAttribute UserDto userDto, BindingResult result) {
         // get user from db by ID
         User existingUser = userService.getUserById(userDto.getId()).get();
-
         // verify if username already exists
         if (!existingUser.getUsername().equals(userDto.getUsername()) &&
                 userService.existsByUsername(userDto.getUsername())) {
@@ -108,7 +107,7 @@ public class UserController {
         return user.getFullName();
     }
 
-    private User convertToUserDto(UserDto userDto, User user){
+    private User convertToUserDto(UserDto userDto, User user) {
         //         update fields
         user.setUsername(userDto.getUsername());
         user.setPassword(encryptPassword(userDto.getPassword()));
