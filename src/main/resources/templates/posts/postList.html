@@ -28,7 +28,7 @@
             <div class="card rounded-0 border-0 shadow">
                 <div class="card-body p-4">
                     <h1 class="display-6 text-center">Posts</h1>
-                    <a class="btn btn-primary rounded-0 btn-block" id="insertRow" href="/posts/create">New Post</a>
+                    <a class="btn btn-primary rounded-0 btn-block" id="insertRow" href="/posts/createPost">New Post</a>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -44,10 +44,16 @@
                                 <td th:text="${post.getId()}"></td>
                                 <td th:text="${post.getTitle()}"></td>
                                 <td th:utext="${post.getContent()}"></td>
-                                <td ></td>
-                                <td ></td>
-                                <td ></td>
-                                <td ></td>
+                                <td>
+                                    <a th:href="@{/posts/editPost(id=${post.id})}">
+                                        <img src="/site-images/icons/edit.svg" alt="Edit" width="32" height="32">
+                                    </a>
+                                    <a th:href="@{/posts/deletePost(id=${post.id})}"
+                                       onclick="return confirm('Are you sure?')">
+                                        <img src="/site-images/icons/delete.svg" alt="Delete" width="32" height="32">
+                                    </a>
+                                </td>
+
                             </tr>
                             </tbody>
                         </table>

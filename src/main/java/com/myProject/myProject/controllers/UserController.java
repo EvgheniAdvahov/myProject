@@ -96,7 +96,6 @@ public class UserController {
 
     @GetMapping("userDelete/{id}")
     public String deleteUser(@PathVariable("id") int id) {
-//        roleService.deleteRole(id);
         userService.deleteUserAndRoles(id);
         return "redirect:/userList";
     }

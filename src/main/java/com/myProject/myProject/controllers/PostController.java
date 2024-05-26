@@ -1,5 +1,6 @@
 package com.myProject.myProject.controllers;
 
+import com.myProject.myProject.model.ItemDto;
 import com.myProject.myProject.model.Post;
 import com.myProject.myProject.model.PostDto;
 import com.myProject.myProject.model.User;
@@ -10,15 +11,13 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Controller
@@ -37,7 +36,7 @@ public class PostController {
         return "posts/postList";
     }
 
-    @GetMapping("/create")
+    @GetMapping("/createPost")
     public String newPostPage(Model model, Principal principal) {
         model.addAttribute("postDto", new PostDto());
         //Add user full name to html page
@@ -45,7 +44,7 @@ public class PostController {
         return "posts/createPost";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/createPost")
     public String createNewPost(@Valid @ModelAttribute PostDto postDto,
                                 BindingResult result,
                                 Model model,
@@ -68,6 +67,50 @@ public class PostController {
         return "redirect:/posts";
     }
 
+    @GetMapping("/editPost")
+    public String editPostPage(Model model, @RequestParam int id, Principal principal) {
+        model.addAttribute("username", getUserFullName(principal));
+        Post post = postService.getById(id).get();
+
+        PostDto postDto = new PostDto();
+        postDto.setTitle(post.getTitle());
+        postDto.setContent(post.getContent());
+
+        model.addAttribute("postDto", postDto);
+
+        return "posts/editPost";
+    }
+
+    @PostMapping("editPost")
+    public String editPost(@RequestParam int id,
+                           @Valid @ModelAttribute PostDto postDto,
+                           BindingResult result,
+                           Model model,
+                           Principal principal){
+        model.addAttribute("username", getUserFullName(principal));
+        if (result.hasErrors()) {
+            return "posts/editPost";
+        }
+
+        Post post = postService.getById(postDto.getId()).get();
+        post.setTitle(postDto.getTitle());
+        post.setContent(postDto.getContent());
+        post.setModifiedAt(dateTime());
+        post.setModifiedBy(getUserFullName(principal));
+
+
+        postService.savePostToDb(post);
+
+        return "redirect:/posts";
+
+    }
+
+    @GetMapping("deletePost")
+    public String deletePost(@RequestParam int id){
+        postService.deleteById(id);
+        return "redirect:/posts";
+    }
+
 
     //Date and time
     private String dateTime() {
@@ -75,6 +118,7 @@ public class PostController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH∶mm∶ss");
         return createdAt.format(formatter);
     }
+
     private String getUserFullName(Principal principal) {
         User user = userService.getUserByUsername(principal.getName()).get();
         return user.getFullName();

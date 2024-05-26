@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -19,5 +20,13 @@ public class PostService {
 
     public List<Post> getAllPosts() {
         return postRepository.findAll();
+    }
+
+    public Optional<Post> getById(int id) {
+        return postRepository.findById(id);
+    }
+
+    public void deleteById(int id) {
+        postRepository.deleteById(id);
     }
 }
