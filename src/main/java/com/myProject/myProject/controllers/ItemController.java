@@ -77,7 +77,6 @@ public class ItemController {
 
     @GetMapping("/items/create")
     public String showCreatePage(Model model, Principal principal) {
-        //нужна ли эта строчка
         model.addAttribute("itemDto", new ItemDto());
         //Add user full name to html page
         model.addAttribute("username", getUserFullName(principal));
@@ -337,6 +336,7 @@ public class ItemController {
         item.setModifiedAt(dateTime());
     }
 
+    //Date and time
     private String dateTime() {
         LocalDateTime createdAt = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH∶mm∶ss");
