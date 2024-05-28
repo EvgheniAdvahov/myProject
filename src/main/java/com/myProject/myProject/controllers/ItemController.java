@@ -46,11 +46,13 @@ public class ItemController {
     //static variable for params
     private Params param;
 
+    //method for loging page
     @GetMapping("/login")
     public String loginPage() {
         return "login";
     }
 
+    //method for main page
     @GetMapping
     public String showMainPage(Model model, Principal principal) {
         model.addAttribute("username", getUserFullName(principal));
@@ -66,6 +68,7 @@ public class ItemController {
         return "main";
     }
 
+    //method for itemList page
     @GetMapping("/itemList")
     public String showItemList(Model model, Principal principal) {
         List<Item> items = itemService.getAllItems();
@@ -75,6 +78,7 @@ public class ItemController {
         return "items/itemList";
     }
 
+    //method to get creating page
     @GetMapping("/items/create")
     public String showCreatePage(Model model, Principal principal) {
         model.addAttribute("itemDto", new ItemDto());
@@ -83,6 +87,7 @@ public class ItemController {
         return "items/createItem";
     }
 
+    //method for create Item and save to Log
     @PostMapping("/items/create")
     public String createItem(@Valid @ModelAttribute ItemDto itemDto,
                              BindingResult result,
@@ -111,6 +116,7 @@ public class ItemController {
         return "redirect:/itemList";
     }
 
+    //method for get Item info
     @GetMapping("/items/info")
     public String showInfoPage(Model model, @RequestParam int id, Principal principal) {
         model.addAttribute("username", getUserFullName(principal));
@@ -125,6 +131,7 @@ public class ItemController {
         return "items/infoItem";
     }
 
+    //method to get edit page
     @GetMapping("/items/edit")
     public String showEditPage(Model model, @RequestParam int id, Principal principal) {
         model.addAttribute("username", getUserFullName(principal));
@@ -138,6 +145,7 @@ public class ItemController {
         return "items/editItem";
     }
 
+    //method for edit Item and save changes to Log
     @PostMapping("/items/edit")
     public String updateProduct(
             @RequestParam int id,
@@ -176,6 +184,7 @@ public class ItemController {
         return "redirect:/itemList";
     }
 
+    //method for deleting Item
     @GetMapping("/items/delete")
     public String deleteProduct(@RequestParam int id, Principal principal) {
         Optional<Item> optionalItem = itemService.getById(id);
@@ -188,7 +197,7 @@ public class ItemController {
         return "redirect:/itemList";
     }
 
-
+    //method for deleting old image
     private void deleteOldImage(String imageFileName) {
         Path oldImagePath = Paths.get( param.getUPLOAD_DIR_IMG() + imageFileName);
         try {
@@ -198,6 +207,7 @@ public class ItemController {
         }
     }
 
+    //method for saving image
     private String saveImage(MultipartFile image) {
         String formattedDate = dateTime();
         String storageFileName = formattedDate + "_" + image.getOriginalFilename();
@@ -218,6 +228,7 @@ public class ItemController {
         }
     }
 
+    //Saving object(Mylog) to database
     private void saveLog(Principal principal, Item item, String description) {
         MyLog myLog = new MyLog();
         myLog.setDescription(description);
@@ -227,6 +238,7 @@ public class ItemController {
         logService.saveLogToDb(myLog);
     }
 
+    //Description when saving the Item
     private String descriptionOnSave(Principal principal, Item item) {
         return getUserFullName(principal)
                 + " added " + item.getName()
@@ -241,6 +253,7 @@ public class ItemController {
                 + ", Desc: " + item.getDescription();
     }
 
+    //adding description if something is changing
     private String descriptionOnEdit(Principal principal, Item item, ItemDto itemDto) {
         StringBuilder description = new StringBuilder();
         //Save name, in case that it could be redefined
@@ -285,10 +298,12 @@ public class ItemController {
         return description.toString();
     }
 
+    //description when deleting Item
     private String descriptionOnDelete(Principal principal, Item item) {
         return getUserFullName(principal) + " deleted " + item.getName();
     }
 
+    //convert Item to ItemDto (get data from Item)
     private ItemDto convertToItemDto(Item item) {
         ItemDto itemDto = new ItemDto();
         itemDto.setName(item.getName());
@@ -304,6 +319,7 @@ public class ItemController {
         return itemDto;
     }
 
+    //convert ItemDto to Item (get data from ItemDto)
     private Item convertToItem(ItemDto itemDto, String storageFileName) {
         Item item = new Item();
         item.setName(itemDto.getName());
@@ -322,6 +338,7 @@ public class ItemController {
         return item;
     }
 
+    //convert ItemDto to Item (get data from ItemDto)
     private void convertToItem(Item item, ItemDto itemDto) {
         item.setName(itemDto.getName());
         item.setStatus(itemDto.getStatus());
@@ -342,7 +359,7 @@ public class ItemController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH∶mm∶ss");
         return createdAt.format(formatter);
     }
-
+    //Get user full name
     private String getUserFullName(Principal principal) {
         User user = userService.getUserByUsername(principal.getName()).get();
         return user.getFullName();

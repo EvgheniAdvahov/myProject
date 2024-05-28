@@ -14,7 +14,6 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String name;
     private String manufacturer;
     private String category;
@@ -29,8 +28,6 @@ public class Item {
     private String description;
     private String createdAt;
     private String modifiedAt;
-
     @OneToMany(mappedBy = "item", cascade = CascadeType.REMOVE)
     private List<MyLog> myLogs;
-
 }
