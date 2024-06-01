@@ -31,8 +31,8 @@
     <div class="row row-cols-1 row-cols-md-3">
         <div th:each="post : ${posts}" class="col-md-4">
             <div class="card mb-2">
-                <h5 class="card-title text-center pt-1" th:text="${post.getTitle()}"></h5>
-                <div class="card-body" style="height: 250px; overflow: auto">
+                <h5 class="card-title text-center pt-1 pb-1 mb-0" th:text="${post.getTitle()}" style="background-color: #D7D7D7"></h5>
+                <div class="card-body pt-0" style="height: 250px; overflow: auto;">
                     <div style="overflow: hidden;">
                         <p class="card-text" th:utext="${post.getContent()}"></p>
                     </div>
