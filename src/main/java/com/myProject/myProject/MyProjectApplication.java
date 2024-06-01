@@ -10,14 +10,11 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @ConfigurationPropertiesScan
 public class MyProjectApplication {
-
     //for Api
     @Bean
     public RestTemplate template(){
         return new RestTemplate();
     };
-
-
     public static void main(String[] args) {
         SpringApplication.run(MyProjectApplication.class, args);
     }

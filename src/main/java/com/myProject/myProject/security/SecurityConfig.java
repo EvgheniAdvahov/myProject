@@ -17,13 +17,16 @@ public class SecurityConfig {
 
     private AuthHandler authHandler;
 
+    //Authentication filter 1
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable) // disable scrf protection(since 6.1)
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/css/**", "/site-images/**", "/login", "/actuator/prometheus").permitAll()
-                        .requestMatchers("/userList", "/userUpdate/**","/userCreate", "/userDelete/").hasAuthority("admin")
+                        .requestMatchers("/css/**", "/site-images/**", "/login"
+                                , "/actuator/prometheus").permitAll()
+                        .requestMatchers("/userList", "/userUpdate/**","/userCreate"
+                                , "/userDelete/").hasAuthority("admin")
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
@@ -35,6 +38,8 @@ public class SecurityConfig {
         return http.build();
     }
 
+
+    //PasswordEncoder 4
     //создаем кодировщик паролей
     @Bean
     public PasswordEncoder passwordEncoder() {

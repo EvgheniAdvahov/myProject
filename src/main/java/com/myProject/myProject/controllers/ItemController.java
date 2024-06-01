@@ -34,19 +34,19 @@ import java.util.Optional;
 @RequestMapping("/")
 @AllArgsConstructor
 public class ItemController {
-
     //variables for prometheus->grafana
     private final Counter itemsCounterAdded = Metrics.counter("my_items_added_counter");
     private final Counter itemsCounterRemoved = Metrics.counter("my_items_removed_counter");
+
     private final ItemService itemService;
     private final UserService userService;
     private final LogService logService;
 
     private ServiceApi serviceApi;
-    //static variable for params
+    //static variables - configuration processor
     private Params param;
 
-    //method for loging page
+    //method for display logging page
     @GetMapping("/login")
     public String loginPage() {
         return "login";
@@ -91,18 +91,18 @@ public class ItemController {
     @PostMapping("/items/create")
     public String createItem(@Valid @ModelAttribute ItemDto itemDto,
                              BindingResult result,
-                             Principal principal) { // Данные из запроса привязываются к dto и валидируются. BindingResult- инфо об ошибках валидации
+                             Principal principal) {
         if (itemDto.getImageFile().isEmpty()) {
-            result.addError(new FieldError("itemDto", "imageFile", "The image file is required"));
+            result.addError(
+                    new FieldError("itemDto", "imageFile", "The image file is required"));
         }
-
         if (result.hasErrors()) {
             return "items/createItem";
         }
-
         String storageFileName = saveImage(itemDto.getImageFile());
         if (storageFileName == null) {
-            result.addError(new FieldError("itemDto", "imageFile", "Error saving image file"));
+            result.addError(
+                    new FieldError("itemDto", "imageFile", "Error saving image file"));
             return "items/createItem";
         }
 
@@ -151,36 +151,35 @@ public class ItemController {
             @RequestParam int id,
             @Valid @ModelAttribute ItemDto itemDto,
             BindingResult result,
-            Principal principal
+            Principal principal,
+            Model model
     ) {
-        if (result.hasErrors()) {
-            return "items/editItem";
-        }
         Optional<Item> optionalItem = itemService.getById(id);
         if (optionalItem.isEmpty()) {
             return "redirect:/itemList";
         }
-
         Item item = optionalItem.get();
+        model.addAttribute("item", item);
 
+        if (result.hasErrors()) {
+            return "items/editItem";
+        }
         if (!itemDto.getImageFile().isEmpty()) {
             deleteOldImage(item.getImageFileName());
             String storageFileName = saveImage(itemDto.getImageFile());
             if (storageFileName == null) {
-                result.addError(new FieldError("itemDto", "imageFile", "Error saving image file"));
+                result.addError(
+                        new FieldError("itemDto", "imageFile", "Error saving image file"));
                 return "items/editItem";
             }
             item.setImageFileName(storageFileName);
         }
-
         String description = descriptionOnEdit(principal, item, itemDto);
         convertToItem(item, itemDto);
         itemService.saveToDb(item, description);
-
         if (!description.isEmpty()) {
             saveLog(principal, item, description);
         }
-
         return "redirect:/itemList";
     }
 
@@ -211,7 +210,6 @@ public class ItemController {
     private String saveImage(MultipartFile image) {
         String formattedDate = dateTime();
         String storageFileName = formattedDate + "_" + image.getOriginalFilename();
-
         try {
             Path uploadPath = Paths.get(param.getUPLOAD_DIR_IMG());
             if (!Files.exists(uploadPath)) {

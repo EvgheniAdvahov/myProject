@@ -219,3 +219,28 @@ Second User created С012346, Status= Other, Manufacturer= Other, Category= Othe
 27-05-2024 22∶33∶24 Item saved
 27-05-2024 22∶33∶24 Item deleted
 27-05-2024 22∶33∶24 Item saved
+29-05-2024 20∶08∶27 John Doe added С012345, Status= Available, Manufacturer= HP, Category= PC, Department= Production, Model= G5, S/N= 0123456789, PO= 987654321, Inv. nr.= 13243546, Desc: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vel.
+29-05-2024 20∶08∶36 John Doe modified С012345 Status to= In use.
+29-05-2024 20∶08∶40 John Doe deleted С012345
+30-05-2024 09∶39∶33 John Doe added С012345, Status= Available, Manufacturer= HP, Category= PC, Department= Production, Model= G5, S/N= 23456, PO= 1233331, Inv. nr.= 1234, Desc: 
+30-05-2024 09∶42∶22 John Doe deleted С012345
+30-05-2024 11∶29∶12 John Doe added С012345, Status= Available, Manufacturer= Microsoft, Category= PC, Department= Logistics, Model= SurfacePro, S/N= 23456, PO= 1234567890, Inv. nr.= 123333, Desc: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae.
+30-05-2024 11∶31∶38 John Doe added Z00123, Status= In use, Manufacturer= Zebra, Category= Scanner, Department= Logistics, Model= ds3678, S/N= 12345, PO= 4321, Inv. nr.= 123333, Desc: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae.
+30-05-2024 11∶33∶47 John Doe added P00123, Status= In use, Manufacturer= Zebra, Category= Tablet, Department= Quality, Model= Zt411, S/N= 2345, PO= 4321, Inv. nr.= 123333, Desc: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae.
+30-05-2024 11∶37∶48 John Doe added p003222, Status= Broken, Manufacturer= HP, Category= Printer, Department= Production, Model= m510, S/N= 2345, PO= 1234567890, Inv. nr.= 1234, Desc: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae.
+30-05-2024 11∶40∶20 John Doe added M012342, Status= Available, Manufacturer= YIIAMA, Category= Monitor, Department= Production, Model= ProLite, S/N= 2345, PO= 1234567890, Inv. nr.= 123333, Desc: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae.
+30-05-2024 11∶41∶24 John Doe added С012346, Status= Scrapped, Manufacturer= HP, Category= PC, Department= Engineering, Model= G3, S/N= 23456, PO= 4321, Inv. nr.= 123333, Desc: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae.
+30-05-2024 11∶42∶03 John Doe added N01234, Status= Available, Manufacturer= HP, Category= Laptop, Department= IT, Model= G7, S/N= 23456, PO= 1234, Inv. nr.= 321, Desc: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae.
+30-05-2024 11∶42∶51 John Doe added P001234, Status= In repair, Manufacturer= HP, Category= Printer, Department= Broker, Model= M511, S/N= 2345, PO= 4321, Inv. nr.= 321, Desc: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae.
+30-05-2024 11∶43∶56 John Doe added S01234, Status= In use, Manufacturer= Zebra, Category= Scanner, Department= HR, Model= DS3678, S/N= 324234, PO= 1234234, Inv. nr.= 345636, Desc: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae.
+30-05-2024 11∶44∶43 John Doe added С012345, Status= Other, Manufacturer= Other, Category= Other, Department= Other, Model= , S/N= 23456, PO= null, Inv. nr.= null, Desc: 
+30-05-2024 11∶44∶55 John Doe added С012345, Status= In use, Manufacturer= Other, Category= Laptop, Department= Other, Model= G5, S/N= 2345, PO= null, Inv. nr.= null, Desc: 
+30-05-2024 11∶45∶02 John Doe deleted С012345
+30-05-2024 11∶45∶04 John Doe deleted С012345
+30-05-2024 11∶45∶13 John Doe modified S01234 Status to= Available.
+30-05-2024 11∶45∶30 John Doe modified P001234 Department to= Production.
+01-06-2024 09∶29∶41 John Doe modified P001234 Status to= In use.
+01-06-2024 09∶30∶17 John Doe modified S01234 Status to= Broken.
+01-06-2024 09∶31∶24 John Doe modified С012345 Department to= Quality.
+01-06-2024 09∶36∶00 John Doe added С012345, Status= Available, Manufacturer= HP, Category= PC, Department= IT, Model= G9, S/N= 1234556, PO= null, Inv. nr.= null, Desc: 
+01-06-2024 09∶36∶59 John Doe modified N01234 Department to= Other, Model to= G6.

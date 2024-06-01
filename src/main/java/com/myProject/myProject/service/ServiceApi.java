@@ -16,7 +16,6 @@ public class ServiceApi {
 
     public ZenQuote[] getZenQuote(String param){
         return template.getForObject(param, ZenQuote[].class);
-
     }
 
 }

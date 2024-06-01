@@ -9,7 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 @Setter
 public class ItemDto {
-
     @NotEmpty(message = "Name is required")
     @Size(max = 7, message = "Name can't exceed 7 characters")
     private String name;
@@ -25,5 +24,4 @@ public class ItemDto {
     private String description;
     private MultipartFile imageFile;
     private String status;
-
 }

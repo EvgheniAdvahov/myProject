@@ -18,7 +18,8 @@
             <a class="link-underline-secondary navbar-brand mb-0 h1 text-center " href="/">Home</a>
             <a class="link-secondary navbar-brand mb-0 h1 text-center " href="/itemList">Warehouse</a>
             <a class="link-secondary navbar-brand mb-0 h1 text-center" href="/posts">Notes</a>
-            <a sec:authorize="hasAuthority('admin')" class="link-secondary navbar-brand mb-0 h1 text-center" href="/userList">Users</a>
+            <a sec:authorize="hasAuthority('admin')" class="link-secondary navbar-brand mb-0 h1 text-center"
+               href="/userList">Users</a>
         </div>
         <div>
             <span class="navbar-text me-3 h6" th:text="${username}"></span>

@@ -43,12 +43,11 @@ public class ItemServiceWithAnnotationIntegrationTest {
     }
     @Test
     public void deleteByIdIntegrationTest(){
-        // Создаем объект Item для сохранения в базе данных
         Item item = new Item();
         //
         String descriptionOnSave = "Item saved";
         String descriptionOnDelete = "Item deleted";
-        // Установите необходимые поля item, если нужно
+        // Установим необходимые поля item, если необходимо
         item.setName("Sample Item");
         // Сохраняем объект в базу данных
         itemService.saveToDb(item, descriptionOnSave);
@@ -58,5 +57,4 @@ public class ItemServiceWithAnnotationIntegrationTest {
         Item foundItem = itemRepository.findById(item.getId()).orElse(null);
         assertThat(foundItem).isNull();
     }
-
 }
