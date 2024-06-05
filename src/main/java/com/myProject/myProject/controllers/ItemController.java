@@ -109,9 +109,7 @@ public class ItemController {
         Item item = convertToItem(itemDto, storageFileName);
         String description = descriptionOnSave(principal, item);
         itemService.saveToDb(item, description);
-
         saveLog(principal, item, description);
-
         itemsCounterAdded.increment();
         return "redirect:/itemList";
     }
@@ -160,7 +158,6 @@ public class ItemController {
         }
         Item item = optionalItem.get();
         model.addAttribute("item", item);
-
         if (result.hasErrors()) {
             return "items/editItem";
         }
@@ -187,6 +184,7 @@ public class ItemController {
     @GetMapping("/items/delete")
     public String deleteProduct(@RequestParam int id, Principal principal) {
         Optional<Item> optionalItem = itemService.getById(id);
+
         if (optionalItem.isPresent()) {
             Item item = optionalItem.get();
             deleteOldImage(item.getImageFileName());
@@ -199,6 +197,7 @@ public class ItemController {
     //method for deleting old image
     private void deleteOldImage(String imageFileName) {
         Path oldImagePath = Paths.get( param.getUPLOAD_DIR_IMG() + imageFileName);
+
         try {
             Files.deleteIfExists(oldImagePath);
         } catch (IOException ex) {
