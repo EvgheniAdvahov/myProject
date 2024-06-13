@@ -13,14 +13,13 @@ public class LogService {
 
     private final LogRepository logRepository;
 
-    public void saveLogToDb(MyLog myLog){
+    public void saveLogToDb(MyLog myLog) {
         logRepository.save(myLog);
     }
 
-    public List<MyLog> getItemLogsById(int itemId){
+    public List<MyLog> getItemLogsById(int itemId) {
         return logRepository.findAllByItemId(itemId);
     }
-
 
 
 }

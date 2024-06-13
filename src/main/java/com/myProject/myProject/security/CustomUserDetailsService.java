@@ -18,12 +18,13 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
+
     private final UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.getUserByUsername(username).orElseThrow(() ->
-                new UsernameNotFoundException("User not found with username: " + username)) ;
+                new UsernameNotFoundException("User not found with username: " + username));
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())
                 .password(user.getPassword())

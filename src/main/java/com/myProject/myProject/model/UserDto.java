@@ -13,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 public class UserDto {
+
     private int id;
     @NotEmpty(message = "username is required")
     private String username;

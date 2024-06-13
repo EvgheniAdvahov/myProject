@@ -1,6 +1,5 @@
 package com.myProject.myProject.controllers;
 
-import com.myProject.myProject.model.ItemDto;
 import com.myProject.myProject.model.Post;
 import com.myProject.myProject.model.PostDto;
 import com.myProject.myProject.model.User;
@@ -17,7 +16,6 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Controller
@@ -86,7 +84,7 @@ public class PostController {
                            @Valid @ModelAttribute PostDto postDto,
                            BindingResult result,
                            Model model,
-                           Principal principal){
+                           Principal principal) {
         model.addAttribute("username", getUserFullName(principal));
         if (result.hasErrors()) {
             return "posts/editPost";
@@ -106,7 +104,7 @@ public class PostController {
     }
 
     @GetMapping("deletePost")
-    public String deletePost(@RequestParam int id){
+    public String deletePost(@RequestParam int id) {
         postService.deleteById(id);
         return "redirect:/posts";
     }

@@ -14,7 +14,7 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public void savePostToDb(Post post){
+    public void savePostToDb(Post post) {
         postRepository.save(post);
     }
 

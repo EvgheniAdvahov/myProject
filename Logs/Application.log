@@ -245,3 +245,12 @@ Second User created С012346, Status= Other, Manufacturer= Other, Category= Othe
 01-06-2024 09∶36∶00 John Doe added С012345, Status= Available, Manufacturer= HP, Category= PC, Department= IT, Model= G9, S/N= 1234556, PO= null, Inv. nr.= null, Desc: 
 01-06-2024 09∶36∶59 John Doe modified N01234 Department to= Other, Model to= G6.
 01-06-2024 10∶47∶52 Second User deleted С012346
+05-06-2024 21∶16∶33 John Doe added z123456, Status= In use, Manufacturer= Zebra, Category= Scanner, Department= Logistics, Model= , S/N= fdghj, PO= null, Inv. nr.= null, Desc: 
+05-06-2024 21∶22∶56 John Doe deleted С012345
+05-06-2024 21∶23∶17 John Doe deleted С012345
+05-06-2024 21∶23∶23 John Doe deleted z123456
+06-06-2024 21∶41∶25 John Doe added С012345, Status= Available, Manufacturer= HP, Category= PC, Department= Production, Model= G5, S/N= 23456, PO= 1234, Inv. nr.= 123333, Desc: Lorem ipsum
+06-06-2024 21∶41∶35 John Doe modified С012345 Status to= In use.
+06-06-2024 21∶41∶48 John Doe modified С012345 Department to= Engineering.
+06-06-2024 21∶42∶00 John Doe deleted С012345
+13-06-2024 12∶34∶10 John Doe modified N01234 Manufacturer to= Microsoft.
